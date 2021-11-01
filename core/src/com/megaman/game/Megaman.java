@@ -22,7 +22,7 @@ public class Megaman extends ApplicationAdapter {
 		batch.draw(img, 0, 0);
 		batch.end();
 	}
-	
+	//Hello there 
 	@Override
 	public void dispose () {
 		batch.dispose();
