@@ -22,44 +22,44 @@ public class B2WorldCreator {
     World world = screen.getWorld();
     TiledMap map = screen.getMap();
     // create body and fixture variables
-    BodyDef bdef = new BodyDef();
+    BodyDef bodyDef = new BodyDef();
     PolygonShape shape = new PolygonShape();
-    FixtureDef fdef = new FixtureDef();
+    FixtureDef fixtureDef = new FixtureDef();
     Body body;
 
     // create ground bodies/fixtures
-    for (MapObject object :
+    for (RectangleMapObject object :
         map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-      Rectangle rect = ((RectangleMapObject) object).getRectangle();
+      Rectangle rect = object.getRectangle();
 
-      bdef.type = BodyDef.BodyType.StaticBody;
-      bdef.position.set(
+      bodyDef.type = BodyDef.BodyType.StaticBody;
+      bodyDef.position.set(
           (rect.getX() + rect.getWidth() / 2) / MegaMan.PPM,
           (rect.getY() + rect.getHeight() / 2) / MegaMan.PPM);
 
-      body = world.createBody(bdef);
+      body = world.createBody(bodyDef);
 
       shape.setAsBox(rect.getWidth() / 2 / MegaMan.PPM, rect.getHeight() / 2 / MegaMan.PPM);
-      fdef.shape = shape;
-      body.createFixture(fdef);
+      fixtureDef.shape = shape;
+      body.createFixture(fixtureDef);
     }
 
     // create pipe bodies/fixtures
-    for (MapObject object :
+    for (RectangleMapObject object :
         map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
-      Rectangle rect = ((RectangleMapObject) object).getRectangle();
+      Rectangle rect = object.getRectangle();
 
-      bdef.type = BodyDef.BodyType.StaticBody;
-      bdef.position.set(
+      bodyDef.type = BodyDef.BodyType.StaticBody;
+      bodyDef.position.set(
           (rect.getX() + rect.getWidth() / 2) / MegaMan.PPM,
           (rect.getY() + rect.getHeight() / 2) / MegaMan.PPM);
 
-      body = world.createBody(bdef);
+      body = world.createBody(bodyDef);
 
       shape.setAsBox(rect.getWidth() / 2 / MegaMan.PPM, rect.getHeight() / 2 / MegaMan.PPM);
-      fdef.shape = shape;
-      fdef.filter.categoryBits = MegaMan.OBJECT_BIT;
-      body.createFixture(fdef);
+      fixtureDef.shape = shape;
+      fixtureDef.filter.categoryBits = MegaMan.OBJECT_BIT;
+      body.createFixture(fixtureDef);
     }
 
     // create brick bodies/fixtures
@@ -77,15 +77,15 @@ public class B2WorldCreator {
 
     // create all goombas
     goombas = new Array<Goomba>();
-    for (MapObject object :
+    for (RectangleMapObject object :
         map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
-      Rectangle rect = ((RectangleMapObject) object).getRectangle();
+      Rectangle rect = object.getRectangle();
       goombas.add(new Goomba(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }
     turtles = new Array<Turtle>();
-    for (MapObject object :
+    for (RectangleMapObject object :
         map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
-      Rectangle rect = ((RectangleMapObject) object).getRectangle();
+      Rectangle rect = object.getRectangle();
       turtles.add(new Turtle(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }
   }

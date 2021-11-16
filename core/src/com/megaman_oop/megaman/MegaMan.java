@@ -29,9 +29,6 @@ public class MegaMan extends Game {
 
   public SpriteBatch batch;
 
-  /* WARNING Using AssetManager in a static way can cause issues, especially on Android.
-  Instead you may want to pass around Assetmanager to those the classes that need it.
-  We will use it in the static context to save time for now. */
   public static AssetManager manager;
 
   @Override
