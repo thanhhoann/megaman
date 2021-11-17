@@ -19,6 +19,7 @@ public class FireBall extends Sprite {
   boolean destroyed;
   boolean setToDestroy;
   boolean fireRight;
+  boolean fireLeft;
 
   Body b2body;
 
@@ -27,12 +28,23 @@ public class FireBall extends Sprite {
     this.screen = screen;
     this.world = screen.getWorld();
     frames = new Array<TextureRegion>();
-    for (int i = 0; i < 4; i++) {
-      frames.add(new TextureRegion(screen.getAtlas().findRegion("fireball"), i * 8, 0, 8, 8));
+    for (int i = 1; i <= 3; i++) {
+      if (i == 1)
+        frames.add(
+            new TextureRegion(
+                screen.getAtlas().findRegion("megasprite_remake"), 10, 400, 140, 110));
+      if (i == 2)
+        frames.add(
+            new TextureRegion(
+                screen.getAtlas().findRegion("megasprite_remake"), 170, 400, 140, 110));
+      if (i == 3)
+        frames.add(
+            new TextureRegion(
+                screen.getAtlas().findRegion("megasprite_remake"), 350, 400, 140, 110));
     }
-    fireAnimation = new Animation<TextureRegion>(0.2f, frames);
+    fireAnimation = new Animation<TextureRegion>(0.4f, frames);
     setRegion(fireAnimation.getKeyFrame(0));
-    setBounds(x, y, 6 / MegaMan.PPM, 6 / MegaMan.PPM);
+    setBounds(x, y, 25 / MegaMan.PPM, 25 / MegaMan.PPM);
     defineFireBall();
   }
 
@@ -57,19 +69,18 @@ public class FireBall extends Sprite {
     fixtureDef.restitution = 1;
     fixtureDef.friction = 0;
     b2body.createFixture(fixtureDef).setUserData(this);
-    b2body.setLinearVelocity(new Vector2(fireRight ? 2 : -2, 2.5f));
+    b2body.setLinearVelocity(new Vector2(1, 0));
   }
 
   public void update(float dt) {
     stateTime += dt;
-    setRegion(fireAnimation.getKeyFrame(stateTime, true));
-    setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+    setRegion(fireAnimation.getKeyFrame(stateTime, false));
+    setPosition(b2body.getPosition().x, b2body.getPosition().y);
     if ((stateTime > 3 || setToDestroy) && !destroyed) {
       world.destroyBody(b2body);
       destroyed = true;
     }
-    if (b2body.getLinearVelocity().y > 2f)
-      b2body.setLinearVelocity(b2body.getLinearVelocity().x, 2f);
+    b2body.setLinearVelocity(b2body.getLinearVelocity().x, 1f);
     if ((fireRight && b2body.getLinearVelocity().x < 0)
         || (!fireRight && b2body.getLinearVelocity().x > 0)) setToDestroy();
   }

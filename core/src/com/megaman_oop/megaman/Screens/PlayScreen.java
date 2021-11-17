@@ -59,7 +59,7 @@ public class PlayScreen implements Screen {
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
   public PlayScreen(MegaMan game) {
-    atlas = new TextureAtlas("Mario_and_Enemies.pack");
+    atlas = new TextureAtlas("Megaman_and_Enemies_Sprites.atlas");
 
     this.game = game;
     // create cam used to follow mario through cam world
@@ -192,7 +192,7 @@ public class PlayScreen implements Screen {
     game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     hud.stage.draw();
 
-    if (gameOver()) {
+    if (gameOver() || player.getY() < 0) {
       game.setScreen(new GameOverScreen(game));
       dispose();
     }

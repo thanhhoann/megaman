@@ -26,8 +26,9 @@ public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   public Goomba(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
-    for (int i = 0; i < 2; i++)
-      frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16, 16));
+    //    for (int i = 0; i < 2; i++)
+    //      frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16,
+    // 16));
     walkAnimation = new Animation(0.4f, frames);
     stateTime = 0;
     setBounds(getX(), getY(), 16 / MegaMan.PPM, 16 / MegaMan.PPM);

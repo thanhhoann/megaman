@@ -31,24 +31,24 @@ public class MainCharacter extends Sprite {
   public World world;
   public Body b2body;
 
-  private TextureRegion marioStand;
-  private TextureRegion marioJump;
-  private TextureRegion marioDead;
+  private TextureRegion megamanStand;
+  private TextureRegion megamanDead;
   private TextureRegion bigMarioStand;
   private TextureRegion bigMarioJump;
 
-  private Animation<TextureRegion> marioRun;
+  private Animation<TextureRegion> megamanRun;
+  private Animation<TextureRegion> megamanJump;
   private Animation<TextureRegion> bigMarioRun;
   private Animation<TextureRegion> growMario;
 
   private float stateTimer;
 
   private boolean runningRight;
-  private boolean marioIsBig;
+  private boolean megamanIsBig;
   private boolean runGrowAnimation;
   private boolean timeToDefineBigMario;
   private boolean timeToRedefineMario;
-  private boolean marioIsDead;
+  private boolean megamanIsDead;
 
   private PlayScreen screen;
 
@@ -65,51 +65,50 @@ public class MainCharacter extends Sprite {
 
     Array<TextureRegion> frames = new Array<TextureRegion>();
 
-    // get run animation frames and add them to marioRun Animation
+    // get run animation frames and add them to megamanRun Animation
+    for (int i = 1; i < 5; i++) {
+      if (i == 4)
+        frames.add(
+            new TextureRegion(
+                screen.getAtlas().findRegion("megasprite_remake"), i * 108, 0, 90, 110));
+      frames.add(
+          new TextureRegion(
+              screen.getAtlas().findRegion("megasprite_remake"), i * 105, 0, 90, 110));
+    }
+    megamanRun = new Animation<TextureRegion>(0.1f, frames);
+    frames.clear();
+
+    // get jump animation frames and add them to megamanJump Animation
     for (int i = 1; i < 4; i++)
       frames.add(
-          new TextureRegion(screen.getAtlas().findRegion("little_mario"), i * 16, 0, 16, 16));
-    marioRun = new Animation<TextureRegion>(0.1f, frames);
-
+          new TextureRegion(
+              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
+    megamanJump = new Animation<TextureRegion>(0.3f, frames);
     frames.clear();
 
-    for (int i = 1; i < 4; i++)
-      frames.add(new TextureRegion(screen.getAtlas().findRegion("big_mario"), i * 16, 0, 16, 32));
-    bigMarioRun = new Animation<TextureRegion>(0.1f, frames);
+    // create texture region for megaman standing
+    megamanStand =
+        new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
-    frames.clear();
+    // create dead megaman texture region
+    //    megamanDead = new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 96, 0,
+    // 16,
+    // 16);
 
-    // get set animation frames from growing mario
-    frames.add(new TextureRegion(screen.getAtlas().findRegion("big_mario"), 240, 0, 16, 32));
-    frames.add(new TextureRegion(screen.getAtlas().findRegion("big_mario"), 0, 0, 16, 32));
-    frames.add(new TextureRegion(screen.getAtlas().findRegion("big_mario"), 240, 0, 16, 32));
-    frames.add(new TextureRegion(screen.getAtlas().findRegion("big_mario"), 0, 0, 16, 32));
-    growMario = new Animation<TextureRegion>(0.2f, frames);
-
-    // get jump animation frames and add them to marioJump Animation
-    marioJump = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 80, 0, 16, 16);
-    bigMarioJump = new TextureRegion(screen.getAtlas().findRegion("big_mario"), 80, 0, 16, 32);
-
-    // create texture region for mario standing
-    marioStand = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 0, 0, 16, 16);
-    bigMarioStand = new TextureRegion(screen.getAtlas().findRegion("big_mario"), 0, 0, 16, 32);
-
-    // create dead mario texture region
-    marioDead = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 96, 0, 16, 16);
-
-    // define mario in Box2d
+    // define megaman in Box2d
     defineMario();
 
-    // set initial values for marios location, width and height. And initial frame as marioStand.
-    setBounds(0, 0, 16 / MegaMan.PPM, 16 / MegaMan.PPM);
-    setRegion(marioStand);
+    // set initial values for megamans location, width and height. And initial frame as
+    // megamanStand.
+    setBounds(0, 0, 30 / MegaMan.PPM, 30 / MegaMan.PPM);
+    setRegion(megamanStand);
 
     fireballs = new Array<FireBall>();
   }
 
   public void update(float dt) {
 
-    // time is up : too late mario dies T_T
+    // time is up : too late megaman dies T_T
     // the !isDead() method is used to prevent multiple invocation
     // of "die music" and jumping
     // there is probably better ways to do that, but it works for now.
@@ -118,14 +117,14 @@ public class MainCharacter extends Sprite {
     }
 
     // update our sprite to correspond with the position of our Box2D body
-    if (marioIsBig)
+    if (megamanIsBig)
       setPosition(
           b2body.getPosition().x - getWidth() / 2,
           b2body.getPosition().y - getHeight() / 2 - 6 / MegaMan.PPM);
     else
       setPosition(
           b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-    // update sprite with the correct frame depending on marios current action
+    // update sprite with the correct frame depending on megamans current action
     setRegion(getFrame(dt));
     if (timeToDefineBigMario) defineBigMario();
     if (timeToRedefineMario) redefineMario();
@@ -137,7 +136,7 @@ public class MainCharacter extends Sprite {
   }
 
   public TextureRegion getFrame(float dt) {
-    // get marios current state. ie. jumping, running, standing...
+    // get megamans current state. ie. jumping, running, standing...
     currentState = getState();
 
     TextureRegion region;
@@ -145,7 +144,7 @@ public class MainCharacter extends Sprite {
     // depending on the state, get corresponding animation keyFrame.
     switch (currentState) {
       case DEAD:
-        region = marioDead;
+        region = megamanDead;
         break;
       case GROWING:
         region = growMario.getKeyFrame(stateTimer);
@@ -153,30 +152,30 @@ public class MainCharacter extends Sprite {
           runGrowAnimation = false;
         }
         break;
-      case JUMPING:
-        region = marioIsBig ? bigMarioJump : marioJump;
-        break;
       case RUNNING:
         region =
-            (marioIsBig
+            (megamanIsBig
                 ? bigMarioRun.getKeyFrame(stateTimer, true)
-                : marioRun.getKeyFrame(stateTimer, true));
+                : megamanRun.getKeyFrame(stateTimer, true));
 
+        break;
+      case JUMPING:
+        region = megamanJump.getKeyFrame(stateTimer, true);
         break;
       case FALLING:
       case STANDING:
       default:
-        region = marioIsBig ? bigMarioStand : marioStand;
+        region = megamanIsBig ? bigMarioStand : megamanStand;
         break;
     }
 
-    // if mario is running left and the texture isn't facing left... flip it.
+    // if megaman is running left and the texture isn't facing left... flip it.
     if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
       region.flip(true, false);
       runningRight = false;
     }
 
-    // if mario is running right and the texture isn't facing right... flip it.
+    // if megaman is running right and the texture isn't facing right... flip it.
     else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
       region.flip(true, false);
       runningRight = true;
@@ -193,16 +192,16 @@ public class MainCharacter extends Sprite {
 
   public State getState() {
     // Test to Box2D for velocity on the X and Y-Axis
-    // if mario is going positive in Y-Axis he is jumping... or if he just jumped and is falling
+    // if megaman is going positive in Y-Axis he is jumping... or if he just jumped and is falling
     // remain in jump state
-    if (marioIsDead) return State.DEAD;
+    if (megamanIsDead) return State.DEAD;
     else if (runGrowAnimation) return State.GROWING;
     else if ((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING)
         || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
       return State.JUMPING;
-    // if negative in Y-Axis mario is falling
+    // if negative in Y-Axis megaman is falling
     else if (b2body.getLinearVelocity().y < 0) return State.FALLING;
-    // if mario is positive or negative in the X axis he is running
+    // if megaman is positive or negative in the X axis he is running
     else if (b2body.getLinearVelocity().x != 0) return State.RUNNING;
     // if none of these return then he must be standing
     else return State.STANDING;
@@ -211,10 +210,10 @@ public class MainCharacter extends Sprite {
   public void grow() {
     if (!isBig()) {
       runGrowAnimation = true;
-      marioIsBig = true;
+      megamanIsBig = true;
       timeToDefineBigMario = true;
       setBounds(getX(), getY(), getWidth(), getHeight() * 2);
-      MegaMan.manager.get("audio/sounds/power.wav", Sound.class).play();
+      MegaMan.manager.get("audio/sounds/powerup.wav", Sound.class).play();
     }
   }
 
@@ -222,9 +221,9 @@ public class MainCharacter extends Sprite {
 
     if (!isDead()) {
 
-      MegaMan.manager.get("audio/music/mario_music.ogg", Music.class).stop();
-      MegaMan.manager.get("audio/sounds/mariodie.wav", Sound.class).play();
-      marioIsDead = true;
+      MegaMan.manager.get("audio/music/megaman_music.ogg", Music.class).stop();
+      MegaMan.manager.get("audio/sounds/megamandie.wav", Sound.class).play();
+      megamanIsDead = true;
       Filter filter = new Filter();
       filter.maskBits = MegaMan.NOTHING_BIT;
 
@@ -237,7 +236,7 @@ public class MainCharacter extends Sprite {
   }
 
   public boolean isDead() {
-    return marioIsDead;
+    return megamanIsDead;
   }
 
   public float getStateTimer() {
@@ -245,7 +244,7 @@ public class MainCharacter extends Sprite {
   }
 
   public boolean isBig() {
-    return marioIsBig;
+    return megamanIsBig;
   }
 
   public void jump() {
@@ -263,8 +262,8 @@ public class MainCharacter extends Sprite {
                   ? Turtle.KICK_RIGHT
                   : Turtle.KICK_LEFT);
     else {
-      if (marioIsBig) {
-        marioIsBig = false;
+      if (megamanIsBig) {
+        megamanIsBig = false;
         timeToRedefineMario = true;
         setBounds(getX(), getY(), getWidth(), getHeight() / 2);
         MegaMan.manager.get("audio/sounds/powerdown.wav", Sound.class).play();
@@ -285,7 +284,7 @@ public class MainCharacter extends Sprite {
 
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
-    shape.setRadius(6 / MegaMan.PPM);
+    shape.setRadius(10 / MegaMan.PPM);
     fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT
