@@ -30,7 +30,7 @@ public class Hud implements Disposable {
   private Label timeLabel;
   private Label levelLabel;
   private Label worldLabel;
-  private Label marioLabel;
+  private Label megamanLabel;
 
   public Hud(SpriteBatch sb) {
     // define our tracking variables
@@ -51,21 +51,17 @@ public class Hud implements Disposable {
     table.setFillParent(true);
 
     // define our labels using the String, and a Label style consisting of a font and color
-    //    countdownLabel =
-    //        new Label(
-    //            String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(),
-    // Color.WHITE));
-    //    scoreLabel =
-    //        new Label(
-    //            String.format("%06d", score), new Label.LabelStyle(new BitmapFont(),
-    // Color.WHITE));
+    countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+
     timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    marioLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
     // add our labels to our table, padding the top, and giving them all equal width with expandX
-    table.add(marioLabel).expandX().padTop(10);
+    table.add(megamanLabel).expandX().padTop(10);
     table.add(worldLabel).expandX().padTop(10);
     table.add(timeLabel).expandX().padTop(10);
     // add a second row to our table
@@ -86,14 +82,14 @@ public class Hud implements Disposable {
       } else {
         timeUp = true;
       }
-      //      countdownLabel.setText(String.format("%03d", worldTimer));
+      countdownLabel.setText(String.format("%03d", worldTimer));
       timeCount = 0;
     }
   }
 
   public static void addScore(int value) {
     score += value;
-    //    scoreLabel.setText(String.format("%06d", score));
+    scoreLabel.setText(String.format("%06d", score));
   }
 
   @Override
