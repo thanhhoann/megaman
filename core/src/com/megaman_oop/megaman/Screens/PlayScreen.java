@@ -90,7 +90,7 @@ public class PlayScreen implements Screen {
 
     creator = new B2WorldCreator(this);
 
-    // create mario in our game world
+    // create megaman in our game world
     player = new MainCharacter(this);
 
     world.setContactListener(new WorldContactListener());
