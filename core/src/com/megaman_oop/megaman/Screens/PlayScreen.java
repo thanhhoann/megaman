@@ -58,6 +58,7 @@ public class PlayScreen implements Screen {
 
   private Array<Item> items;
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
+  // public static ArrayList<Integer> scoresRecord = new ArrayList<Integer>();
 
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("Megaman_and_Enemies_Sprites.atlas");
