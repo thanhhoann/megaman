@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 
 public class MegaMan extends Game {
@@ -30,6 +31,12 @@ public class MegaMan extends Game {
   public SpriteBatch batch;
 
   public static AssetManager manager;
+  public Body b2body;
+  public boolean currentState;
+
+  public MegaMan(PlayScreen playScreen) {}
+
+  public MegaMan() {}
 
   @Override
   public void create() {

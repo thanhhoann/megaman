@@ -6,7 +6,6 @@ import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
-import com.megaman_oop.megaman.Sprites.TileObjects.InteractiveTileObject;
 
 public class WorldContactListener implements ContactListener {
   @Override
@@ -18,14 +17,6 @@ public class WorldContactListener implements ContactListener {
 
     switch (cDef) {
       case MegaMan.MARIO_HEAD_BIT | MegaMan.BRICK_BIT:
-      case MegaMan.MARIO_HEAD_BIT | MegaMan.COIN_BIT:
-        if (fixA.getFilterData().categoryBits == MegaMan.MARIO_HEAD_BIT)
-          ((InteractiveTileObject) fixB.getUserData())
-              .onHeadHit((MainCharacter) fixA.getUserData());
-        else
-          ((InteractiveTileObject) fixA.getUserData())
-              .onHeadHit((MainCharacter) fixB.getUserData());
-        break;
       case MegaMan.ENEMY_HEAD_BIT | MegaMan.MARIO_BIT:
         if (fixA.getFilterData().categoryBits == MegaMan.ENEMY_HEAD_BIT)
           ((Enemy) fixA.getUserData()).hitOnHead((MainCharacter) fixB.getUserData());

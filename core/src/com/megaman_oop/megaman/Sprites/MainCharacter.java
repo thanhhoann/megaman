@@ -21,8 +21,8 @@ public class MainCharacter extends Sprite {
     JUMPING,
     STANDING,
     RUNNING,
-    GROWING,
-    DEAD
+    SITTING,
+    DEAD;
   }
 
   public State currentState;
@@ -32,22 +32,17 @@ public class MainCharacter extends Sprite {
   public Body b2body;
 
   private TextureRegion megamanStand;
+  private TextureRegion megamanSit;
   private TextureRegion megamanDead;
-  private TextureRegion bigMarioStand;
-  private TextureRegion bigMarioJump;
 
   private Animation<TextureRegion> megamanRun;
   private Animation<TextureRegion> megamanJump;
-  private Animation<TextureRegion> bigMarioRun;
-  private Animation<TextureRegion> growMario;
 
   private float stateTimer;
 
   private boolean runningRight;
-  private boolean megamanIsBig;
-  private boolean runGrowAnimation;
-  private boolean timeToDefineBigMario;
   private boolean timeToRedefineMario;
+  private boolean megamanIsSitting;
   private boolean megamanIsDead;
 
   private PlayScreen screen;
@@ -66,11 +61,7 @@ public class MainCharacter extends Sprite {
     Array<TextureRegion> frames = new Array<TextureRegion>();
 
     // get run animation frames and add them to megamanRun Animation
-    for (int i = 1; i < 5; i++) {
-      if (i == 4)
-        frames.add(
-            new TextureRegion(
-                screen.getAtlas().findRegion("megasprite_remake"), i * 108, 0, 90, 110));
+    for (int i = 1; i < 4; i++) {
       frames.add(
           new TextureRegion(
               screen.getAtlas().findRegion("megasprite_remake"), i * 105, 0, 90, 110));
@@ -83,23 +74,17 @@ public class MainCharacter extends Sprite {
       frames.add(
           new TextureRegion(
               screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
-    megamanJump = new Animation<TextureRegion>(0.3f, frames);
+    megamanJump = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
     // create texture region for megaman standing
     megamanStand =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
-    // create dead megaman texture region
-    //    megamanDead = new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 96, 0,
-    // 16,
-    // 16);
-
     // define megaman in Box2d
     defineMario();
 
-    // set initial values for megamans location, width and height. And initial frame as
-    // megamanStand.
+    // set initial values for megamans location, width and height.
     setBounds(0, 0, 30 / MegaMan.PPM, 30 / MegaMan.PPM);
     setRegion(megamanStand);
 
@@ -107,26 +92,13 @@ public class MainCharacter extends Sprite {
   }
 
   public void update(float dt) {
-
-    // time is up : too late megaman dies T_T
-    // the !isDead() method is used to prevent multiple invocation
-    // of "die music" and jumping
-    // there is probably better ways to do that, but it works for now.
-    if (screen.getHud().isTimeUp() && !isDead()) {
-      die();
-    }
+    if (screen.getHud().isTimeUp() && !isDead()) die();
 
     // update our sprite to correspond with the position of our Box2D body
-    if (megamanIsBig)
-      setPosition(
-          b2body.getPosition().x - getWidth() / 2,
-          b2body.getPosition().y - getHeight() / 2 - 6 / MegaMan.PPM);
-    else
-      setPosition(
-          b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+    setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
     // update sprite with the correct frame depending on megamans current action
     setRegion(getFrame(dt));
-    if (timeToDefineBigMario) defineBigMario();
+
     if (timeToRedefineMario) redefineMario();
 
     for (FireBall ball : fireballs) {
@@ -136,36 +108,29 @@ public class MainCharacter extends Sprite {
   }
 
   public TextureRegion getFrame(float dt) {
-    // get megamans current state. ie. jumping, running, standing...
+    // get megaman current state. ie. jumping, running, standing...
     currentState = getState();
 
     TextureRegion region;
+
+    if (currentState == State.SITTING) System.out.println("SITTING");
 
     // depending on the state, get corresponding animation keyFrame.
     switch (currentState) {
       case DEAD:
         region = megamanDead;
         break;
-      case GROWING:
-        region = growMario.getKeyFrame(stateTimer);
-        if (growMario.isAnimationFinished(stateTimer)) {
-          runGrowAnimation = false;
-        }
-        break;
       case RUNNING:
-        region =
-            (megamanIsBig
-                ? bigMarioRun.getKeyFrame(stateTimer, true)
-                : megamanRun.getKeyFrame(stateTimer, true));
-
+        region = megamanRun.getKeyFrame(stateTimer, true);
         break;
       case JUMPING:
         region = megamanJump.getKeyFrame(stateTimer, true);
         break;
-      case FALLING:
+      case SITTING:
+        region = megamanSit;
       case STANDING:
       default:
-        region = megamanIsBig ? bigMarioStand : megamanStand;
+        region = megamanStand;
         break;
     }
 
@@ -194,8 +159,8 @@ public class MainCharacter extends Sprite {
     // Test to Box2D for velocity on the X and Y-Axis
     // if megaman is going positive in Y-Axis he is jumping... or if he just jumped and is falling
     // remain in jump state
+
     if (megamanIsDead) return State.DEAD;
-    else if (runGrowAnimation) return State.GROWING;
     else if ((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING)
         || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
       return State.JUMPING;
@@ -207,20 +172,10 @@ public class MainCharacter extends Sprite {
     else return State.STANDING;
   }
 
-  public void grow() {
-    if (!isBig()) {
-      runGrowAnimation = true;
-      megamanIsBig = true;
-      timeToDefineBigMario = true;
-      setBounds(getX(), getY(), getWidth(), getHeight() * 2);
-      MegaMan.manager.get("audio/sounds/powerup.wav", Sound.class).play();
-    }
-  }
-
   public void die() {
 
     if (!isDead()) {
-
+      // TODO: change to appropriate music
       MegaMan.manager.get("audio/music/megaman_music.ogg", Music.class).stop();
       MegaMan.manager.get("audio/sounds/megamandie.wav", Sound.class).play();
       megamanIsDead = true;
@@ -243,10 +198,6 @@ public class MainCharacter extends Sprite {
     return stateTimer;
   }
 
-  public boolean isBig() {
-    return megamanIsBig;
-  }
-
   public void jump() {
     if (currentState != State.JUMPING) {
       b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
@@ -262,14 +213,7 @@ public class MainCharacter extends Sprite {
                   ? Turtle.KICK_RIGHT
                   : Turtle.KICK_LEFT);
     else {
-      if (megamanIsBig) {
-        megamanIsBig = false;
-        timeToRedefineMario = true;
-        setBounds(getX(), getY(), getWidth(), getHeight() / 2);
-        MegaMan.manager.get("audio/sounds/powerdown.wav", Sound.class).play();
-      } else {
-        die();
-      }
+      die();
     }
   }
 
@@ -311,45 +255,6 @@ public class MainCharacter extends Sprite {
     timeToRedefineMario = false;
   }
 
-  public void defineBigMario() {
-    Vector2 currentPosition = b2body.getPosition();
-    world.destroyBody(b2body);
-
-    BodyDef bodyDef = new BodyDef();
-    bodyDef.position.set(currentPosition.add(0, 10 / MegaMan.PPM));
-    bodyDef.type = BodyDef.BodyType.DynamicBody;
-    b2body = world.createBody(bodyDef);
-
-    FixtureDef fixtureDef = new FixtureDef();
-    CircleShape shape = new CircleShape();
-    shape.setRadius(6 / MegaMan.PPM);
-    fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
-    fixtureDef.filter.maskBits =
-        MegaMan.GROUND_BIT
-            | MegaMan.COIN_BIT
-            | MegaMan.BRICK_BIT
-            | MegaMan.ENEMY_BIT
-            | MegaMan.OBJECT_BIT
-            | MegaMan.ENEMY_HEAD_BIT
-            | MegaMan.ITEM_BIT;
-
-    fixtureDef.shape = shape;
-    b2body.createFixture(fixtureDef).setUserData(this);
-    shape.setPosition(new Vector2(0, -14 / MegaMan.PPM));
-    b2body.createFixture(fixtureDef).setUserData(this);
-
-    EdgeShape head = new EdgeShape();
-    head.set(
-        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
-        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
-    fixtureDef.shape = head;
-    fixtureDef.isSensor = true;
-
-    b2body.createFixture(fixtureDef).setUserData(this);
-    timeToDefineBigMario = false;
-  }
-
   public void defineMario() {
     BodyDef bodyDef = new BodyDef();
     bodyDef.position.set(32 / MegaMan.PPM, 32 / MegaMan.PPM);
@@ -358,7 +263,7 @@ public class MainCharacter extends Sprite {
 
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
-    shape.setRadius(6 / MegaMan.PPM);
+    shape.setRadius(10 / MegaMan.PPM);
     fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT

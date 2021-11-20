@@ -50,13 +50,13 @@ public class FireBall extends Sprite {
 
   public void defineFireBall() {
     BodyDef bodyDef = new BodyDef();
-    bodyDef.position.set(fireRight ? getX() + 12 / MegaMan.PPM : getX() - 12 / MegaMan.PPM, getY());
+    bodyDef.position.set(fireRight ? getX() + 12 / MegaMan.PPM : getX() - 30 / MegaMan.PPM, getY());
     bodyDef.type = BodyDef.BodyType.DynamicBody;
     if (!world.isLocked()) b2body = world.createBody(bodyDef);
 
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
-    shape.setRadius(3 / MegaMan.PPM);
+    shape.setRadius(0);
     fixtureDef.filter.categoryBits = MegaMan.FIREBALL_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT
@@ -69,20 +69,29 @@ public class FireBall extends Sprite {
     fixtureDef.restitution = 1;
     fixtureDef.friction = 0;
     b2body.createFixture(fixtureDef).setUserData(this);
-    b2body.setLinearVelocity(new Vector2(1, 0));
+
+    // if fire on the left then flip animation on state time
+    if (fireRight) {
+      b2body.setLinearVelocity(new Vector2(1, 1));
+    } else {
+      fireAnimation.getKeyFrame(0).flip(true, false);
+      fireAnimation.getKeyFrame(0.50F).flip(true, false);
+      fireAnimation.getKeyFrame(1F).flip(true, false);
+      b2body.setLinearVelocity(new Vector2(-1, 1));
+    }
   }
 
   public void update(float dt) {
     stateTime += dt;
     setRegion(fireAnimation.getKeyFrame(stateTime, false));
     setPosition(b2body.getPosition().x, b2body.getPosition().y);
-    if ((stateTime > 3 || setToDestroy) && !destroyed) {
+    if (setToDestroy && !destroyed) {
       world.destroyBody(b2body);
       destroyed = true;
     }
-    b2body.setLinearVelocity(b2body.getLinearVelocity().x, 1f);
-    if ((fireRight && b2body.getLinearVelocity().x < 0)
-        || (!fireRight && b2body.getLinearVelocity().x > 0)) setToDestroy();
+    b2body.setLinearVelocity(b2body.getLinearVelocity().x, 0);
+    //    if ((fireRight && b2body.getLinearVelocity().x < 0)
+    //        || ((!fireRight && b2body.getLinearVelocity().x > 0))) setToDestroy();
   }
 
   public void setToDestroy() {

@@ -40,7 +40,6 @@ public class Mushroom extends Item {
   @Override
   public void use(MainCharacter mainCharacter) {
     destroy();
-    mainCharacter.grow();
   }
 
   @Override

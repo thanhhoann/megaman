@@ -26,9 +26,7 @@ import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Tools.B2WorldCreator;
 import com.megaman_oop.megaman.Tools.WorldContactListener;
 
-import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
-
 
 public class PlayScreen implements Screen {
   // Reference to our Game, used to set Screens
@@ -58,10 +56,9 @@ public class PlayScreen implements Screen {
 
   private Array<Item> items;
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
-  // public static ArrayList<Integer> scoresRecord = new ArrayList<Integer>();
 
   public PlayScreen(MegaMan game) {
-    atlas = new TextureAtlas("Megaman_and_Enemies_Sprites.atlas");
+    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
 
     this.game = game;
     // create cam used to follow mario through cam world
@@ -74,13 +71,12 @@ public class PlayScreen implements Screen {
     // create our game HUD for scores/timers/level info
     hud = new Hud(game.batch);
 
-
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
-    map = maploader.load("level1.tmx");
+    map = maploader.load("map_remake.tmx");
     renderer = new OrthogonalTiledMapRenderer(map, 1 / MegaMan.PPM);
 
-    // initially set our gamecam to be centered correctly at the start of of map
+    // initially set our gamcam to be centered correctly at the start of of map
     gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
@@ -90,7 +86,7 @@ public class PlayScreen implements Screen {
 
     creator = new B2WorldCreator(this);
 
-    // create megaman in our game world
+    // create mario in our game world
     player = new MainCharacter(this);
 
     world.setContactListener(new WorldContactListener());
@@ -202,9 +198,9 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
-      return true;
-    }
+    //    if (player.currentState == MegaMan.State.DEAD && player.getStateTimer() > 3) {
+    //      return true;
+    //    }
     return false;
   }
 
