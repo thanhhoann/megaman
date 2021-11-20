@@ -11,6 +11,10 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.megaman_oop.megaman.MegaMan;
+import com.megaman_oop.megaman.Screens.PlayScreen;
+
+// import java.util.ArrayList;
+// import java.util.Collections;
 
 public class Hud implements Disposable {
 
@@ -18,17 +22,19 @@ public class Hud implements Disposable {
   private Viewport viewport;
 
   // MainCharacter score/time Tracking Variables
-  private Integer worldTimer;
+  private int worldTimer;
   private boolean timeUp;
   private float timeCount;
-  private static Integer score;
+  private static int score;
+  private int record;
+
 
   // Scene2D widgets
   private Label countdownLabel;
   private static Label scoreLabel;
   private Label timeLabel;
   private Label levelLabel;
-  private Label worldLabel;
+  private Label bestScoreLabel;
   private Label megamanLabel;
 
   public Hud(SpriteBatch sb) {
@@ -50,18 +56,18 @@ public class Hud implements Disposable {
     table.setFillParent(true);
 
     // define our labels using the String, and a Label style consisting of a font and color
-    countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    countdownLabel = new Label(String.format("%03d s", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    scoreLabel = new Label(String.format("SCORE: %03d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    levelLabel = new Label(String.format("NO RECORD", record), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-
-    timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    timeLabel = new Label("TIME LEFT", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+   // levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    bestScoreLabel = new Label("BEST SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
     // add our labels to our table, padding the top, and giving them all equal width with expandX
     table.add(megamanLabel).expandX().padTop(10);
-    table.add(worldLabel).expandX().padTop(10);
+    table.add(bestScoreLabel).expandX().padTop(10);
     table.add(timeLabel).expandX().padTop(10);
     // add a second row to our table
     table.row();
@@ -81,14 +87,22 @@ public class Hud implements Disposable {
       } else {
         timeUp = true;
       }
-      countdownLabel.setText(String.format("%03d", worldTimer));
+      countdownLabel.setText(String.format("%03d s", worldTimer));
       timeCount = 0;
     }
   }
 
   public static void addScore(int value) {
     score += value;
-    scoreLabel.setText(String.format("%06d", score));
+    scoreLabel.setText(String.format("SCORE: %03d", score));
+  }
+
+  //public void updateRecord(ArrayList<Integer> scoresRecord){
+  //  record = Collections.max(scoresRecord);
+  //  levelLabel.setText(String.format("%03d", record));
+  //}
+  public int getScore(){
+    return score;
   }
 
   @Override

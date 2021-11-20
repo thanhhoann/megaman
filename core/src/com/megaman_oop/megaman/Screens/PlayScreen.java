@@ -26,6 +26,7 @@ import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Tools.B2WorldCreator;
 import com.megaman_oop.megaman.Tools.WorldContactListener;
 
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -71,6 +72,7 @@ public class PlayScreen implements Screen {
 
     // create our game HUD for scores/timers/level info
     hud = new Hud(game.batch);
+
 
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();

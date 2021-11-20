@@ -11,9 +11,7 @@ import com.megaman_oop.megaman.Sprites.Items.ItemDef;
 import com.megaman_oop.megaman.Sprites.Items.Mushroom;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-/**
- * Created by brentaureli on 8/28/15.
- */
+
 public class Coin extends InteractiveTileObject {
     private static TiledMapTileSet tileSet;
     private final int BLANK_COIN = 28;
@@ -38,7 +36,7 @@ public class Coin extends InteractiveTileObject {
             else
                 MegaMan.manager.get("audio/sounds/coin.wav", Sound.class).play();
             getCell().setTile(tileSet.getTile(BLANK_COIN));
-            Hud.addScore(100);
+            Hud.addScore(10);
         }
     }
 }

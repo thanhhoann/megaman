@@ -16,9 +16,7 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-/**
- * Created by brentaureli on 8/28/15.
- */
+
 public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
