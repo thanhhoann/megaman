@@ -12,7 +12,7 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-/** Created by brentaureli on 10/10/15. */
+
 public class Turtle extends Enemy {
   public static final int KICK_LEFT = -2;
   public static final int KICK_RIGHT = 2;

@@ -14,13 +14,12 @@ import com.megaman_oop.megaman.MegaMan;
 
 public class Hud implements Disposable {
 
-  // Scene2D.ui Stage and its own Viewport for HUD
   public Stage stage;
   private Viewport viewport;
 
   // MainCharacter score/time Tracking Variables
   private Integer worldTimer;
-  private boolean timeUp; // true when the world timer reaches 0
+  private boolean timeUp;
   private float timeCount;
   private static Integer score;
 

@@ -14,7 +14,7 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-/** Created by brentaureli on 9/14/15. */
+
 public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   private float stateTime;
   private Animation walkAnimation;

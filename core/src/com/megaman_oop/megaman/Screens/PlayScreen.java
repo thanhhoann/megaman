@@ -28,7 +28,7 @@ import com.megaman_oop.megaman.Tools.WorldContactListener;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-/** Created by megaman_oop on 8/14/15. */
+
 public class PlayScreen implements Screen {
   // Reference to our Game, used to set Screens
   private MegaMan game;
@@ -77,7 +77,7 @@ public class PlayScreen implements Screen {
     map = maploader.load("level1.tmx");
     renderer = new OrthogonalTiledMapRenderer(map, 1 / MegaMan.PPM);
 
-    // initially set our gamcam to be centered correctly at the start of of map
+    // initially set our gamecam to be centered correctly at the start of of map
     gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep

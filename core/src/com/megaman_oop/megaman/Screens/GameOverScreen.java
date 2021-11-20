@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.megaman_oop.megaman.MegaMan;
 
-/** Created by brentaureli on 10/8/15. */
+
 public class GameOverScreen implements Screen {
   private Viewport viewport;
   private Stage stage;
@@ -43,7 +43,9 @@ public class GameOverScreen implements Screen {
   }
 
   @Override
-  public void show() {}
+  public void show() {
+
+  }
 
   @Override
   public void render(float delta) {
@@ -60,13 +62,19 @@ public class GameOverScreen implements Screen {
   public void resize(int width, int height) {}
 
   @Override
-  public void pause() {}
+  public void pause() {
+
+  }
 
   @Override
-  public void resume() {}
+  public void resume() {
+
+  }
 
   @Override
-  public void hide() {}
+  public void hide() {
+
+  }
 
   @Override
   public void dispose() {
