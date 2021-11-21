@@ -43,7 +43,6 @@ public class MegaMan extends Game {
     batch = new SpriteBatch();
     manager = new AssetManager();
     manager.load("audio/music/bgmusic.ogg",Music.class);
-
     //manager.load("audio/sounds/coin.wav", Sound.class);
     //manager.load("audio/sounds/bump.wav", Sound.class);
     //manager.load("audio/sounds/breakblock.wav", Sound.class);

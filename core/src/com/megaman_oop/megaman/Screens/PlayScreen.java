@@ -51,7 +51,7 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
-
+  //Music
   private Music music;
 
   private Array<Item> items;
@@ -59,19 +59,15 @@ public class PlayScreen implements Screen {
 
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
-
     this.game = game;
     // create cam used to follow mario through cam world
     gamecam = new OrthographicCamera();
-
     // create a FitViewport to maintain virtual aspect ratio despite screen size
     // current width is 4.0F, current height is 3.08F
-    gamePort =
-        new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
-
+    gamePort = new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM,
+            MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
     // create our game HUD for scores/timers/level info
     hud = new Hud(game.batch);
-
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
     map = maploader.load("map.tmx");
