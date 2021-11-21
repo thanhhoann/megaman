@@ -1,5 +1,6 @@
 package com.megaman_oop.megaman.Scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,6 +21,7 @@ public class Hud implements Disposable {
 
   public Stage stage;
   private Viewport viewport;
+  private String myText;
 
   // MainCharacter score/time Tracking Variables
   private int worldTimer;
@@ -56,14 +58,14 @@ public class Hud implements Disposable {
     table.setFillParent(true);
 
     // define our labels using the String, and a Label style consisting of a font and color
-    countdownLabel = new Label(String.format("%03d s", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    scoreLabel = new Label(String.format("SCORE: %03d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    levelLabel = new Label(String.format("NO RECORD", record), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    countdownLabel = new Label(String.format("%03d s", worldTimer), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
+    scoreLabel = new Label(String.format("SCORE: %03d", score), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
+    levelLabel = new Label(String.format("NO RECORD", record), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
 
-    timeLabel = new Label("TIME LEFT", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    timeLabel = new Label("TIME LEFT", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
    // levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    bestScoreLabel = new Label("BEST SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    bestScoreLabel = new Label("BEST SCORE", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
+    megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
 
     // add our labels to our table, padding the top, and giving them all equal width with expandX
     table.add(megamanLabel).expandX().padTop(10);

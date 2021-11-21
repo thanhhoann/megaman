@@ -2,7 +2,6 @@ package com.megaman_oop.megaman.Sprites;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,6 +21,7 @@ public class MainCharacter extends Sprite {
     JUMPING,
     STANDING,
     RUNNING,
+    SHOOTING,
     SITTING,
     DEAD;
   }
@@ -38,6 +38,7 @@ public class MainCharacter extends Sprite {
 
   private Animation<TextureRegion> megamanRun;
   private Animation<TextureRegion> megamanJump;
+  private Animation<TextureRegion> megamanShoot;
 
   private float stateTimer;
 
@@ -78,6 +79,14 @@ public class MainCharacter extends Sprite {
     megamanJump = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
+    // get jump animation frames and add them to megamanJump Animation
+    for (int i = 1; i < 4; i++)
+      frames.add(
+          new TextureRegion(
+              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
+    megamanShoot = new Animation<TextureRegion>(0.2f, frames);
+    frames.clear();
+
     // create texture region for megaman standing
     megamanStand =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
@@ -100,7 +109,7 @@ public class MainCharacter extends Sprite {
     // update sprite with the correct frame depending on megamans current action
     setRegion(getFrame(dt));
 
-    if (timeToRedefineMario) redefineMario();
+    //    if (timeToRedefineMario) redefineMario();
 
     for (FireBall ball : fireballs) {
       ball.update(dt);
@@ -129,6 +138,8 @@ public class MainCharacter extends Sprite {
         break;
       case SITTING:
         region = megamanSit;
+      case SHOOTING:
+        region = megamanJump.getKeyFrame(stateTimer, true);
       case STANDING:
       default:
         region = megamanStand;
@@ -289,7 +300,15 @@ public class MainCharacter extends Sprite {
     b2body.createFixture(fixtureDef).setUserData(this);
   }
 
+  public void setCurrentState(State currentState) {
+    this.currentState = currentState;
+  }
+
   public void fire() {
+    if (currentState != State.SHOOTING) {
+      b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+      currentState = State.SHOOTING;
+    }
     fireballs.add(
         new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight));
   }

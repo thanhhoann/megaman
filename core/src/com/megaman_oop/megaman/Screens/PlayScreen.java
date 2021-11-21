@@ -65,6 +65,7 @@ public class PlayScreen implements Screen {
     gamecam = new OrthographicCamera();
 
     // create a FitViewport to maintain virtual aspect ratio despite screen size
+    // current width is 4.0F, current height is 3.08F
     gamePort =
         new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
 
@@ -73,11 +74,11 @@ public class PlayScreen implements Screen {
 
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
-    map = maploader.load("map_remake.tmx");
+    map = maploader.load("map.tmx");
     renderer = new OrthogonalTiledMapRenderer(map, 1 / MegaMan.PPM);
 
-    // initially set our gamcam to be centered correctly at the start of of map
-    gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+    // initially set our game camera to be centered correctly at the start of map
+    gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 1.5F, 0);
 
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
     world = new World(new Vector2(0, -10), true);
