@@ -92,10 +92,10 @@ public class PlayScreen implements Screen {
 
     world.setContactListener(new WorldContactListener());
 
-    music = MegaMan.manager.get("audio/music/mario_music.ogg", Music.class);
+    music = MegaMan.manager.get("audio/music/bgmusic.ogg", Music.class);
     music.setLooping(true);
     music.setVolume(0.3f);
-    // music.play();
+    music.play();
 
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();

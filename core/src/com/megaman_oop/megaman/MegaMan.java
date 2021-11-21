@@ -42,15 +42,16 @@ public class MegaMan extends Game {
   public void create() {
     batch = new SpriteBatch();
     manager = new AssetManager();
-    manager.load("audio/music/mario_music.ogg", Music.class);
-    manager.load("audio/sounds/coin.wav", Sound.class);
-    manager.load("audio/sounds/bump.wav", Sound.class);
-    manager.load("audio/sounds/breakblock.wav", Sound.class);
-    manager.load("audio/sounds/powerup_spawn.wav", Sound.class);
-    manager.load("audio/sounds/powerup.wav", Sound.class);
-    manager.load("audio/sounds/powerdown.wav", Sound.class);
-    manager.load("audio/sounds/stomp.wav", Sound.class);
-    manager.load("audio/sounds/mariodie.wav", Sound.class);
+    manager.load("audio/music/bgmusic.ogg",Music.class);
+
+    //manager.load("audio/sounds/coin.wav", Sound.class);
+    //manager.load("audio/sounds/bump.wav", Sound.class);
+    //manager.load("audio/sounds/breakblock.wav", Sound.class);
+    //manager.load("audio/sounds/powerup_spawn.wav", Sound.class);
+    //manager.load("audio/sounds/powerup.wav", Sound.class);
+    //manager.load("audio/sounds/powerdown.wav", Sound.class);
+    //manager.load("audio/sounds/stomp.wav", Sound.class);
+    //manager.load("audio/sounds/mariodie.wav", Sound.class);
 
     manager.finishLoading();
 

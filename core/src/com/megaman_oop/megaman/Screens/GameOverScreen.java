@@ -23,8 +23,6 @@ public class GameOverScreen implements Screen {
   Texture bground = new Texture(Gdx.files.internal("gameover.png"));
   SpriteBatch background = new SpriteBatch();
 
-
-
   private Game game;
 
   public GameOverScreen(Game game) {
