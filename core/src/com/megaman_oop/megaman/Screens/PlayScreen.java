@@ -34,7 +34,7 @@ public class PlayScreen implements Screen {
   private TextureAtlas atlas;
   public static boolean alreadyDestroyed = false;
 
-  // basic playscreen variables
+  // basic play-screen variables
   private OrthographicCamera gamecam;
   private Viewport gamePort;
   private Hud hud;
