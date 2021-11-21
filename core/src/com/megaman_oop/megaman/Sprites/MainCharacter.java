@@ -2,6 +2,7 @@ package com.megaman_oop.megaman.Sprites;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -228,27 +229,27 @@ public class MainCharacter extends Sprite {
 
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
-    shape.setRadius(10 / MegaMan.PPM);
-    fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
-    fixtureDef.filter.maskBits =
-        MegaMan.GROUND_BIT
-            | MegaMan.COIN_BIT
-            | MegaMan.BRICK_BIT
-            | MegaMan.ENEMY_BIT
-            | MegaMan.OBJECT_BIT
-            | MegaMan.ENEMY_HEAD_BIT
-            | MegaMan.ITEM_BIT;
+    //    shape.setRadius(10 / MegaMan.PPM);
+    //    fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
+    //    fixtureDef.filter.maskBits =
+    //        MegaMan.GROUND_BIT
+    //            | MegaMan.COIN_BIT
+    //            | MegaMan.BRICK_BIT
+    //            | MegaMan.ENEMY_BIT
+    //            | MegaMan.OBJECT_BIT
+    //            | MegaMan.ENEMY_HEAD_BIT
+    //            | MegaMan.ITEM_BIT;
 
-    fixtureDef.shape = shape;
-    b2body.createFixture(fixtureDef).setUserData(this);
+    //    fixtureDef.shape = shape;
+    //    b2body.createFixture(fixtureDef).setUserData(this);
 
-    EdgeShape head = new EdgeShape();
-    head.set(
-        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
-        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
-    fixtureDef.shape = head;
-    fixtureDef.isSensor = true;
+    //    EdgeShape head = new EdgeShape();
+    //    head.set(
+    //        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
+    //        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
+    //    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
+    //    fixtureDef.shape = head;
+    //    fixtureDef.isSensor = true;
 
     b2body.createFixture(fixtureDef).setUserData(this);
 
@@ -277,13 +278,13 @@ public class MainCharacter extends Sprite {
     fixtureDef.shape = shape;
     b2body.createFixture(fixtureDef).setUserData(this);
 
-    EdgeShape head = new EdgeShape();
-    head.set(
-        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
-        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
-    fixtureDef.shape = head;
-    fixtureDef.isSensor = true;
+    //    EdgeShape head = new EdgeShape();
+    //    head.set(
+    //        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
+    //        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
+    //    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
+    //    fixtureDef.shape = head;
+    //    fixtureDef.isSensor = true;
 
     b2body.createFixture(fixtureDef).setUserData(this);
   }
