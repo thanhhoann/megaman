@@ -79,22 +79,22 @@ public class MainCharacter extends Sprite {
     megamanJump = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
-    // get jump animation frames and add them to megamanJump Animation
-    for (int i = 1; i < 4; i++)
-      frames.add(
-          new TextureRegion(
-              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
-    megamanShoot = new Animation<TextureRegion>(0.2f, frames);
+    // get shoot animation frames and add them to megamanJump Animation
+    //    for (int i = 1; i < 4; i++)
+    //      frames.add(
+    //          new TextureRegion(
+    //              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
+    //    megamanShoot = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
-    // create texture region for megaman standing
+    // create texture region for Mega Man standing
     megamanStand =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
-    // define megaman in Box2d
+    // define Mega Man in Box2d
     defineMEGAMAN();
 
-    // set initial values for megamans location, width and height.
+    // set initial values for location, width and height.
     setBounds(0, 0, 30 / MegaMan.PPM, 30 / MegaMan.PPM);
     setRegion(megamanStand);
 
@@ -106,7 +106,7 @@ public class MainCharacter extends Sprite {
 
     // update our sprite to correspond with the position of our Box2D body
     setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-    // update sprite with the correct frame depending on megamans current action
+    // update sprite with the correct frame depending on current action
     setRegion(getFrame(dt));
 
     //    if (timeToRedefineMEGAMAN) redefineMEGAMAN();
@@ -118,7 +118,7 @@ public class MainCharacter extends Sprite {
   }
 
   public TextureRegion getFrame(float dt) {
-    // get megaman current state. ie. jumping, running, standing...
+    // get Mega Man current state. ie. jumping, running, standing...
     currentState = getState();
 
     TextureRegion region;
@@ -146,13 +146,13 @@ public class MainCharacter extends Sprite {
         break;
     }
 
-    // if megaman is running left and the texture isn't facing left... flip it.
+    // if Mega Man is running left and the texture isn't facing left... flip it.
     if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
       region.flip(true, false);
       runningRight = false;
     }
 
-    // if megaman is running right and the texture isn't facing right... flip it.
+    // if Mega Man is running right and the texture isn't facing right... flip it.
     else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
       region.flip(true, false);
       runningRight = true;
@@ -168,9 +168,6 @@ public class MainCharacter extends Sprite {
   }
 
   public State getState() {
-    // Test to Box2D for velocity on the X and Y-Axis
-    // if megaman is going positive in Y-Axis he is jumping... or if he just jumped and is falling
-    // remain in jump state
 
     if (megamanIsDead) return State.DEAD;
     else if ((b2body.getLinearVelocity().y > 0 && currentState == State.JUMPING)
@@ -240,27 +237,6 @@ public class MainCharacter extends Sprite {
 
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
-    //    shape.setRadius(10 / MegaMan.PPM);
-    //    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_BIT;
-    //    fixtureDef.filter.maskBits =
-    //        MegaMan.GROUND_BIT
-    //            | MegaMan.COIN_BIT
-    //            | MegaMan.BRICK_BIT
-    //            | MegaMan.ENEMY_BIT
-    //            | MegaMan.OBJECT_BIT
-    //            | MegaMan.ENEMY_HEAD_BIT
-    //            | MegaMan.ITEM_BIT;
-
-    //    fixtureDef.shape = shape;
-    //    b2body.createFixture(fixtureDef).setUserData(this);
-
-    //    EdgeShape head = new EdgeShape();
-    //    head.set(
-    //        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
-    //        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    //    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
-    //    fixtureDef.shape = head;
-    //    fixtureDef.isSensor = true;
 
     b2body.createFixture(fixtureDef).setUserData(this);
 
@@ -289,14 +265,6 @@ public class MainCharacter extends Sprite {
     fixtureDef.shape = shape;
     b2body.createFixture(fixtureDef).setUserData(this);
 
-    //    EdgeShape head = new EdgeShape();
-    //    head.set(
-    //        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
-    //        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    //    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
-    //    fixtureDef.shape = head;
-    //    fixtureDef.isSensor = true;
-
     b2body.createFixture(fixtureDef).setUserData(this);
   }
 
@@ -305,10 +273,10 @@ public class MainCharacter extends Sprite {
   }
 
   public void fire() {
-    if (currentState != State.SHOOTING) {
-      b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-      currentState = State.SHOOTING;
-    }
+    //    if (currentState != State.SHOOTING) {
+    //      b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+    //      currentState = State.SHOOTING;
+    //    }
     fireballs.add(
         new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight));
   }
