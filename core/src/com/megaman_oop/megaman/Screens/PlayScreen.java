@@ -50,7 +50,7 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
-
+  //Music
   private Music music;
 
   private Array<Item> items;
@@ -58,19 +58,15 @@ public class PlayScreen implements Screen {
 
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
-
     this.game = game;
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
-
     // create a FitViewport to maintain virtual aspect ratio despite screen size
     // current width is 4.0F, current height is 3.08F
-    gamePort =
-        new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
-
+    gamePort = new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM,
+            MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
     // create our game HUD for scores/timers/level info
     hud = new Hud(game.batch);
-
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
     map = maploader.load("map.tmx");
@@ -91,10 +87,17 @@ public class PlayScreen implements Screen {
 
     world.setContactListener(new WorldContactListener());
 
+<<<<<<< HEAD
     //    music = MegaMan.manager.get("audio/music/MEGAMAN_music.ogg", Music.class);
     //    music.setLooping(true);
     //    music.setVolume(0.3f);
     // music.play();
+=======
+    music = MegaMan.manager.get("audio/music/bgmusic.ogg", Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
+>>>>>>> 2f31dc45ec70f02a103f0af63e5f83248ca25f08
 
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();

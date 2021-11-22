@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="98">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="140">
  <editorsettings>
-  <export target="megamap.tmx" format="tmx"/>
+  <export format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" name="NES - Mega Man 2 - Wily Stage 1" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="19701" columns="199">
   <image source="NES - Mega Man 2 - Wily Stage 1.png" width="3586" height="1794"/>
@@ -75,6 +75,30 @@
 19516,19517,19518,19519,19520,19521,19522,19523,19524,19525,19526,19527,19528,19529,19530,19531,19532,19533,19534,19535,19536,19537,19538,19539,19540,19541,19542,19543,19544,19545,19546,19547,19548,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19576,19577,19578,19579,19576,19576,19577,19578,19576,19576,19576,19576,19576,19576,19576,19577,19578,19579,19580,19581,19581,19576,19577,19578,19579,19580,19581,19576,19576,19576,19577,19578,19579,19580,19581,19408,19589,19590,19591,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,128,128,128,128,128,128,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="10" name="Object Layer 7">
+  <object id="114" x="-10.6667" y="10"/>
+  <object id="115" x="-10.6667" y="30"/>
+  <object id="116" x="-10.6667" y="50.3333"/>
+  <object id="117" x="-10.6667" y="50.3333"/>
+  <object id="118" x="-10.6667" y="70.6667"/>
+  <object id="119" x="-10.6667" y="91.3333"/>
+  <object id="120" x="-10.6667" y="112"/>
+  <object id="121" x="-10.6667" y="132.333"/>
+  <object id="122" x="-10.6667" y="152.667"/>
+  <object id="123" x="-11" y="173.333"/>
+  <object id="124" x="-11" y="194"/>
+  <object id="125" x="-11" y="214.333"/>
+  <object id="126" x="-11" y="234.667"/>
+  <object id="127" x="-11" y="234.667"/>
+  <object id="128" x="-11" y="255.333"/>
+  <object id="129" x="-11" y="276"/>
+  <object id="130" x="-11" y="296.333"/>
+  <object id="131" x="-11" y="317"/>
+  <object id="132" x="-11" y="337.667"/>
+  <object id="133" x="-11" y="358.333"/>
+  <object id="134" x="-11" y="378.333"/>
+  <object id="135" x="-11" y="398.667"/>
+ </objectgroup>
  <objectgroup id="3" name="ground">
   <object id="49" x="2.5" y="433.5" width="1405.82" height="47"/>
   <object id="55" x="111.875" y="418" width="79.875" height="15.625"/>
@@ -92,6 +116,8 @@
   <object id="71" x="1327.62" y="400.364" width="80.5615" height="33.4545"/>
   <object id="73" x="1745.05" y="192.227" width="381.425" height="63.9433"/>
   <object id="76" x="1873" y="432.5" width="256" height="47"/>
+  <object id="138" x="-11" y="419.333"/>
+  <object id="139" x="-11.3333" y="440.333"/>
  </objectgroup>
  <objectgroup id="5" name="wall">
   <object id="78" x="1744.44" y="369.127" width="126.997" height="109.43"/>

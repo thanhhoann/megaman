@@ -45,7 +45,7 @@ public class Hud implements Disposable {
     timeCount = 0;
     score = 0;
 
-    // setup the HUD viewport using a new camera seperate from our gamecam
+    // set up the HUD viewport using a new camera seperate from our game cam
     // define our stage using that viewport and our games spritebatch
     viewport = new FitViewport(MegaMan.V_WIDTH, MegaMan.V_HEIGHT, new OrthographicCamera());
     stage = new Stage(viewport, sb);
@@ -56,17 +56,14 @@ public class Hud implements Disposable {
     table.top();
     // make the table fill the entire stage
     table.setFillParent(true);
-
     // define our labels using the String, and a Label style consisting of a font and color
     countdownLabel = new Label(String.format("%03d s", worldTimer), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     scoreLabel = new Label(String.format("SCORE: %03d", score), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     levelLabel = new Label(String.format("NO RECORD", record), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
-
     timeLabel = new Label("TIME LEFT", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
    // levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     bestScoreLabel = new Label("BEST SCORE", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
-
     // add our labels to our table, padding the top, and giving them all equal width with expandX
     table.add(megamanLabel).expandX().padTop(10);
     table.add(bestScoreLabel).expandX().padTop(10);
@@ -76,7 +73,6 @@ public class Hud implements Disposable {
     table.add(scoreLabel).expandX();
     table.add(levelLabel).expandX();
     table.add(countdownLabel).expandX();
-
     // add our table to the stage
     stage.addActor(table);
   }
