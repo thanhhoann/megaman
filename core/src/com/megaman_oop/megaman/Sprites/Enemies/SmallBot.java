@@ -14,7 +14,7 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
+public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   private float stateTime;
   private Animation walkAnimation;
   private Array<TextureRegion> frames;
@@ -22,12 +22,11 @@ public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   private boolean destroyed;
   float angle;
 
-  public Goomba(PlayScreen screen, float x, float y) {
+  public SmallBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
     for (int i = 0; i < 2; i++)
-      //      frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"), i * 16, 0, 16,
-      // 16));
+       frames.add(new TextureRegion(screen.getAtlas().findRegion("smallbot"), i * 16, 0, 16, 16));
       walkAnimation = new Animation(0.4f, frames);
     stateTime = 0;
     setBounds(getX(), getY(), 16 / MegaMan.PPM, 16 / MegaMan.PPM);
@@ -47,7 +46,7 @@ public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
       b2body.setLinearVelocity(velocity);
       setPosition(
           b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-      //      setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
+           setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
     }
   }
 
@@ -93,7 +92,7 @@ public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   }
 
   @Override
-  public void hitOnHead(MainCharacter mainCharacter) {
+  public void hitByMegaman(MainCharacter mainCharacter) {
     setToDestroy = true;
     MegaMan.manager.get("audio/sounds/stomp.wav", Sound.class).play();
   }

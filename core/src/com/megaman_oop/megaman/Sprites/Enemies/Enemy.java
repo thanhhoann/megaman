@@ -26,7 +26,7 @@ public abstract class Enemy extends Sprite {
 
   public abstract void update(float dt);
 
-  public abstract void hitOnHead(MainCharacter mainCharacter);
+  public abstract void hitByMegaman(MainCharacter mainCharacter);
 
   public abstract void hitByEnemy(Enemy enemy);
 

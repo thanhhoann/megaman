@@ -80,11 +80,10 @@ public class MainCharacter extends Sprite {
     frames.clear();
 
     // get shoot animation frames and add them to megamanJump Animation
-    //    for (int i = 1; i < 4; i++)
-    //      frames.add(
-    //          new TextureRegion(
-    //              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
-    //    megamanShoot = new Animation<TextureRegion>(0.2f, frames);
+    for (int i = 1; i < 4; i++)
+          frames.add( new TextureRegion(
+                  screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
+                  megamanShoot = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
     // create texture region for Mega Man standing
@@ -185,8 +184,8 @@ public class MainCharacter extends Sprite {
 
     if (!isDead()) {
       // TODO: change to appropriate music
-      MegaMan.manager.get("audio/music/megaman_music.ogg", Music.class).stop();
-      MegaMan.manager.get("audio/sounds/megamandie.wav", Sound.class).play();
+      MegaMan.manager.get("audio/music/bgmusic.ogg", Music.class).stop();
+      MegaMan.manager.get("audio/sounds/megamanhurt.wav", Sound.class).play();
       megamanIsDead = true;
       Filter filter = new Filter();
       filter.maskBits = MegaMan.NOTHING_BIT;

@@ -19,8 +19,8 @@ public class WorldContactListener implements ContactListener {
       case MegaMan.MEGAMAN_HEAD_BIT | MegaMan.BRICK_BIT:
       case MegaMan.ENEMY_HEAD_BIT | MegaMan.MEGAMAN_BIT:
         if (fixA.getFilterData().categoryBits == MegaMan.ENEMY_HEAD_BIT)
-          ((Enemy) fixA.getUserData()).hitOnHead((MainCharacter) fixB.getUserData());
-        else ((Enemy) fixB.getUserData()).hitOnHead((MainCharacter) fixA.getUserData());
+          ((Enemy) fixA.getUserData()).hitByMegaman((MainCharacter) fixB.getUserData());
+        else ((Enemy) fixB.getUserData()).hitByMegaman((MainCharacter) fixA.getUserData());
         break;
       case MegaMan.ENEMY_BIT | MegaMan.OBJECT_BIT:
         if (fixA.getFilterData().categoryBits == MegaMan.ENEMY_BIT)

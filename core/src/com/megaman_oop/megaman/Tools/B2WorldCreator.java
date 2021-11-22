@@ -9,13 +9,13 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
-import com.megaman_oop.megaman.Sprites.Enemies.Goomba;
+import com.megaman_oop.megaman.Sprites.Enemies.SmallBot;
 import com.megaman_oop.megaman.Sprites.Enemies.Turtle;
 import com.megaman_oop.megaman.Sprites.TileObjects.Brick;
 import com.megaman_oop.megaman.Sprites.TileObjects.Coin;
 
 public class B2WorldCreator {
-  private Array<Goomba> goombas;
+  private Array<SmallBot> smallBots;
   private Array<Turtle> turtles;
 
   public B2WorldCreator(PlayScreen screen) {
@@ -76,7 +76,7 @@ public class B2WorldCreator {
     }
 
     // create all goombas
-    goombas = new Array<Goomba>();
+    smallBots = new Array<SmallBot>();
     for (RectangleMapObject object :
         map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
@@ -90,13 +90,13 @@ public class B2WorldCreator {
     }
   }
 
-  public Array<Goomba> getGoombas() {
-    return goombas;
+  public Array<SmallBot> getGoombas() {
+    return smallBots;
   }
 
   public Array<Enemy> getEnemies() {
     Array<Enemy> enemies = new Array<Enemy>();
-    enemies.addAll(goombas);
+    enemies.addAll(smallBots);
     enemies.addAll(turtles);
     return enemies;
   }

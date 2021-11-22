@@ -59,14 +59,18 @@ public class PlayScreen implements Screen {
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
     this.game = game;
+
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
+
     // create a FitViewport to maintain virtual aspect ratio despite screen size
     // current width is 4.0F, current height is 3.08F
     gamePort =
         new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
+
     // create our game HUD for scores/timers/level info
     hud = new Hud(game.batch);
+
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
     map = maploader.load("map.tmx");
@@ -77,6 +81,7 @@ public class PlayScreen implements Screen {
 
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
     world = new World(new Vector2(0, -10), true);
+
     // allows for debug lines of our box2d world.
     b2dr = new Box2DDebugRenderer();
 
@@ -154,7 +159,7 @@ public class PlayScreen implements Screen {
       gamecam.position.x = player.b2body.getPosition().x;
     }
 
-    // update our gamecam with correct coordinates after changes
+    // update our game-cam with correct coordinates after changes
     gamecam.update();
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
@@ -173,7 +178,7 @@ public class PlayScreen implements Screen {
     renderer.render();
 
     // renderer our Box2DDebugLines
-    //    b2dr.render(world, gamecam.combined);
+    // b2dr.render(world, gamecam.combined);
 
     game.batch.setProjectionMatrix(gamecam.combined);
     game.batch.begin();

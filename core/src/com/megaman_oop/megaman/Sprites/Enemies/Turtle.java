@@ -122,7 +122,7 @@ public class Turtle extends Enemy {
   }
 
   @Override
-  public void hitOnHead(MainCharacter mainCharacter) {
+  public void hitByMegaman(MainCharacter mainCharacter) {
     if (currentState == State.STANDING_SHELL) {
       if (mainCharacter.b2body.getPosition().x > b2body.getPosition().x) velocity.x = -2;
       else velocity.x = 2;

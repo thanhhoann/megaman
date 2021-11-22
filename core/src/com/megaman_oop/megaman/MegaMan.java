@@ -51,7 +51,7 @@ public class MegaMan extends Game {
     //manager.load("audio/sounds/powerup.wav", Sound.class);
     //manager.load("audio/sounds/powerdown.wav", Sound.class);
     manager.load("audio/sounds/stomp.wav", Sound.class);
-    manager.load("audio/sounds/megaman.hurt", Sound.class);
+    manager.load("audio/sounds/megamanhurt.wav", Sound.class);
 
     manager.load("audio/music/bgmusic.ogg", Music.class);
     // manager.load("audio/sounds/coin.wav", Sound.class);
