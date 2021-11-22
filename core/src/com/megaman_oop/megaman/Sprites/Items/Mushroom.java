@@ -27,7 +27,7 @@ public class Mushroom extends Item {
     shape.setRadius(6 / MegaMan.PPM);
     fixtureDef.filter.categoryBits = MegaMan.ITEM_BIT;
     fixtureDef.filter.maskBits =
-        MegaMan.MARIO_BIT
+        MegaMan.MEGAMAN_BIT
             | MegaMan.OBJECT_BIT
             | MegaMan.GROUND_BIT
             | MegaMan.COIN_BIT

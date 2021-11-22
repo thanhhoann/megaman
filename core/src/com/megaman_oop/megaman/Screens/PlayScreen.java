@@ -21,7 +21,6 @@ import com.megaman_oop.megaman.Scenes.Hud;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.Items.ItemDef;
-import com.megaman_oop.megaman.Sprites.Items.Mushroom;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Tools.B2WorldCreator;
 import com.megaman_oop.megaman.Tools.WorldContactListener;
@@ -51,7 +50,7 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
-  //Music
+  // Music
   private Music music;
 
   private Array<Item> items;
@@ -60,12 +59,12 @@ public class PlayScreen implements Screen {
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
     this.game = game;
-    // create cam used to follow mario through cam world
+    // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
     // create a FitViewport to maintain virtual aspect ratio despite screen size
     // current width is 4.0F, current height is 3.08F
-    gamePort = new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM,
-            MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
+    gamePort =
+        new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
     // create our game HUD for scores/timers/level info
     hud = new Hud(game.batch);
     // Load our map and setup our map renderer
@@ -83,15 +82,15 @@ public class PlayScreen implements Screen {
 
     creator = new B2WorldCreator(this);
 
-    // create mario in our game world
+    // create MEGAMAN in our game world
     player = new MainCharacter(this);
 
     world.setContactListener(new WorldContactListener());
 
-    music = MegaMan.manager.get("audio/music/bgmusic.ogg", Music.class);
-    music.setLooping(true);
-    music.setVolume(0.3f);
-    music.play();
+    //    music = MegaMan.manager.get("audio/music/MEGAMAN_music.ogg", Music.class);
+    //    music.setLooping(true);
+    //    music.setVolume(0.3f);
+    // music.play();
 
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
@@ -102,12 +101,11 @@ public class PlayScreen implements Screen {
   }
 
   public void handleSpawningItems() {
-    if (!itemsToSpawn.isEmpty()) {
-      ItemDef idef = itemsToSpawn.poll();
-      if (idef.type == Mushroom.class) {
-        items.add(new Mushroom(this, idef.position.x, idef.position.y));
-      }
-    }
+    //    if (!itemsToSpawn.isEmpty()) {
+    //      ItemDef idef = itemsToSpawn.poll();
+    //      if (idef.type == Mushroom.class) {
+    //        items.add(new Mushroom(this, idef.position.x, idef.position.y));
+    //      }
   }
 
   public TextureAtlas getAtlas() {

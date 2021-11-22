@@ -53,7 +53,7 @@ public class FireBall extends Sprite {
     // if fire on the right -> move 12 px to the right of the MainCharacter
     // if fire on the left -> move 30 px to the left of the MainCharacter
     bodyDef.position.set(
-        fireRight ? getX() + 12 / MegaMan.PPM : getX() - 30 / MegaMan.PPM, getY() - 0.1F);
+        fireRight ? getX() + 12 / MegaMan.PPM : getX() - 30 / MegaMan.PPM, getY() - 0.05F);
     bodyDef.type = BodyDef.BodyType.DynamicBody;
     if (!world.isLocked()) b2body = world.createBody(bodyDef);
 
@@ -97,6 +97,7 @@ public class FireBall extends Sprite {
     b2body.setLinearVelocity(b2body.getLinearVelocity().x, 0);
     if ((fireRight && b2body.getLinearVelocity().x < 0)
         || ((!fireRight && b2body.getLinearVelocity().x > 0))) setToDestroy();
+    if (stateTime > 1) setToDestroy();
   }
 
   public void setToDestroy() {

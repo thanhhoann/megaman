@@ -68,7 +68,7 @@ public class Goomba extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
             | MegaMan.BRICK_BIT
             | MegaMan.ENEMY_BIT
             | MegaMan.OBJECT_BIT
-            | MegaMan.MARIO_BIT;
+            | MegaMan.MEGAMAN_BIT;
 
     fdef.shape = shape;
     b2body.createFixture(fdef).setUserData(this);
