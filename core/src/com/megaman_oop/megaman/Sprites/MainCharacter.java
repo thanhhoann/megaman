@@ -43,7 +43,7 @@ public class MainCharacter extends Sprite {
   private float stateTimer;
 
   private boolean runningRight;
-  private boolean timeToRedefineMario;
+  private boolean timeToRedefineMEGAMAN;
   private boolean megamanIsSitting;
   private boolean megamanIsDead;
 
@@ -92,7 +92,7 @@ public class MainCharacter extends Sprite {
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
     // define megaman in Box2d
-    defineMario();
+    defineMEGAMAN();
 
     // set initial values for megamans location, width and height.
     setBounds(0, 0, 30 / MegaMan.PPM, 30 / MegaMan.PPM);
@@ -109,7 +109,7 @@ public class MainCharacter extends Sprite {
     // update sprite with the correct frame depending on megamans current action
     setRegion(getFrame(dt));
 
-    //    if (timeToRedefineMario) redefineMario();
+    //    if (timeToRedefineMEGAMAN) redefineMEGAMAN();
 
     for (FireBall ball : fireballs) {
       ball.update(dt);
@@ -229,7 +229,7 @@ public class MainCharacter extends Sprite {
     }
   }
 
-  public void redefineMario() {
+  public void redefineMEGAMAN() {
     Vector2 position = b2body.getPosition();
     world.destroyBody(b2body);
 
@@ -241,7 +241,7 @@ public class MainCharacter extends Sprite {
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
     //    shape.setRadius(10 / MegaMan.PPM);
-    //    fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
+    //    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_BIT;
     //    fixtureDef.filter.maskBits =
     //        MegaMan.GROUND_BIT
     //            | MegaMan.COIN_BIT
@@ -258,16 +258,16 @@ public class MainCharacter extends Sprite {
     //    head.set(
     //        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
     //        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    //    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
+    //    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
     //    fixtureDef.shape = head;
     //    fixtureDef.isSensor = true;
 
     b2body.createFixture(fixtureDef).setUserData(this);
 
-    timeToRedefineMario = false;
+    timeToRedefineMEGAMAN = false;
   }
 
-  public void defineMario() {
+  public void defineMEGAMAN() {
     BodyDef bodyDef = new BodyDef();
     bodyDef.position.set(32 / MegaMan.PPM, 32 / MegaMan.PPM);
     bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -276,7 +276,7 @@ public class MainCharacter extends Sprite {
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
     shape.setRadius(10 / MegaMan.PPM);
-    fixtureDef.filter.categoryBits = MegaMan.MARIO_BIT;
+    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT
             | MegaMan.COIN_BIT
@@ -293,7 +293,7 @@ public class MainCharacter extends Sprite {
     //    head.set(
     //        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
     //        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    //    fixtureDef.filter.categoryBits = MegaMan.MARIO_HEAD_BIT;
+    //    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
     //    fixtureDef.shape = head;
     //    fixtureDef.isSensor = true;
 

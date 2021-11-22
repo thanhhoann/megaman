@@ -1,16 +1,16 @@
 
-Mario_and_Enemies.png
+MEGAMAN_and_Enemies.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-big_mario
+big_MEGAMAN
   rotate: false
   xy: 1, 29
   size: 336, 32
   orig: 336, 32
   offset: 0, 0
   index: -1
-little_mario
+little_MEGAMAN
   rotate: false
   xy: 1, 11
   size: 224, 16
