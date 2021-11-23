@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Scenes.Hud;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Enemies.SmallBot;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.Items.ItemDef;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
@@ -50,6 +51,7 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
+  private SmallBot smallBot;
   // Music
   private Music music;
 
@@ -81,7 +83,6 @@ public class PlayScreen implements Screen {
 
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
     world = new World(new Vector2(0, -10), true);
-
     // allows for debug lines of our box2d world.
     b2dr = new Box2DDebugRenderer();
 
@@ -92,11 +93,13 @@ public class PlayScreen implements Screen {
 
     world.setContactListener(new WorldContactListener());
 
-    //    music = MegaMan.manager.get("audio/music/MEGAMAN_music.ogg", Music.class);
-    //    music.setLooping(true);
-    //    music.setVolume(0.3f);
-    // music.play();
+    music = MegaMan.manager.get("audio/music/bgmusic.ogg", Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
 
+    //Add small bot
+    smallBot = new SmallBot(this,.32f,.32f);
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
   }
@@ -153,7 +156,7 @@ public class PlayScreen implements Screen {
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
-
+    smallBot.update(dt);
     // attach our gamecam to our players.x coordinate
     if (player.currentState != MainCharacter.State.DEAD) {
       gamecam.position.x = player.b2body.getPosition().x;
@@ -185,6 +188,7 @@ public class PlayScreen implements Screen {
     player.draw(game.batch);
     for (Enemy enemy : creator.getEnemies()) enemy.draw(game.batch);
     for (Item item : items) item.draw(game.batch);
+    smallBot.draw(game.batch);
     game.batch.end();
 
     // Set our batch to now draw what the Hud camera sees.
