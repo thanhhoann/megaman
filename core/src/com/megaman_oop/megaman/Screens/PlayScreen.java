@@ -99,7 +99,7 @@ public class PlayScreen implements Screen {
     music.play();
 
     //Add small bot
-    smallBot = new SmallBot(this,.32f,.32f);
+
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
   }
@@ -156,7 +156,7 @@ public class PlayScreen implements Screen {
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
-    smallBot.update(dt);
+
     // attach our gamecam to our players.x coordinate
     if (player.currentState != MainCharacter.State.DEAD) {
       gamecam.position.x = player.b2body.getPosition().x;
@@ -188,7 +188,6 @@ public class PlayScreen implements Screen {
     player.draw(game.batch);
     for (Enemy enemy : creator.getEnemies()) enemy.draw(game.batch);
     for (Item item : items) item.draw(game.batch);
-    smallBot.draw(game.batch);
     game.batch.end();
 
     // Set our batch to now draw what the Hud camera sees.

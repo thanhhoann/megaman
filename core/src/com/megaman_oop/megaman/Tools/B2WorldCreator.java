@@ -75,12 +75,12 @@ public class B2WorldCreator {
       new Coin(screen, object);
     }
 
-    // create all goombas
+    // create all smallBots
     smallBots = new Array<SmallBot>();
     for (RectangleMapObject object :
         map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
-      //      goombas.add(new Goomba(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
+            smallBots.add(new SmallBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }
     turtles = new Array<Turtle>();
     for (RectangleMapObject object :
@@ -90,7 +90,7 @@ public class B2WorldCreator {
     }
   }
 
-  public Array<SmallBot> getGoombas() {
+  public Array<SmallBot> getSmallBots() {
     return smallBots;
   }
 

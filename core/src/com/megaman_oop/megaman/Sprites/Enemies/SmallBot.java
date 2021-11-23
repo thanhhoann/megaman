@@ -26,8 +26,8 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
     for (int i = 0; i < 2; i++)
-       frames.add(new TextureRegion(screen.getAtlas().findRegion("smallbot"), i * 16, 0, 16, 16));
-      walkAnimation = new Animation(0.4f, frames);
+      frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),i * 480, 524,215,316));
+    walkAnimation = new Animation(0.4f, frames);
     stateTime = 0;
     setBounds(getX(), getY(), 16 / MegaMan.PPM, 16 / MegaMan.PPM);
     setToDestroy = false;
@@ -40,7 +40,7 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
     if (setToDestroy && !destroyed) {
       world.destroyBody(b2body);
       destroyed = true;
-      setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
+      setRegion(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), 480, 524, 215, 316));
       stateTime = 0;
     } else if (!destroyed) {
       b2body.setLinearVelocity(velocity);

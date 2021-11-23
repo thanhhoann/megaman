@@ -1,13 +1,19 @@
-
 MegaMan_and_Enemies_Sprites.png
-size: 1024, 2048
+size: 853, 1895
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear,Linear
 repeat: none
+enemysprite1
+  rotate: false
+  xy: 1, 1
+  size: 851, 681
+  orig: 864, 864
+  offset: 0, 71
+  index: -1
 megasprite_remake
   rotate: false
-  xy: 2, 2
-  size: 742, 1580
+  xy: 1, 684
+  size: 740, 1210
   orig: 742, 1580
-  offset: 0, 0
+  offset: 2, 370
   index: -1
