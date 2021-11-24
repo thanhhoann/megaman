@@ -25,11 +25,11 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   public SmallBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
-    for (int i = 0; i < 2; i++)
-      frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),i * 480, 524,215,316));
-    walkAnimation = new Animation(0.4f, frames);
+    for (int i = 1; i < 2; i++)
+      frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), i * 484, 430,110,120));
+    walkAnimation = new Animation(0.5f, frames);
     stateTime = 0;
-    setBounds(getX(), getY(), 16 / MegaMan.PPM, 16 / MegaMan.PPM);
+    setBounds(getX(), getY(), 30/ MegaMan.PPM, 30 / MegaMan.PPM);
     setToDestroy = false;
     destroyed = false;
     angle = 0;
@@ -40,13 +40,13 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
     if (setToDestroy && !destroyed) {
       world.destroyBody(b2body);
       destroyed = true;
-      setRegion(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), 480, 524, 215, 316));
+      setRegion(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), 484, 430, 110, 120));
       stateTime = 0;
-    } else if (!destroyed) {
+    }
+    else if (!destroyed) {
       b2body.setLinearVelocity(velocity);
-      setPosition(
-          b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-           setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
+      setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+      setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
     }
   }
 

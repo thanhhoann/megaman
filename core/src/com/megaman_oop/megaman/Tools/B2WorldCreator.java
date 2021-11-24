@@ -84,7 +84,7 @@ public class B2WorldCreator {
     }
     turtles = new Array<Turtle>();
     for (RectangleMapObject object :
-        map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+            map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
       //      turtles.add(new Turtle(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }

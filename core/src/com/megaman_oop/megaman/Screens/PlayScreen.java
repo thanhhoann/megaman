@@ -146,6 +146,7 @@ public class PlayScreen implements Screen {
     world.step(1 / 60f, 6, 2);
 
     player.update(dt);
+
     for (Enemy enemy : creator.getEnemies()) {
       enemy.update(dt);
       if (enemy.getX() < player.getX() + 224 / MegaMan.PPM) {
