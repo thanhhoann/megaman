@@ -15,6 +15,9 @@ import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
 public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
+  public static final int KICK_LEFT = -2;
+  public static final int KICK_RIGHT = 2;
+
   private float stateTime;
   private Animation walkAnimation;
   private Array<TextureRegion> frames;
@@ -25,8 +28,7 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
   public SmallBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
-    for (int i = 1; i < 2; i++)
-      frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), i * 484, 430,110,120));
+    frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 430,110,120));
     walkAnimation = new Animation(0.5f, frames);
     stateTime = 0;
     setBounds(getX(), getY(), 30/ MegaMan.PPM, 30 / MegaMan.PPM);
@@ -82,11 +84,20 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
     head.set(vertice);
 
     fdef.shape = head;
-    fdef.restitution = 0.5f;
-    fdef.filter.categoryBits = MegaMan.ENEMY_HEAD_BIT;
+    fdef.restitution = 0.2f;
+    fdef.filter.categoryBits = MegaMan.ENEMY_BIT;
     b2body.createFixture(fdef).setUserData(this);
   }
-
+  public TextureRegion getFrame(float dt) {
+    TextureRegion region = new TextureRegion();
+    if (velocity.x > 0 && region.isFlipX() == false) {
+      region.flip(true, false);
+    }
+    if (velocity.x < 0 && region.isFlipX() == true) {
+      region.flip(true, false);
+    }
+    return region;
+  }
   public void draw(Batch batch) {
     if (!destroyed || stateTime < 1) super.draw(batch);
   }

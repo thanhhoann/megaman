@@ -98,8 +98,6 @@ public class PlayScreen implements Screen {
     music.setVolume(0.3f);
     music.play();
 
-    //Add small bot
-
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
   }
@@ -202,9 +200,9 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    //    if (player.currentState == MegaMan.State.DEAD && player.getStateTimer() > 3) {
-    //      return true;
-    //    }
+    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
+      return true;
+    }
     return false;
   }
 
