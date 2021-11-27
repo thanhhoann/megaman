@@ -7,21 +7,26 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.megaman_oop.megaman.GifDecoder;
 import com.megaman_oop.megaman.MegaMan;
 
 
 public class GameOverScreen implements Screen {
   private Viewport viewport;
   private Stage stage;
-  Texture bground = new Texture(Gdx.files.internal("gameover.png"));
-  SpriteBatch background = new SpriteBatch();
+  Texture gameover = new Texture(Gdx.files.internal("gameover.png"));
+  //Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("demo.gif").read());
+  SpriteBatch batch = new SpriteBatch();
+  float elapsed;
 
   private Game game;
 
@@ -58,11 +63,12 @@ public class GameOverScreen implements Screen {
       game.setScreen(new PlayScreen((MegaMan) game));
       dispose();
     }
+    //elapsed += Gdx.graphics.getDeltaTime();
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    background.begin();
-    background.draw(bground, 0, 0);
-    background.end();
+    batch.begin();
+    batch.draw(gameover, 0, 0);
+    batch.end();
     stage.draw();
   }
 
