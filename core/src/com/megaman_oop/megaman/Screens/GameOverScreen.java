@@ -24,9 +24,9 @@ public class GameOverScreen implements Screen {
   private Viewport viewport;
   private Stage stage;
   Texture gameover = new Texture(Gdx.files.internal("gameover.png"));
-  //Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("demo.gif").read());
+  //Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menu_background.gif").read());
   SpriteBatch batch = new SpriteBatch();
-  float elapsed;
+  //float elapsed;
 
   private Game game;
 
@@ -64,7 +64,7 @@ public class GameOverScreen implements Screen {
       dispose();
     }
     //elapsed += Gdx.graphics.getDeltaTime();
-    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     batch.begin();
     batch.draw(gameover, 0, 0);
