@@ -63,28 +63,28 @@ public class MainCharacter extends Sprite {
     Array<TextureRegion> frames = new Array<TextureRegion>();
 
     // get run animation frames and add them to megamanRun Animation
-    for (int i = 1; i < 8; i++) //there will be 7 iterations because there are 7 images in the sprite
-    {
+    for (int i = 1; i < 4; i++) {
       frames.add(
           new TextureRegion(
-              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 0, 90, 110));
+              screen.getAtlas().findRegion("megasprite_remake"), i * 105, 0, 90, 110));
     }
     megamanRun = new Animation<TextureRegion>(0.1f, frames);
     frames.clear();
 
     // get jump animation frames and add them to megamanJump Animation
-    for (int i = 1; i < 8; i++) //there will be 7 iterations because there are 7 images in the sprite
+    for (int i = 1; i < 4; i++)
       frames.add(
           new TextureRegion(
-              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 100, 110));
+              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
     megamanJump = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
     // get shoot animation frames and add them to megamanJump Animation
-    for (int i = 1; i < 4; i++)//THere are only 3 frames
-          frames.add( new TextureRegion(
-                  screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 100, 110));
-                  megamanShoot = new Animation<TextureRegion>(0.2f, frames);
+    for (int i = 1; i < 4; i++)
+      frames.add(
+          new TextureRegion(
+              screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 100, 110));
+    megamanShoot = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
     // create texture region for Mega Man standing
