@@ -43,7 +43,6 @@ public class MainCharacter extends Sprite {
   private float stateTimer;
 
   private boolean runningRight;
-  private boolean timeToRedefineMEGAMAN;
   private boolean megamanIsSitting;
   private boolean megamanIsDead;
 
