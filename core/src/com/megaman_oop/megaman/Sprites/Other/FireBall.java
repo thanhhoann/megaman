@@ -95,9 +95,10 @@ public class FireBall extends Sprite {
       destroyed = true;
     }
     b2body.setLinearVelocity(b2body.getLinearVelocity().x, 0);
-    if ((fireRight && b2body.getLinearVelocity().x < 0)
-        || ((!fireRight && b2body.getLinearVelocity().x > 0))) setToDestroy();
+    if ((fireRight && b2body.getLinearVelocity().x <= 0)
+        || ((!fireRight && b2body.getLinearVelocity().x >= 0))) setToDestroy();
     if (stateTime > 1) setToDestroy();
+
   }
 
   public void setToDestroy() {
