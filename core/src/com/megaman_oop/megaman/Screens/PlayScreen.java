@@ -51,7 +51,6 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
-  private SmallBot smallBot;
   // Music
   private Music music;
 

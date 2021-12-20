@@ -2,7 +2,6 @@ package com.megaman_oop.megaman.Sprites.Enemies;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -14,42 +13,36 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
+public class SmallBot extends Enemy {
   public static final int KICK_LEFT = -2;
   public static final int KICK_RIGHT = 2;
 
+
+  public enum State {
+    WALKING,
+    STANDING
+  }
+  public State currentState;
+  public State previousState;
   private float stateTime;
   private Animation walkAnimation;
   private Array<TextureRegion> frames;
+  private TextureRegion standing;
+
   private boolean setToDestroy;
   private boolean destroyed;
-  float angle;
+
+
 
   public SmallBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 430,110,120));
-    walkAnimation = new Animation(0.5f, frames);
-    stateTime = 0;
-    setBounds(getX(), getY(), 30/ MegaMan.PPM, 30 / MegaMan.PPM);
-    setToDestroy = false;
-    destroyed = false;
-    angle = 0;
-  }
-
-  public void update(float dt) {
-    stateTime += dt;
-    if (setToDestroy && !destroyed) {
-      world.destroyBody(b2body);
-      destroyed = true;
-      setRegion(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), 484, 430, 110, 120));
-      stateTime = 0;
-    }
-    else if (!destroyed) {
-      b2body.setLinearVelocity(velocity);
-      setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-      setRegion((TextureRegion) walkAnimation.getKeyFrame(stateTime, true));
-    }
+    frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  594, 430,110,120));
+    standing = new TextureRegion(screen.getAtlas().findRegion("enemysprite1"), 594, 430, 110, 120);
+    walkAnimation = new Animation(0.2f, frames);
+    currentState = previousState = State.WALKING;
+    setBounds(getX(), getY(), 32 / MegaMan.PPM, 32 / MegaMan.PPM);
   }
 
   @Override
@@ -84,33 +77,68 @@ public class SmallBot extends com.megaman_oop.megaman.Sprites.Enemies.Enemy {
     head.set(vertice);
 
     fdef.shape = head;
-    fdef.restitution = 0.2f;
+    fdef.restitution = 0.05f;
     fdef.filter.categoryBits = MegaMan.ENEMY_BIT;
     b2body.createFixture(fdef).setUserData(this);
   }
+
   public TextureRegion getFrame(float dt) {
-    TextureRegion region = new TextureRegion();
-    if (velocity.x > 0 && region.isFlipX() == false) {
+    TextureRegion region;
+
+    switch (currentState) {
+      case STANDING:
+        region = standing;
+        break;
+      case WALKING:
+      default:
+        region = (TextureRegion) walkAnimation.getKeyFrame(stateTime, true);
+        break;
+    }
+    if (velocity.x < 0 && region.isFlipX() == false) {
       region.flip(true, false);
     }
-    if (velocity.x < 0 && region.isFlipX() == true) {
+    if (velocity.x > 0 && region.isFlipX() == true) {
       region.flip(true, false);
     }
+    stateTime = currentState == previousState ? stateTime + dt : 0;
+    // update previous state
+    previousState = currentState =State.STANDING;
+    // return our final adjusted frame
     return region;
   }
-  public void draw(Batch batch) {
-    if (!destroyed || stateTime < 1) super.draw(batch);
+
+  public void update(float dt) {
+    setRegion(getFrame(dt));
+
+    if(currentState == State.STANDING && stateTime > 5){
+      currentState = previousState = State.WALKING;
+      velocity.x = 1;
+      velocity.y = 0;
+    }
+    if(previousState == State.WALKING){
+      currentState = State.STANDING;
+    }
+    setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - 8 /MegaMan.PPM);
+    b2body.setLinearVelocity(velocity);
   }
+
 
   @Override
   public void hitByMegaman(MainCharacter mainCharacter) {
-    setToDestroy = true;
-    MegaMan.manager.get("audio/sounds/stomp.wav", Sound.class).play();
+    if (currentState == SmallBot.State.STANDING) {
+      if (mainCharacter.b2body.getPosition().x > b2body.getPosition().x) velocity.x = -2;
+      else velocity.x = 2;
+      currentState = State.WALKING;
+      System.out.println("Set to moving shell");
+    } else {
+      currentState = State.STANDING;
+      velocity.x = 0;
+    }
   }
 
   @Override
   public void hitByEnemy(Enemy enemy) {
-    if (enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.MOVING_SHELL)
+    if (enemy instanceof SmallBot && ((SmallBot) enemy).currentState == State.WALKING)
       setToDestroy = true;
     else reverseVelocity(true, false);
   }
