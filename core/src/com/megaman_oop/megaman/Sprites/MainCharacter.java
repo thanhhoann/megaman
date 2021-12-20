@@ -215,8 +215,7 @@ public class MainCharacter extends Sprite {
 	 }
 
 	 public void sit() {
-		  if (currentState != State.SITTING)
-			   currentState = State.SITTING;
+		  currentState = State.SITTING;
 	 }
 
 	 public void hit(Enemy enemy) {
@@ -262,8 +261,7 @@ public class MainCharacter extends Sprite {
 	 }
 
 	 public void shoot() {
-		  if (currentState != State.SHOOTING)
-			   currentState = State.SHOOTING;
+		  currentState = State.SHOOTING;
 		  fireballs.add(
 				  new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight));
 	 }
