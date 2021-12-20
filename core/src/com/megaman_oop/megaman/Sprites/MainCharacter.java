@@ -33,17 +33,16 @@ public class MainCharacter extends Sprite {
 	 public Body b2body;
 
 	 private TextureRegion megamanStand;
-	 private TextureRegion megamanSit;
 	 private TextureRegion megamanDead;
 
 	 private Animation<TextureRegion> megamanRun;
 	 private Animation<TextureRegion> megamanJump;
+	 private Animation<TextureRegion> megamanSit;
 	 private Animation<TextureRegion> megamanShoot;
 
 	 private float stateTimer;
 
 	 private boolean runningRight;
-	 private boolean megamanIsSitting;
 	 private boolean megamanIsDead;
 
 	 private PlayScreen screen;
@@ -79,11 +78,19 @@ public class MainCharacter extends Sprite {
 		  frames.clear();
 
 		  // get shoot animation frames and add them to megamanShoot Animation
-		  for (int i = 1; i < 4; i++)
+		  for (int i = 1; i < 2; i++)
 			   frames.add(
 					   new TextureRegion(
 							   screen.getAtlas().findRegion("megasprite_remake"), 150, 585, 90, 110));
 		  megamanShoot = new Animation<TextureRegion>(0.2f, frames);
+		  frames.clear();
+
+		  // get sit animation frames and add them to megamanSit Animation
+		  for (int i = 1; i < 4; i++)
+			   frames.add(
+					   new TextureRegion(
+							   screen.getAtlas().findRegion("megasprite_remake"), 0, 580, 90, 110));
+		  megamanSit = new Animation<TextureRegion>(0.2f, frames);
 		  frames.clear();
 
 		  // create texture region for Mega Man standing
@@ -104,6 +111,7 @@ public class MainCharacter extends Sprite {
 		  if (screen.getHud().isTimeUp() && !isDead()) die();
 
 		  if (currentState == State.SHOOTING && getStateTimer() > 0.5) currentState = State.STANDING;
+		  if (currentState == State.SITTING && getStateTimer() > 0.5) currentState = State.STANDING;
 
 		  // update our sprite to correspond with the position of our Box2D body
 		  setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
@@ -119,12 +127,8 @@ public class MainCharacter extends Sprite {
 	 }
 
 	 public TextureRegion getFrame(float dt) {
-		  // get Mega Man current state. ie. jumping, running, standing...
 		  currentState = getState();
-
 		  TextureRegion region;
-
-		  // depending on the state, get corresponding animation keyFrame.
 		  switch (currentState) {
 			   case DEAD:
 					region = megamanDead;
@@ -138,19 +142,22 @@ public class MainCharacter extends Sprite {
 			   case SHOOTING:
 					region = megamanShoot.getKeyFrame(stateTimer, true);
 					break;
+			   case SITTING:
+					region = megamanSit.getKeyFrame(stateTimer, true);
+					break;
 			   case STANDING:
 			   default:
 					region = megamanStand;
 					break;
 		  }
 
-		  // if Mega Man is running left and the texture isn't facing left... flip it.
+		  // if Mega Man is running left and the texture isn't facing left -> flip it.
 		  if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
 			   region.flip(true, false);
 			   runningRight = false;
 		  }
 
-		  // if Mega Man is running right and the texture isn't facing right... flip it.
+		  // if Mega Man is running right and the texture isn't facing right -> flip it.
 		  else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
 			   region.flip(true, false);
 			   runningRight = true;
@@ -173,22 +180,20 @@ public class MainCharacter extends Sprite {
 		  else if (b2body.getLinearVelocity().y < 0) return State.FALLING;
 		  else if (b2body.getLinearVelocity().x != 0) return State.RUNNING;
 		  else if (currentState == State.SHOOTING) return State.SHOOTING;
+		  else if (currentState == State.SITTING) return State.SITTING;
 		  else return State.STANDING;
 	 }
 
 	 public void die() {
-
 		  if (!isDead()) {
-			   // TODO: change to appropriate music
 			   MegaMan.manager.get("audio/music/bgmusic.ogg", Music.class).stop();
 			   MegaMan.manager.get("audio/sounds/megamanhurt.wav", Sound.class).play();
 			   megamanIsDead = true;
 			   Filter filter = new Filter();
 			   filter.maskBits = MegaMan.NOTHING_BIT;
 
-			   for (Fixture fixture : b2body.getFixtureList()) {
+			   for (Fixture fixture : b2body.getFixtureList())
 					fixture.setFilterData(filter);
-			   }
 
 			   b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
 		  }
@@ -209,6 +214,10 @@ public class MainCharacter extends Sprite {
 		  }
 	 }
 
+	 public void sit() {
+		  if (currentState != State.SITTING)
+			   currentState = State.SITTING;
+	 }
 
 	 public void hit(Enemy enemy) {
 		  if (enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.STANDING_SHELL)
