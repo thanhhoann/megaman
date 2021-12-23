@@ -225,23 +225,6 @@ public class MainCharacter extends Sprite {
     }
   }
 
-  public void redefineMEGAMAN() {
-    Vector2 position = b2body.getPosition();
-    world.destroyBody(b2body);
-
-    BodyDef bodyDef = new BodyDef();
-    bodyDef.position.set(position);
-    bodyDef.type = BodyDef.BodyType.DynamicBody;
-    b2body = world.createBody(bodyDef);
-
-    FixtureDef fixtureDef = new FixtureDef();
-    CircleShape shape = new CircleShape();
-
-    b2body.createFixture(fixtureDef).setUserData(this);
-
-    timeToRedefineMEGAMAN = false;
-  }
-
   public void defineMEGAMAN() {
     BodyDef bodyDef = new BodyDef();
     bodyDef.position.set(32 / MegaMan.PPM, 32 / MegaMan.PPM);

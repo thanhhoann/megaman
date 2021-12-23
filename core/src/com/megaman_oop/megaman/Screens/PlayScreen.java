@@ -1,12 +1,13 @@
 package com.megaman_oop.megaman.Screens;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -43,7 +44,13 @@ public class PlayScreen implements Screen {
   private TmxMapLoader maploader;
   private TiledMap map;
   private OrthogonalTiledMapRenderer renderer;
-
+  private float startX = gamecam.viewportWidth/2;
+  private float startY = gamecam.viewportHeight/2;
+  public int levelWidth;
+  public int levelHeight;
+  public int tileWidth;
+  public int tileHeight;
+  
   // Box2d variables
   private World world;
   private Box2DDebugRenderer b2dr;
@@ -76,6 +83,12 @@ public class PlayScreen implements Screen {
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
     map = maploader.load("map.tmx");
+    MapProperties props = map.getProperties();
+    levelWidth = props.get("width", Integer.class);
+    levelHeight = props.get("height", Integer.class);
+    tileHeight = props.get("tileheight", Integer.class);
+    tileWidth = props.get("tilewidth", Integer.class);
+
     renderer = new OrthogonalTiledMapRenderer(map, 1 / MegaMan.PPM);
 
     // initially set our game camera to be centered correctly at the start of map
@@ -155,14 +168,11 @@ public class PlayScreen implements Screen {
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
-
-    // attach our gamecam to our players.x coordinate
-    if (player.currentState != MainCharacter.State.DEAD) {
-      gamecam.position.x = player.b2body.getPosition().x;
-    }
-
-    // update our game-cam with correct coordinates after changes
-    gamecam.update();
+    
+    //camera
+    CameraStyles.lockOnCharacter(gamecam, player);
+    CameraStyles.boundary(gamecam, startX, startY, levelWidth*tileWidth - startX*2, levelHeight*tileHeight - startY*2);
+    
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
   }
