@@ -24,6 +24,9 @@ public class MenuScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
     Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menu_background.gif").read());
+    Texture start = new Texture(Gdx.files.internal("menu_start.png"));
+    Texture rule = new Texture(Gdx.files.internal("menu_rule.png"));
+    Texture quit = new Texture(Gdx.files.internal("menu_quit.png"));
     SpriteBatch batch = new SpriteBatch();
     float elapsed;
 
@@ -34,21 +37,6 @@ public class MenuScreen implements Screen {
         viewport = new FitViewport(MegaMan.V_WIDTH, MegaMan.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((MegaMan) game).batch);
 
-
-        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
-
-        Table table = new Table();
-        table.center();
-        table.setFillParent(true);
-
-
-        Label playAgainLabel = new Label("PRESS TO PLAY AGAIN", font);
-
-
-        table.row();
-        table.add(playAgainLabel).expandX().padTop(10f);
-
-        stage.addActor(table);
     }
 
     @Override
@@ -64,6 +52,9 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(animation.getKeyFrame(elapsed), 0, 0);
+        batch.draw(start, 75, 300);
+        batch.draw(rule, 75, 200);
+        batch.draw(quit, 75, 100);
         batch.end();
         stage.draw();
     }

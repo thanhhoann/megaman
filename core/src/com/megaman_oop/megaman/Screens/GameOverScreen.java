@@ -23,10 +23,10 @@ import com.megaman_oop.megaman.MegaMan;
 public class GameOverScreen implements Screen {
   private Viewport viewport;
   private Stage stage;
-  Texture gameover = new Texture(Gdx.files.internal("gameover.png"));
-  //Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menu_background.gif").read());
+  //Texture gameover = new Texture(Gdx.files.internal("gameover.png"));
+  Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("gameover.gif").read());
   SpriteBatch batch = new SpriteBatch();
-  //float elapsed;
+  float elapsed;
 
   private Game game;
 
@@ -43,7 +43,7 @@ public class GameOverScreen implements Screen {
     table.setFillParent(true);
 
 
-    Label playAgainLabel = new Label("PRESS TO PLAY AGAIN", font);
+    Label playAgainLabel = new Label("CLICK TO PLAY AGAIN", font);
 
 
     table.row();
@@ -63,11 +63,11 @@ public class GameOverScreen implements Screen {
       game.setScreen(new PlayScreen((MegaMan) game));
       dispose();
     }
-    //elapsed += Gdx.graphics.getDeltaTime();
+    elapsed += Gdx.graphics.getDeltaTime();
     Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     batch.begin();
-    batch.draw(gameover, 0, 0);
+    batch.draw(animation.getKeyFrame(elapsed), 0, 0);
     batch.end();
     stage.draw();
   }
