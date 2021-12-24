@@ -44,8 +44,6 @@ public class PlayScreen implements Screen {
   private TmxMapLoader maploader;
   private TiledMap map;
   private OrthogonalTiledMapRenderer renderer;
-  private float startX = gamecam.viewportWidth/2;
-  private float startY = gamecam.viewportHeight/2;
   public int levelWidth;
   public int levelHeight;
   public int tileWidth;
@@ -170,10 +168,13 @@ public class PlayScreen implements Screen {
 
     hud.update(dt);
     
-    //camera
-    CameraStyles.lockOnCharacter(gamecam, player);
-    CameraStyles.boundary(gamecam, startX, startY, levelWidth*tileWidth - startX*2, levelHeight*tileHeight - startY*2);
+    CameraStyles.lerpToCharacter(gamecam, player);
     
+    float startX = gamecam.viewportWidth/2;
+    float startY = gamecam.viewportHeight/2;
+    CameraStyles.boundary(gamecam, startX, startY, levelWidth*tileWidth - startX*2, levelHeight*tileHeight - startY*2);
+  
+
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
   }
