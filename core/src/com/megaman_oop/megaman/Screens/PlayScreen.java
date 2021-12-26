@@ -1,9 +1,9 @@
 package com.megaman_oop.megaman.Screens;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
   public int levelHeight;
   public int tileWidth;
   public int tileHeight;
-  
+
   // Box2d variables
   private World world;
   private Box2DDebugRenderer b2dr;
@@ -133,16 +133,20 @@ public class PlayScreen implements Screen {
   public void show() {}
 
   public void handleInput(float dt) {
-    // control our player using immediate impulses
     if (player.currentState != MainCharacter.State.DEAD) {
+      // JUMP
       if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) player.jump();
+      // RUNNING RIGHT
       if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
         player.b2body.applyLinearImpulse(
             new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+      // RUNNING LEFT
       if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
         player.b2body.applyLinearImpulse(
             new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+      // SHOOTING
       if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) player.shoot();
+      // SITTING
       if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) player.sit();
     }
   }
@@ -167,13 +171,17 @@ public class PlayScreen implements Screen {
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
-    
+
     CameraStyles.lerpToCharacter(gamecam, player);
-    
-    float startX = gamecam.viewportWidth/2;
-    float startY = gamecam.viewportHeight/2;
-    CameraStyles.boundary(gamecam, startX, startY, levelWidth*tileWidth - startX*2, levelHeight*tileHeight - startY*2);
-  
+
+    float startX = gamecam.viewportWidth / 2;
+    float startY = gamecam.viewportHeight / 2;
+    CameraStyles.boundary(
+        gamecam,
+        startX,
+        startY,
+        levelWidth * tileWidth - startX * 2,
+        levelHeight * tileHeight - startY * 2);
 
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
