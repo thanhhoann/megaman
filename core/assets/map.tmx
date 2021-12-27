@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="169">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="157">
  <editorsettings>
   <export format="tmx"/>
  </editorsettings>
@@ -96,10 +96,9 @@
    <polyline points="0,0 -0.0909091,-0.727273 0,-54.1818 -0.0909091,-435.182"/>
   </object>
   <object id="155" x="-2.5" y="0" width="2.375" height="479.875"/>
-  <object id="160" x="1744.33" y="368" width="129" height="110"/>
-  <object id="167" x="0.25" y="-0.375" width="2159.88" height="0.375"/>
  </objectgroup>
  <objectgroup id="5" name="wall">
+  <object id="78" x="1744.44" y="369.127" width="126.997" height="109.43"/>
   <object id="80" x="2127.33" y="191.862" width="33.3333" height="287.138"/>
  </objectgroup>
  <objectgroup id="4" name="brick">
@@ -115,7 +114,7 @@
   <object id="87" x="988" y="417.5" width="13.875" height="15"/>
  </objectgroup>
  <objectgroup id="8" name="Object Layer 5">
-  <object id="156" x="924.5" y="385.667" width="24" height="24.6666"/>
+  <object id="156" x="669" y="383.667" width="24" height="24.6666"/>
  </objectgroup>
  <objectgroup id="9" name="Object Layer 6"/>
  <objectgroup id="11" name="Object Layer 7"/>
