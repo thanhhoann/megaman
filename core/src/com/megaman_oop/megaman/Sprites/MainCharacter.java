@@ -26,6 +26,7 @@ public class MainCharacter extends Sprite {
     SHOOTING,
     SHOOTING_WHILE_RUNNING,
     SITTING,
+    HURT,
     DEAD;
   }
 
@@ -38,6 +39,7 @@ public class MainCharacter extends Sprite {
   private TextureRegion megamanStand;
   private TextureRegion megamanDead;
 
+  private Animation<TextureRegion> megamanHurt;
   private Animation<TextureRegion> megamanRun;
   private Animation<TextureRegion> megamanJump;
   private Animation<TextureRegion> megamanSit;
@@ -79,6 +81,11 @@ public class MainCharacter extends Sprite {
     megamanJump = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
+    for(int i = 1; i < 6; i++){
+      frames.add(new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"),i*110,230,90,110));
+    }
+    megamanHurt = new Animation<TextureRegion>(0.1f,frames);
+
     for (int i = 1; i < 2; i++)
       frames.add(
           new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 150, 585, 90, 110));
@@ -98,6 +105,7 @@ public class MainCharacter extends Sprite {
     megamanShootWhileRunning = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
+    megamanDead =new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 230, 90, 110);
     megamanStand =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
@@ -151,6 +159,8 @@ public class MainCharacter extends Sprite {
       case SITTING:
         region = megamanSit.getKeyFrame(stateTimer, true);
         break;
+      case HURT:
+        region = megamanHurt.getKeyFrame(stateTimer,true);
       case SHOOTING_WHILE_RUNNING:
         region = megamanShootWhileRunning.getKeyFrame(stateTimer, true);
         break;
@@ -190,6 +200,7 @@ public class MainCharacter extends Sprite {
     else if (b2body.getLinearVelocity().x != 0) return State.RUNNING;
     else if (currentState == State.SHOOTING) return State.SHOOTING;
     else if (currentState == State.SITTING) return State.SITTING;
+    else if(currentState == State.HURT) return State.HURT;
     else if (currentState == State.SHOOTING_WHILE_RUNNING) return State.SHOOTING_WHILE_RUNNING;
     else return State.STANDING;
   }
@@ -197,7 +208,6 @@ public class MainCharacter extends Sprite {
   public void shoot() {
     if (b2body.getLinearVelocity().x != 0) currentState = State.SHOOTING_WHILE_RUNNING;
     else currentState = State.SHOOTING;
-
     fireballs.add(
         new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight));
   }
@@ -269,7 +279,6 @@ public class MainCharacter extends Sprite {
     fixtureDef.shape = shape;
     b2body.createFixture(fixtureDef).setUserData(this);
 
-    b2body.createFixture(fixtureDef).setUserData(this);
   }
 
   public void setCurrentState(State currentState) {

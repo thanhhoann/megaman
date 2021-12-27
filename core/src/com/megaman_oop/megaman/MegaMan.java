@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.megaman_oop.megaman.Screens.MenuScreen;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 
 public class MegaMan extends Game {
