@@ -11,6 +11,7 @@ import com.megaman_oop.megaman.Screens.PlayScreen;
 
 public class FireBall extends Sprite {
 
+  private float x,y;
   PlayScreen screen;
   World world;
   Array<TextureRegion> frames;
@@ -27,6 +28,8 @@ public class FireBall extends Sprite {
     this.fireRight = fireRight;
     this.screen = screen;
     this.world = screen.getWorld();
+    this.x = x;
+    this.y = y;
     frames = new Array<TextureRegion>();
     for (int i = 1; i <= 3; i++) {
       if (i == 1)
@@ -53,26 +56,27 @@ public class FireBall extends Sprite {
     // if fire on the right -> move 12 px to the right of the MainCharacter
     // if fire on the left -> move 30 px to the left of the MainCharacter
     bodyDef.position.set(
-        fireRight ? getX() + 12 / MegaMan.PPM : getX() - 30 / MegaMan.PPM, getY() - 0.05F);
+        fireRight ? getX() + 12 / MegaMan.PPM : getX() - 30 / MegaMan.PPM, getY() - 0.15F);
     bodyDef.type = BodyDef.BodyType.DynamicBody;
     if (!world.isLocked()) b2body = world.createBody(bodyDef);
 
     FixtureDef fixtureDef = new FixtureDef();
     CircleShape shape = new CircleShape();
-    shape.setRadius(0);
+    shape.setPosition(new Vector2(fireRight ? 0.15f: 0.1f,0.1f));
+    shape.setRadius(9/MegaMan.PPM);
     fixtureDef.filter.categoryBits = MegaMan.FIREBALL_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT
             | MegaMan.COIN_BIT
             | MegaMan.BRICK_BIT
-            | MegaMan.ENEMY_BIT
+            | MegaMan.ENEMY_HEAD_BIT
+            | MegaMan.MEGAMAN_BIT
             | MegaMan.OBJECT_BIT;
 
     fixtureDef.shape = shape;
-    fixtureDef.restitution = 0;
-    fixtureDef.friction = 0;
     b2body.createFixture(fixtureDef).setUserData(this);
     b2body.setGravityScale(0F);
+    fixtureDef.isSensor = true;
 
     if (fireRight) {
       b2body.setLinearVelocity(new Vector2(1.5F, 0));
