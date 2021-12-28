@@ -199,7 +199,7 @@ public class MainCharacter extends Sprite {
     else currentState = State.SHOOTING;
 
     fireballs.add(
-        new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight));
+        new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
   }
 
   public void die() {
@@ -268,6 +268,11 @@ public class MainCharacter extends Sprite {
 
     fixtureDef.shape = shape;
     b2body.createFixture(fixtureDef).setUserData(this);
+    EdgeShape head = new EdgeShape();
+    head.set(new Vector2(10 / MegaMan.PPM, 6 / MegaMan.PPM), new Vector2(10 / MegaMan.PPM, -6 / MegaMan.PPM));
+    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
+    fixtureDef.shape = head;
+    fixtureDef.isSensor = true;
 
     b2body.createFixture(fixtureDef).setUserData(this);
   }

@@ -162,7 +162,7 @@ public class PlayScreen implements Screen {
     player.update(dt);
 
     for (Enemy enemy : creator.getEnemies()) {
-      enemy.update(dt);
+      enemy.update(dt, player);
       if (enemy.getX() < player.getX() + 224 / MegaMan.PPM) {
         enemy.b2body.setActive(true);
       }
@@ -200,12 +200,12 @@ public class PlayScreen implements Screen {
     renderer.render();
 
     // renderer our Box2DDebugLines
-    // b2dr.render(world, gamecam.combined);
+    b2dr.render(world, gamecam.combined);
 
     game.batch.setProjectionMatrix(gamecam.combined);
     game.batch.begin();
     player.draw(game.batch);
-    for (Enemy enemy : creator.getEnemies()) enemy.draw(game.batch);
+    for (Enemy enemy : creator.getEnemies()){enemy.draw(game.batch);}
     for (Item item : items) item.draw(game.batch);
     game.batch.end();
 

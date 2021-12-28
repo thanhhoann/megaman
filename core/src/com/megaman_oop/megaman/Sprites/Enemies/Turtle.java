@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
+import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 
 public class Turtle extends Enemy {
@@ -109,7 +110,7 @@ public class Turtle extends Enemy {
   }
 
   @Override
-  public void update(float dt) {
+  public void update(float dt, MainCharacter mainCharacter) {
     setRegion(getFrame(dt));
     if (currentState == State.STANDING_SHELL && stateTime > 5) {
       currentState = State.WALKING;
@@ -122,16 +123,8 @@ public class Turtle extends Enemy {
   }
 
   @Override
-  public void hitByMegaman(MainCharacter mainCharacter) {
-    if (currentState == State.STANDING_SHELL) {
-      if (mainCharacter.b2body.getPosition().x > b2body.getPosition().x) velocity.x = -2;
-      else velocity.x = 2;
-      currentState = State.MOVING_SHELL;
-      System.out.println("Set to moving shell");
-    } else {
-      currentState = State.STANDING_SHELL;
-      velocity.x = 0;
-    }
+  public void hitByMegaman(FireBall fireBall) {
+
   }
 
   @Override
