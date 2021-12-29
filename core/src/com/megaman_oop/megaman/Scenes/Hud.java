@@ -36,7 +36,7 @@ public class Hud implements Disposable {
   private static Label scoreLabel;
   private Label timeLabel;
   private Label levelLabel;
-  private Label bestScoreLabel;
+  private Label worldLevelLabel;
   private Label megamanLabel;
 
   public Hud(SpriteBatch sb) {
@@ -59,14 +59,13 @@ public class Hud implements Disposable {
     // define our labels using the String, and a Label style consisting of a font and color
     countdownLabel = new Label(String.format("%03d s", worldTimer), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     scoreLabel = new Label(String.format("SCORE: %03d", score), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
-    levelLabel = new Label(String.format("NO RECORD", record), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
+    levelLabel = new Label(String.format("1-1", record), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     timeLabel = new Label("TIME LEFT", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
-   // levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-    bestScoreLabel = new Label("BEST SCORE", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
+    worldLevelLabel = new Label("WORLD LEVEL", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     // add our labels to our table, padding the top, and giving them all equal width with expandX
     table.add(megamanLabel).expandX().padTop(10);
-    table.add(bestScoreLabel).expandX().padTop(10);
+    table.add(worldLevelLabel).expandX().padTop(10);
     table.add(timeLabel).expandX().padTop(10);
     // add a second row to our table
     table.row();
@@ -93,14 +92,6 @@ public class Hud implements Disposable {
   public static void addScore(int value) {
     score += value;
     scoreLabel.setText(String.format("SCORE: %03d", score));
-  }
-
-  //public void updateRecord(ArrayList<Integer> scoresRecord){
-  //  record = Collections.max(scoresRecord);
-  //  levelLabel.setText(String.format("%03d", record));
-  //}
-  public int getScore(){
-    return score;
   }
 
   @Override
