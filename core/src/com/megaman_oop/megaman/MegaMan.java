@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.megaman_oop.megaman.Screens.MenuScreen;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Tools.GameCamera;
 
 public class MegaMan extends Game {
   // Virtual Screen size and Box2D Scale(Pixels Per Meter)
@@ -20,14 +21,17 @@ public class MegaMan extends Game {
   public static final short NOTHING_BIT = 0;
   public static final short GROUND_BIT = 1;
   public static final short MEGAMAN_BIT = 2;
+  //Can be modified
   public static final short BRICK_BIT = 4;
   public static final short COIN_BIT = 8;
-  public static final short DESTROYED_BIT = 16;
+  public static final short BULLET_BIT = 16;
+  public static final short ITEM_BIT = 256;
+  public static final short MEGAMAN_HEAD_BIT = 512;
+
+  //Cannot be modified
   public static final short OBJECT_BIT = 32;
   public static final short ENEMY_BIT = 64;
   public static final short ENEMY_HEAD_BIT = 128;
-  public static final short ITEM_BIT = 256;
-  public static final short MEGAMAN_HEAD_BIT = 512;
   public static final short FIREBALL_BIT = 1024;
 
   public SpriteBatch batch;
@@ -35,6 +39,8 @@ public class MegaMan extends Game {
   public static AssetManager manager;
   public Body b2body;
   public boolean currentState;
+  public GameCamera cam;
+
 
   public MegaMan(PlayScreen playScreen) {}
 
@@ -44,6 +50,7 @@ public class MegaMan extends Game {
   public void create() {
     batch = new SpriteBatch();
     manager = new AssetManager();
+    cam = new GameCamera(V_WIDTH, V_HEIGHT);
 
     manager.load("audio/music/bgmusic.ogg",Music.class);
     //manager.load("audio/sounds/coin.wav", Sound.class);
@@ -59,7 +66,7 @@ public class MegaMan extends Game {
 
     manager.finishLoading();
 
-    setScreen(new PlayScreen(this));
+    setScreen(new MenuScreen(this));
   }
 
   @Override

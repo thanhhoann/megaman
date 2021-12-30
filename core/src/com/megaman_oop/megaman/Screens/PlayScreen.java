@@ -56,7 +56,7 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
-  private SmallBot smallBot;
+
   // Music
   private Music music;
 
@@ -214,6 +214,7 @@ public class PlayScreen implements Screen {
     hud.stage.draw();
 
     if (gameOver() || player.getY() < 0) {
+      music.stop();
       game.setScreen(new GameOverScreen(game));
       dispose();
     }

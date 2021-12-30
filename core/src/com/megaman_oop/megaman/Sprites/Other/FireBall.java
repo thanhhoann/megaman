@@ -11,7 +11,6 @@ import com.megaman_oop.megaman.Screens.PlayScreen;
 
 public class FireBall extends Sprite {
 
-  private float x,y;
   PlayScreen screen;
   World world;
   Array<TextureRegion> frames;
@@ -20,7 +19,6 @@ public class FireBall extends Sprite {
   boolean destroyed;
   boolean setToDestroy;
   boolean fireRight;
-  boolean fireLeft;
 
   Body b2body;
 
@@ -28,8 +26,6 @@ public class FireBall extends Sprite {
     this.fireRight = fireRight;
     this.screen = screen;
     this.world = screen.getWorld();
-    this.x = x;
-    this.y = y;
     frames = new Array<TextureRegion>();
     for (int i = 1; i <= 3; i++) {
       if (i == 1)

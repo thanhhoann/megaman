@@ -9,14 +9,14 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Enemies.FlyBot;
 import com.megaman_oop.megaman.Sprites.Enemies.SmallBot;
-import com.megaman_oop.megaman.Sprites.Enemies.Turtle;
 import com.megaman_oop.megaman.Sprites.TileObjects.Brick;
 import com.megaman_oop.megaman.Sprites.TileObjects.Coin;
 
 public class B2WorldCreator {
   private Array<SmallBot> smallBots;
-  private Array<Turtle> turtles;
+  private Array<FlyBot> flyBots;
 
   public B2WorldCreator(PlayScreen screen) {
     World world = screen.getWorld();
@@ -62,18 +62,18 @@ public class B2WorldCreator {
       body.createFixture(fixtureDef);
     }
 
-    // create brick bodies/fixtures
+    //create brick bodies/fixtures
     for (MapObject object :
-        map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+       map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
       new Brick(screen, object);
     }
 
     // create coin bodies/fixtures
-    for (MapObject object :
-        map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+    //for (MapObject object :
+        //.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 
-      new Coin(screen, object);
-    }
+      //new Coin(screen, object);
+    //}
 
     // create all smallBots
     smallBots = new Array<SmallBot>();
@@ -82,11 +82,12 @@ public class B2WorldCreator {
       Rectangle rect = object.getRectangle();
             smallBots.add(new SmallBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }
-    turtles = new Array<Turtle>();
+    //create FlyBot
+    flyBots = new Array<FlyBot>();
     for (RectangleMapObject object :
             map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
-      //      turtles.add(new Turtle(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
+            flyBots.add(new FlyBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }
   }
 
@@ -94,10 +95,14 @@ public class B2WorldCreator {
     return smallBots;
   }
 
+  public Array<FlyBot> getFlyBots() {
+    return flyBots;
+  }
+
   public Array<Enemy> getEnemies() {
     Array<Enemy> enemies = new Array<Enemy>();
     enemies.addAll(smallBots);
-    enemies.addAll(turtles);
+    enemies.addAll(flyBots);
     return enemies;
   }
 }
