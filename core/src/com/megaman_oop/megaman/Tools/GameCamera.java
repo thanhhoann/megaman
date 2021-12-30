@@ -29,7 +29,7 @@ public class GameCamera {
     }
 
     public Vector2 getInputInGameWorld () {
-        Vector3 inputScreen = new Vector3(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), 0);
+        Vector3 inputScreen = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         Vector3 unprojected = cam.unproject(inputScreen);
         return new Vector2(unprojected.x, unprojected.y);
     }

@@ -36,6 +36,8 @@ public class MegaMan extends Game {
   public static AssetManager manager;
   public Body b2body;
   public boolean currentState;
+  public GameCamera cam;
+
 
   public MegaMan(PlayScreen playScreen) {}
 
@@ -45,6 +47,7 @@ public class MegaMan extends Game {
   public void create() {
     batch = new SpriteBatch();
     manager = new AssetManager();
+    cam = new GameCamera(V_WIDTH, V_HEIGHT);
 
     manager.load("audio/music/bgmusic.ogg",Music.class);
     //manager.load("audio/sounds/coin.wav", Sound.class);
@@ -60,7 +63,7 @@ public class MegaMan extends Game {
 
     manager.finishLoading();
 
-    setScreen(new PlayScreen(this));
+    setScreen(new MenuScreen(this));
   }
 
   @Override

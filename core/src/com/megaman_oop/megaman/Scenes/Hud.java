@@ -21,14 +21,14 @@ public class Hud implements Disposable {
 
   public Stage stage;
   private Viewport viewport;
-  private String myText;
+
 
   // MainCharacter score/time Tracking Variables
   private int worldTimer;
   private boolean timeUp;
   private float timeCount;
   private static int score;
-  private int record;
+
 
 
   // Scene2D widgets
@@ -59,7 +59,7 @@ public class Hud implements Disposable {
     // define our labels using the String, and a Label style consisting of a font and color
     countdownLabel = new Label(String.format("%03d s", worldTimer), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     scoreLabel = new Label(String.format("SCORE: %03d", score), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
-    levelLabel = new Label(String.format("1-1", record), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
+    levelLabel = new Label(String.format("1-1"), new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     timeLabel = new Label("TIME LEFT", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     worldLevelLabel = new Label("WORLD LEVEL", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
     megamanLabel = new Label("MEGAMAN", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("myfont.fnt")), Color.WHITE));
