@@ -32,7 +32,7 @@ public class FlyBot extends Enemy {
     setBounds(getX(), getY(), 30 / MegaMan.PPM, 30 / MegaMan.PPM);
     setToDestroy = false;
     destroyed = false;
-    bullets = new Array<Bullet>(3);
+    bullets = new Array<Bullet>(1);
   }
 
   @Override

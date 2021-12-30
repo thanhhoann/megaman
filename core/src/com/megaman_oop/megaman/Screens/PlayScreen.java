@@ -20,7 +20,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Scenes.Hud;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
-import com.megaman_oop.megaman.Sprites.Enemies.SmallBot;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.Items.ItemDef;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
@@ -33,6 +32,7 @@ public class PlayScreen implements Screen {
   // Reference to our Game, used to set Screens
   private MegaMan game;
   private TextureAtlas atlas;
+  private TextureAtlas atlas_Extra;
   public static boolean alreadyDestroyed = false;
 
   // basic play-screen variables
@@ -66,7 +66,7 @@ public class PlayScreen implements Screen {
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
     this.game = game;
-
+    atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
 
@@ -127,6 +127,10 @@ public class PlayScreen implements Screen {
 
   public TextureAtlas getAtlas() {
     return atlas;
+  }
+
+  public TextureAtlas getAtlas_Extra() {
+    return atlas_Extra;
   }
 
   @Override
@@ -221,7 +225,7 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
+    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3 ) {
       return true;
     }
     return false;

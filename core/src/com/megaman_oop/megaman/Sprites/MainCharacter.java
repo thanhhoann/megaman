@@ -97,6 +97,7 @@ public class MainCharacter extends Sprite {
     megamanShootWhileRunning = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
 
+    megamanDead = new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 959, 90, 110);
     megamanStand =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
@@ -236,8 +237,10 @@ public class MainCharacter extends Sprite {
 
   public void hit(Enemy enemy) {
     healthBar -=1;
-    if(healthBar < 1)
-      die();
+    //if(healthBar < 1){
+     //currentState = State.DEAD;
+     //die();
+    //}
   }
 
   public void defineMEGAMAN() {
@@ -273,6 +276,10 @@ public class MainCharacter extends Sprite {
 
   public void setCurrentState(State currentState) {
     this.currentState = currentState;
+  }
+
+  public static int getHealthBar() {
+    return healthBar;
   }
 
   public void draw(Batch batch) {
