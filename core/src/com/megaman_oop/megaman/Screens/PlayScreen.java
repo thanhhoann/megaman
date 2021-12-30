@@ -95,7 +95,7 @@ public class PlayScreen implements Screen {
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
     world = new World(new Vector2(0, -10), true);
     // allows for debug lines of our box2d world.
-    b2dr = new Box2DDebugRenderer();
+//    b2dr = new Box2DDebugRenderer();
 
     creator = new B2WorldCreator(this);
 
@@ -204,12 +204,14 @@ public class PlayScreen implements Screen {
     renderer.render();
 
     // renderer our Box2DDebugLines
-    b2dr.render(world, gamecam.combined);
+//    b2dr.render(world, gamecam.combined);
 
     game.batch.setProjectionMatrix(gamecam.combined);
     game.batch.begin();
     player.draw(game.batch);
-    for (Enemy enemy : creator.getEnemies()){enemy.draw(game.batch);}
+    for (Enemy enemy : creator.getEnemies()) {
+      enemy.draw(game.batch);
+    }
     for (Item item : items) item.draw(game.batch);
     game.batch.end();
 
@@ -225,7 +227,7 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3 ) {
+    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
       return true;
     }
     return false;
@@ -260,7 +262,7 @@ public class PlayScreen implements Screen {
     map.dispose();
     renderer.dispose();
     world.dispose();
-    b2dr.dispose();
+//    b2dr.dispose();
     hud.dispose();
   }
 
