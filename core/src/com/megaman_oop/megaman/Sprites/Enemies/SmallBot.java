@@ -23,6 +23,7 @@ public class SmallBot extends Enemy {
   private Animation backwardAnimation;
   private Array<TextureRegion> frames;
 
+  private static int healthBar = 3;
   private boolean setToDestroy;
   private boolean destroyed;
 
@@ -138,8 +139,10 @@ public class SmallBot extends Enemy {
 
   @Override
   public void hitByMegaman(FireBall fireBall) {
-    setToDestroy = true;
-    fireBall.setToDestroy();
+    healthBar -= 1;
+    if(healthBar < 1){
+      setToDestroy= true;
+    }
   }
 
   public void draw(Batch batch){

@@ -13,6 +13,7 @@ import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 
 public class FlyBot extends Enemy {
+
   private float stateTime;
   private Animation flyAnimation;
   private Array<TextureRegion> frames;
@@ -20,21 +21,18 @@ public class FlyBot extends Enemy {
   private boolean destroyed;
   private Array<Bullet> bullets;
 
-  public enum State {
-    SHOOTING,
-    NOT_SHOOTING
-  }
+
   public FlyBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
     for(int i =0; i <3; i++){
       frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  i * 130,570 ,130,75));}
     flyAnimation = new Animation(0.2f, frames);
-
     stateTime = 0;
     setBounds(getX(), getY(), 30 / MegaMan.PPM, 30 / MegaMan.PPM);
     setToDestroy = false;
     destroyed = false;
+    bullets = new Array<Bullet>(3);
   }
 
   @Override
@@ -58,7 +56,6 @@ public class FlyBot extends Enemy {
     fdef.shape = shape;
     b2body.createFixture(fdef).setUserData(this);
     b2body.setGravityScale(0F);
-
   }
 
 
@@ -76,6 +73,10 @@ public class FlyBot extends Enemy {
       setRegion((TextureRegion) flyAnimation.getKeyFrame(stateTime, true));
       shootBullet();
     }
+    for (Bullet bullet: bullets) {
+      bullet.update(dt);
+      if (bullet.isDestroyed()) bullets.removeValue(bullet, true);
+    }
   }
 
   @Override
@@ -84,11 +85,13 @@ public class FlyBot extends Enemy {
 
   @Override
   public void shootBullet() {
-    //bullets.add(new Bullet(screen, b2body.getPosition().x , b2body.getPosition().y, true ));
+    if(bullets.isEmpty())
+      bullets.add(new Bullet(screen, b2body.getPosition().x , b2body.getPosition().y ));
   }
-  public void draw(Batch batch){
-    if(!destroyed || stateTime < 0.5)
+  public void draw(Batch batch) {
+    if (!destroyed || stateTime < 0.5) {
       super.draw(batch);
-    //for (Bullet bullet : bullets) bullet.draw(batch);
+      for (Bullet bullet : bullets) bullet.draw(batch);
+    }
   }
 }

@@ -10,20 +10,23 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 
 public class Bullet extends Sprite {
+
     PlayScreen screen;
     World world;
     Array<TextureRegion> frames;
     Animation<TextureRegion> fireAnimation;
     float stateTime;
-    boolean fireDown;
+    //boolean fireDown;
     boolean destroyed;
     boolean setToDestroy;
+
     Body b2body;
 
-    public Bullet(PlayScreen screen, float x, float y, boolean fireDown) {
-        this.fireDown = fireDown;
+    public Bullet(PlayScreen screen, float x, float y) {
+        //this.fireDown = fireDown;
         this.screen = screen;
         this.world = screen.getWorld();
+        frames = new Array<TextureRegion>();
         for (int i = 1; i <= 3; i++) {
             if (i == 1)
                 frames.add(
@@ -53,7 +56,7 @@ public class Bullet extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(3 /MegaMan.PPM);
-        fdef.filter.categoryBits = MegaMan.BRICK_BIT;
+        fdef.filter.categoryBits = MegaMan.BULLET_BIT;
         fdef.filter.maskBits =
                 MegaMan.GROUND_BIT
                         | MegaMan.COIN_BIT
@@ -63,16 +66,16 @@ public class Bullet extends Sprite {
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
         fdef.isSensor = true;
-        b2body.setLinearVelocity(new Vector2(0, -2.5f));
     }
     public void update(float dt){
         stateTime += dt;
         setRegion(fireAnimation.getKeyFrame(stateTime, true));
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-        if((stateTime > 3 || setToDestroy) && !destroyed) {
+        if((stateTime > 2 || setToDestroy) && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
         }
+        b2body.setLinearVelocity(0, -1);
     }
     public void setToDestroy() {
         setToDestroy = true;

@@ -44,7 +44,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
-  private float healthBar;
+  private static int healthBar = 5 ;
   private boolean runningRight;
   private boolean megamanIsDead;
 
@@ -235,7 +235,9 @@ public class MainCharacter extends Sprite {
   }
 
   public void hit(Enemy enemy) {
-
+    healthBar -=1;
+    if(healthBar < 1)
+      die();
   }
 
   public void defineMEGAMAN() {
@@ -258,6 +260,13 @@ public class MainCharacter extends Sprite {
             | MegaMan.ITEM_BIT;
 
     fixtureDef.shape = shape;
+    b2body.createFixture(fixtureDef).setUserData(this);
+
+    EdgeShape head = new EdgeShape();
+    head.set(new Vector2(-2 /MegaMan.PPM, 6 / MegaMan.PPM), new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
+    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
+    fixtureDef.shape = head;
+    fixtureDef.isSensor = true;
     b2body.createFixture(fixtureDef).setUserData(this);
 
   }

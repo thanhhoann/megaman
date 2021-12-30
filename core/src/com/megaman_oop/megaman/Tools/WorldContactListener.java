@@ -5,6 +5,7 @@ import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
+import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 public class WorldContactListener implements ContactListener {
@@ -26,12 +27,27 @@ public class WorldContactListener implements ContactListener {
           ((FireBall) fixA.getUserData()).setToDestroy();
         else ((FireBall) fixB.getUserData()).setToDestroy();
         break;
+      case MegaMan.BULLET_BIT | MegaMan.GROUND_BIT:
+        if (fixA.getFilterData().categoryBits == MegaMan.BULLET_BIT)
+          ((Bullet) fixA.getUserData()).setToDestroy();
+        else ((Bullet) fixB.getUserData()).setToDestroy();
+        break;
       case MegaMan.ENEMY_HEAD_BIT | MegaMan.GROUND_BIT:
         if (fixA.getFilterData().categoryBits == MegaMan.ENEMY_BIT)
           ((Enemy) fixA.getUserData()).reverseVelocity(true, false);
         else ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
         break;
-
+      case MegaMan.MEGAMAN_HEAD_BIT | MegaMan.BULLET_BIT:
+        if (fixA.getFilterData().categoryBits == MegaMan.MEGAMAN_HEAD_BIT)
+          ((MainCharacter) fixA.getUserData()).hit((Enemy) fixB.getUserData());
+        else ((MainCharacter) fixB.getUserData()).hit((Enemy) fixA.getUserData());
+        break;
+      case MegaMan.MEGAMAN_BIT | MegaMan.ENEMY_BIT:
+      case MegaMan.MEGAMAN_BIT | MegaMan.ENEMY_HEAD_BIT:
+        if (fixA.getFilterData().categoryBits == MegaMan.MEGAMAN_BIT)
+          ((MainCharacter) fixA.getUserData()).hit((Enemy) fixB.getUserData());
+        else ((MainCharacter) fixB.getUserData()).hit((Enemy) fixA.getUserData());
+        break;
     }
   }
 
