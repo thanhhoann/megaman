@@ -44,8 +44,7 @@ public class GameOverScreen implements Screen {
 
 
     Label playAgainLabel = new Label("CLICK TO PLAY AGAIN", font);
-
-
+    
     table.row();
     table.add(playAgainLabel).expandX().padTop(10f);
 

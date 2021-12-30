@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
-import com.megaman_oop.megaman.Sprites.Enemies.Turtle;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 public class MainCharacter extends Sprite {
@@ -45,7 +44,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
-
+  private float healthBar;
   private boolean runningRight;
   private boolean megamanIsDead;
 
@@ -197,7 +196,6 @@ public class MainCharacter extends Sprite {
   public void shoot() {
     if (b2body.getLinearVelocity().x != 0) currentState = State.SHOOTING_WHILE_RUNNING;
     else currentState = State.SHOOTING;
-
     fireballs.add(
         new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
   }
@@ -209,9 +207,7 @@ public class MainCharacter extends Sprite {
       megamanIsDead = true;
       Filter filter = new Filter();
       filter.maskBits = MegaMan.NOTHING_BIT;
-
       for (Fixture fixture : b2body.getFixtureList()) fixture.setFilterData(filter);
-
       b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
     }
   }
@@ -232,19 +228,14 @@ public class MainCharacter extends Sprite {
   }
 
   public void sit() {
-    currentState = State.SITTING;
+    if (currentState != State.SITTING) {
+      b2body.applyLinearImpulse(new Vector2(0, -2f), b2body.getWorldCenter(), true);
+      currentState = State.SITTING;
+    }
   }
 
   public void hit(Enemy enemy) {
-    if (enemy instanceof Turtle && ((Turtle) enemy).currentState == Turtle.State.STANDING_SHELL)
-      ((Turtle) enemy)
-          .kick(
-              enemy.b2body.getPosition().x > b2body.getPosition().x
-                  ? Turtle.KICK_RIGHT
-                  : Turtle.KICK_LEFT);
-    else {
-      die();
-    }
+
   }
 
   public void defineMEGAMAN() {
@@ -268,13 +259,7 @@ public class MainCharacter extends Sprite {
 
     fixtureDef.shape = shape;
     b2body.createFixture(fixtureDef).setUserData(this);
-    EdgeShape head = new EdgeShape();
-    head.set(new Vector2(10 / MegaMan.PPM, 6 / MegaMan.PPM), new Vector2(10 / MegaMan.PPM, -6 / MegaMan.PPM));
-    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
-    fixtureDef.shape = head;
-    fixtureDef.isSensor = true;
 
-    b2body.createFixture(fixtureDef).setUserData(this);
   }
 
   public void setCurrentState(State currentState) {

@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
@@ -128,32 +125,31 @@ public class SmallBot extends Enemy {
       stateTime = 0;
     }
     else if(!destroyed) {
-      if (currentState == State.FORWARD && mainCharacter.b2body.getPosition().x > b2body.getPosition().x) {
+      if (currentState == State.FORWARD && stateTime > 5 ) {
         currentState = previousState = State.BACKWARD;
-        velocity.x = -velocity.x;
-        velocity.y = 0;
-      } else if (currentState == State.BACKWARD && mainCharacter.b2body.getPosition().x < b2body.getPosition().x) {
-        currentState = previousState = State.FORWARD;
-        velocity.x = -velocity.x;
-        velocity.y = 0;
+        reverseVelocity(true,false);
       }
       setRegion(getFrame(dt));
       setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - 8 / MegaMan.PPM);
       b2body.setLinearVelocity(velocity);
+      b2body.setGravityScale(0F);
     }
   }
 
   @Override
   public void hitByMegaman(FireBall fireBall) {
     setToDestroy = true;
+    fireBall.setToDestroy();
   }
 
   public void draw(Batch batch){
     if(!destroyed || stateTime < 0.5)
       super.draw(batch);
   }
+
   @Override
-  public void hitByEnemy(Enemy enemy) {
+  public void shootBullet() {
 
   }
+
 }

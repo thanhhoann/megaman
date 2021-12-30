@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="157">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="172">
  <editorsettings>
   <export format="tmx"/>
  </editorsettings>
@@ -75,8 +75,8 @@
 19516,19517,19518,19519,19520,19521,19522,19523,19524,19525,19526,19527,19528,19529,19530,19531,19532,19533,19534,19535,19536,19537,19538,19539,19540,19541,19542,19543,19544,19545,19546,19547,19548,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19337,19576,19577,19578,19579,19576,19576,19577,19578,19576,19576,19576,19576,19576,19576,19576,19577,19578,19579,19580,19581,19581,19576,19577,19578,19579,19580,19581,19576,19576,19576,19577,19578,19579,19580,19581,19408,19589,19590,19591,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,128,128,128,128,128,128,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,2317,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="ground">
-  <object id="49" x="2.5" y="433.5" width="1405.82" height="47"/>
+ <objectgroup id="3" name="ground" visible="0">
+  <object id="49" x="-0.166667" y="432.833" width="1405.82" height="47"/>
   <object id="55" x="111.875" y="418" width="79.875" height="15.625"/>
   <object id="56" x="248" y="418.125" width="56.375" height="15.25"/>
   <object id="57" x="304" y="384.875" width="64.125" height="48.25"/>
@@ -96,17 +96,16 @@
    <polyline points="0,0 -0.0909091,-0.727273 0,-54.1818 -0.0909091,-435.182"/>
   </object>
   <object id="155" x="-2.5" y="0" width="2.375" height="479.875"/>
+  <object id="165" x="1376.25" y="351.5" width="64" height="16"/>
+  <object id="166" x="1472.5" y="336" width="63.25" height="16"/>
+  <object id="170" x="1568.25" y="352" width="63.25" height="16"/>
+  <object id="171" x="1664" y="384" width="48" height="15.75"/>
  </objectgroup>
  <objectgroup id="5" name="wall">
   <object id="78" x="1744.44" y="369.127" width="126.997" height="109.43"/>
   <object id="80" x="2127.33" y="191.862" width="33.3333" height="287.138"/>
  </objectgroup>
- <objectgroup id="4" name="brick">
-  <object id="88" x="1376.21" y="352.314" width="61.2132" height="14.6109"/>
-  <object id="90" x="1472.73" y="336.163" width="63.9091" height="15.2727"/>
-  <object id="91" x="1568.44" y="352.605" width="64.1818" height="15.8182"/>
-  <object id="94" x="1663.51" y="383.031" width="50.1058" height="17.8154"/>
- </objectgroup>
+ <objectgroup id="4" name="brick"/>
  <objectgroup id="7" name="pipe">
   <object id="84" x="862.375" y="404.25" width="12.875" height="28"/>
   <object id="85" x="879.125" y="386.375" width="17.375" height="46.625"/>
@@ -114,8 +113,13 @@
   <object id="87" x="988" y="417.5" width="13.875" height="15"/>
  </objectgroup>
  <objectgroup id="8" name="Object Layer 5">
-  <object id="156" x="671" y="373.667" width="24" height="24.6666"/>
+  <object id="159" x="694" y="401.333"/>
  </objectgroup>
- <objectgroup id="9" name="Object Layer 6"/>
+ <objectgroup id="9" name="Object Layer 6">
+  <object id="160" x="1406.67" y="272.667"/>
+  <object id="161" x="1502.67" y="228.333"/>
+  <object id="162" x="1602.67" y="249"/>
+  <object id="163" x="1689" y="301.333"/>
+ </objectgroup>
  <objectgroup id="11" name="Object Layer 7"/>
 </map>
