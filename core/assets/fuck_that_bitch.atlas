@@ -6,14 +6,14 @@ filter: Nearest, Nearest
 repeat: none
 enemysprite1
   rotate: false
-  xy: 746, 96
+  xy: 746, 20
   size: 864, 864
   orig: 864, 864
   offset: 0, 0
   index: -1
 enemysprite2
   rotate: false
-  xy: 746, 962
+  xy: 746, 886
   size: 1080, 1080
   orig: 1080, 1080
   offset: 0, 0
@@ -21,20 +21,20 @@ enemysprite2
 megaman_shooting_running
   rotate: false
   xy: 2, 2
-  size: 773, 92
-  orig: 773, 92
+  size: 398, 202
+  orig: 398, 202
   offset: 0, 0
   index: -1
 megasprite_remake
   rotate: false
-  xy: 2, 462
+  xy: 2, 386
   size: 742, 1580
   orig: 742, 1580
   offset: 0, 0
   index: -1
 powerup
   rotate: false
-  xy: 2, 282
+  xy: 2, 206
   size: 424, 178
   orig: 424, 178
   offset: 0, 0
