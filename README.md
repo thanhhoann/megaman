@@ -3,6 +3,8 @@
 # MEGA MAN 
 _A game that everyone knows but it sucks._
 
+![Alt Text](libs/Not_a_gif.gif)
+
 ## Features
 
 ## OOP Implementations

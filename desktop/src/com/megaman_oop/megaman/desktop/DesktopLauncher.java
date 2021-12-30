@@ -2,7 +2,7 @@ package com.megaman_oop.megaman.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.megaman_oop.megaman.MegaMan;
+import com.megaman_oop.megaman.*;
 
 public class DesktopLauncher {
   public static void main(String[] arg) {

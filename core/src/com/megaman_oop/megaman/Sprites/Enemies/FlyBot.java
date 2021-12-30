@@ -26,7 +26,7 @@ public class FlyBot extends Enemy {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
     for(int i =0; i <3; i++){
-      frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  i * 130,570 ,130,75));}
+      frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  i * 130,680 ,130,75));}
     flyAnimation = new Animation(0.2f, frames);
     stateTime = 0;
     setBounds(getX(), getY(), 30 / MegaMan.PPM, 30 / MegaMan.PPM);

@@ -66,7 +66,7 @@ public class MegaMan extends Game {
     // manager.load("audio/sounds/mariodie.wav", Sound.class);
     manager.finishLoading();
 
-    setScreen(new MenuScreen(this));
+    setScreen(new PlayScreen(this));
   }
 
   @Override
