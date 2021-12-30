@@ -62,7 +62,7 @@ public class MainCharacter extends Sprite {
     runningRight = true;
 
     Array<TextureRegion> frames = new Array<TextureRegion>();
-
+    // RUN
     for (int i = 1; i < 4; i++) {
       frames.add(
           new TextureRegion(
@@ -70,34 +70,35 @@ public class MainCharacter extends Sprite {
     }
     megamanRun = new Animation<TextureRegion>(0.1f, frames);
     frames.clear();
-
+    // JUMP
     for (int i = 1; i < 4; i++)
       frames.add(
           new TextureRegion(
               screen.getAtlas().findRegion("megasprite_remake"), i * 110, 120, 90, 110));
     megamanJump = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
-
+    // SHOOT
     for (int i = 1; i < 2; i++)
       frames.add(
           new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 150, 585, 90, 110));
     megamanShoot = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
-
+    // SIT
     for (int i = 1; i < 4; i++)
       frames.add(
           new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 580, 90, 110));
     megamanSit = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
-
-    for (int i = 1; i <= 4; i++)
+     // SHOOT WHILE RUNNING
+    for (int i = 1; i <= 3; i++)
       frames.add(
           new TextureRegion(
               screen.getAtlas().findRegion("megasprite_remake"), i * 198, 1113, 90, 110));
     megamanShootWhileRunning = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
-
+    // DEAD
     megamanDead = new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 959, 90, 110);
+    // STAND
     megamanStand =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
@@ -197,8 +198,8 @@ public class MainCharacter extends Sprite {
   public void shoot() {
     if (b2body.getLinearVelocity().x != 0) currentState = State.SHOOTING_WHILE_RUNNING;
     else currentState = State.SHOOTING;
-    fireballs.add(
-        new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
+//    fireballs.add(
+//        new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
   }
 
   public void die() {

@@ -32,8 +32,8 @@ public class SmallBot extends Enemy {
   public SmallBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
     frames = new Array<TextureRegion>();
-    frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 410,110,120));
-    frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  594, 410,110,120));
+    frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 510,110,120));
+    frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  594, 510,110,120));
     forwardAnimation = new Animation(0.3f, frames);
     backwardAnimation = new Animation(0.3f,frames);
     currentState = previousState = State.FORWARD;

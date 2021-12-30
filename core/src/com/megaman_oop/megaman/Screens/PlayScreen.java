@@ -64,7 +64,8 @@ public class PlayScreen implements Screen {
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
   public PlayScreen(MegaMan game) {
-    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
+//    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
+    atlas = new TextureAtlas("fuck_that_bitch.atlas");
     this.game = game;
     atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
     // create cam used to follow MEGAMAN through cam world
