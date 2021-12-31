@@ -17,7 +17,7 @@ import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
-public class MainCharacter extends Sprite {
+public class MainCharacter extends Sprite implements Character{
   public enum State {
     FALLING,
     JUMPING,
@@ -114,7 +114,7 @@ public class MainCharacter extends Sprite {
             new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
     megamanStand =
         new TextureRegion(
-            screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
+            screen.getAtlas().findRegion("megaman_shooting_running"), 153 * 1, 110, 90, 110);
 
     // define Mega Man in Box2d
     defineMEGAMAN();
@@ -283,7 +283,6 @@ public class MainCharacter extends Sprite {
             | MegaMan.ENEMY_BIT
             | MegaMan.OBJECT_BIT
             | MegaMan.ENEMY_HEAD_BIT
-            | MegaMan.BULLET_BIT
             | MegaMan.ITEM_BIT;
 
     fixtureDef.shape = shape;
@@ -297,7 +296,7 @@ public class MainCharacter extends Sprite {
   public static int getHealthBar() {
     return healthBar;
   }
-
+  @Override 
   public void draw(Batch batch) {
     super.draw(batch);
     for (FireBall ball : fireballs) ball.draw(batch);
