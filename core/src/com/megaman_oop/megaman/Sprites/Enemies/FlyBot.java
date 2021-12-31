@@ -91,7 +91,7 @@ public class FlyBot extends Enemy {
   public void draw(Batch batch) {
     if (!destroyed || stateTime < 0.5) {
       super.draw(batch);
-      for (Bullet bullet : bullets) bullet.draw(batch);
+      //for (Bullet bullet : bullets) bullet.draw(batch);
     }
   }
 }
