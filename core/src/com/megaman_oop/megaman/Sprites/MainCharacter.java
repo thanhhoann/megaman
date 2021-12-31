@@ -283,6 +283,7 @@ public class MainCharacter extends Sprite {
             | MegaMan.ENEMY_BIT
             | MegaMan.OBJECT_BIT
             | MegaMan.ENEMY_HEAD_BIT
+            | MegaMan.BULLET_BIT
             | MegaMan.ITEM_BIT;
 
     fixtureDef.shape = shape;

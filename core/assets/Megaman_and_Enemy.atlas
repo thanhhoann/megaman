@@ -4,58 +4,51 @@ size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-christmas-hat
-  rotate: false
-  xy: 1612, 1204
-  size: 272, 272
-  orig: 272, 272
-  offset: 0, 0
-  index: -1
 enemysprite1
   rotate: false
-  xy: 746, 1065
+  xy: 746, 1134
   size: 864, 864
   orig: 864, 864
   offset: 0, 0
   index: -1
 enemysprite3
   rotate: false
-  xy: 1612, 1478
+  xy: 2, 2
   size: 281, 271
   orig: 281, 271
   offset: 0, 0
   index: -1
 finalboss
   rotate: false
-  xy: 746, 199
-  size: 852, 864
-  orig: 852, 864
+  xy: 746, 619
+  size: 1067, 513
+  orig: 1067, 513
   offset: 0, 0
   index: -1
 megaman_shooting_running
   rotate: false
-  xy: 2, 2
+  xy: 1612, 1796
   size: 398, 202
   orig: 398, 202
   offset: 0, 0
   index: -1
 megamanclimb
   rotate: false
-  xy: 2, 206
+  xy: 2, 275
   size: 513, 141
   orig: 513, 141
   offset: 0, 0
   index: -1
 megasprite_remake
   rotate: false
-  xy: 2, 349
+  xy: 2, 418
   size: 742, 1580
   orig: 742, 1580
   offset: 0, 0
   index: -1
 powerup
   rotate: false
-  xy: 1612, 1751
+  xy: 746, 439
   size: 424, 178
   orig: 424, 178
   offset: 0, 0
