@@ -6,10 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.megaman_oop.megaman.Screens.GameOverScreen;
-import com.megaman_oop.megaman.Screens.MenuScreen;
-import com.megaman_oop.megaman.Screens.PlayScreen;
-import com.megaman_oop.megaman.Screens.RuleScreen;
+import com.megaman_oop.megaman.Screens.*;
 import com.megaman_oop.megaman.Tools.GameCamera;
 
 public class MegaMan extends Game {
@@ -66,7 +63,7 @@ public class MegaMan extends Game {
     // manager.load("audio/sounds/mariodie.wav", Sound.class);
     manager.finishLoading();
 
-    setScreen(new PlayScreen(this));
+    setScreen(new MenuScreen(this));
   }
 
   @Override

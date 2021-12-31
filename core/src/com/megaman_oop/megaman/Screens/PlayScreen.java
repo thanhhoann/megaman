@@ -1,5 +1,6 @@
 package com.megaman_oop.megaman.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -30,7 +31,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayScreen implements Screen {
   // Reference to our Game, used to set Screens
-  private MegaMan game;
+  private Game game;
   private TextureAtlas atlas;
   private TextureAtlas atlas_Extra;
   public static boolean alreadyDestroyed = false;
@@ -63,10 +64,11 @@ public class PlayScreen implements Screen {
   private Array<Item> items;
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
-  public PlayScreen(MegaMan game) {
+  public PlayScreen(Game game) {
 //    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
     atlas = new TextureAtlas("fuck_that_bitch.atlas");
     this.game = game;
+    PlayScreen playScreen = this;
     atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
@@ -77,7 +79,7 @@ public class PlayScreen implements Screen {
         new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
 
     // create our game HUD for scores/timers/level info
-    hud = new Hud(game.batch);
+    hud = new Hud( ((MegaMan) game).batch);
 
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
@@ -112,6 +114,7 @@ public class PlayScreen implements Screen {
 
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
+
   }
 
   public void spawnItem(ItemDef idef) {
@@ -207,23 +210,23 @@ public class PlayScreen implements Screen {
     // renderer our Box2DDebugLines
 //    b2dr.render(world, gamecam.combined);
 
-    game.batch.setProjectionMatrix(gamecam.combined);
-    game.batch.begin();
-    player.draw(game.batch);
+    ((MegaMan) game).batch.setProjectionMatrix(gamecam.combined);
+    ((MegaMan) game).batch.begin();
+    player.draw( ((MegaMan) game).batch);
     for (Enemy enemy : creator.getEnemies()) {
-      enemy.draw(game.batch);
+      enemy.draw( ((MegaMan) game).batch);
     }
-    for (Item item : items) item.draw(game.batch);
-    game.batch.end();
+    for (Item item : items) item.draw( ((MegaMan) game).batch);
+    ((MegaMan) game).batch.end();
 
     // Set our batch to now draw what the Hud camera sees.
-    game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+    ((MegaMan) game).batch.setProjectionMatrix(hud.stage.getCamera().combined);
     hud.stage.draw();
 
     if (gameOver() || player.getY() < 0) {
       music.stop();
-      game.setScreen(new GameOverScreen(game));
       dispose();
+      game.setScreen(new GameOverScreen((MegaMan) game));
     }
   }
 
@@ -265,6 +268,7 @@ public class PlayScreen implements Screen {
     world.dispose();
 //    b2dr.dispose();
     hud.dispose();
+
   }
 
   public Hud getHud() {
