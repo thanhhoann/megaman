@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 public class MainCharacter extends Sprite {
@@ -44,7 +45,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
-  private static int healthBar = 5;
+  private static int healthBar = 3;
   private boolean runningRight;
   private boolean megamanIsDead;
 
@@ -108,9 +109,9 @@ public class MainCharacter extends Sprite {
     // DEAD
     megamanDead =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 959, 90, 110);
-    // STAND
-    //    megamanStand =
-    //        new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
+    //STAND
+        megamanStand =
+            new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
     megamanStand =
         new TextureRegion(
             screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
@@ -251,10 +252,18 @@ public class MainCharacter extends Sprite {
 
   public void hit(Enemy enemy) {
     healthBar -= 1;
-    // if(healthBar < 1){
-    // currentState = State.DEAD;
-    // die();
-    // }
+    if(healthBar < 1){
+    currentState = State.DEAD;
+    die();
+    }
+  }
+  public void shot (Bullet bullet) {
+    healthBar -= 1;
+    bullet.setToDestroy();
+    if(healthBar < 1){
+      currentState = State.DEAD;
+      die();
+    }
   }
 
   public void defineMEGAMAN() {
@@ -277,15 +286,6 @@ public class MainCharacter extends Sprite {
             | MegaMan.ITEM_BIT;
 
     fixtureDef.shape = shape;
-    b2body.createFixture(fixtureDef).setUserData(this);
-
-    EdgeShape head = new EdgeShape();
-    head.set(
-        new Vector2(-2 / MegaMan.PPM, 6 / MegaMan.PPM),
-        new Vector2(2 / MegaMan.PPM, 6 / MegaMan.PPM));
-    fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_HEAD_BIT;
-    fixtureDef.shape = head;
-    fixtureDef.isSensor = true;
     b2body.createFixture(fixtureDef).setUserData(this);
   }
 

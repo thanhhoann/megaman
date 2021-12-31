@@ -55,17 +55,19 @@ public class Bullet extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(3 /MegaMan.PPM);
+        shape.setRadius(3/MegaMan.PPM);
         fdef.filter.categoryBits = MegaMan.BULLET_BIT;
         fdef.filter.maskBits =
                 MegaMan.GROUND_BIT
                         | MegaMan.COIN_BIT
                         | MegaMan.BRICK_BIT
                         | MegaMan.MEGAMAN_BIT
+                        | MegaMan.MEGAMAN_HEAD_BIT
                         | MegaMan.OBJECT_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-        fdef.isSensor = true;
+
+
     }
     public void update(float dt){
         stateTime += dt;
