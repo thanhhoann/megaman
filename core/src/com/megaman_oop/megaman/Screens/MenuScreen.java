@@ -58,7 +58,7 @@ public class MenuScreen implements Screen {
                         && ((MegaMan) game).cam.getInputInGameWorld().y < startButtonY + buttonHeight
                         && ((MegaMan) game).cam.getInputInGameWorld().y > startButtonY) {
                     menuScreen.dispose();
-                    game.setScreen(new PlayScreen((MegaMan) game));
+                    game.setScreen(new PreGameScreen((MegaMan) game));
                 }
 
                 //Rule button

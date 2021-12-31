@@ -29,12 +29,14 @@ public class GameOverScreen implements Screen {
   int playAgainButtonWidth = 160;
   int playAgainButton_X = 120;
   int playAgainButton_Y = 70;
+  int quitButton_X = 130;
+  int quitButton_Y = 30;
 
   private Game game;
 
   public GameOverScreen(final Game game) {
     this.game = game;
-    viewport = new FitViewport(MegaMan.V_WIDTH, MegaMan.V_HEIGHT, new OrthographicCamera());
+    viewport = new FitViewport(MegaMan.V_WIDTH/MegaMan.PPM, MegaMan.V_HEIGHT/MegaMan.PPM, new OrthographicCamera());
     stage = new Stage(viewport, ((MegaMan) game).batch);
     final GameOverScreen gameOverScreen = this;
 
@@ -48,19 +50,19 @@ public class GameOverScreen implements Screen {
       @Override
       public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         //Play again button
-        if (((MegaMan) game).cam.getInputInGameWorld().x > 120
-                && ((MegaMan) game).cam.getInputInGameWorld().x < 120 + playAgainButtonWidth
-                && ((MegaMan) game).cam.getInputInGameWorld().y < 70 + buttonHeight
-                && ((MegaMan) game).cam.getInputInGameWorld().y > 70) {
+        if (((MegaMan) game).cam.getInputInGameWorld().x > playAgainButton_X
+                && ((MegaMan) game).cam.getInputInGameWorld().x < playAgainButton_X + playAgainButtonWidth
+                && ((MegaMan) game).cam.getInputInGameWorld().y < playAgainButton_Y + buttonHeight
+                && ((MegaMan) game).cam.getInputInGameWorld().y > playAgainButton_Y) {
           gameOverScreen.dispose();
           game.setScreen(new PlayScreen((MegaMan) game));
         }
 
         //Quit button
-        if (((MegaMan) game).cam.getInputInGameWorld().x > 130
-                && ((MegaMan) game).cam.getInputInGameWorld().x < 130 + quitButtonWidth
-                && ((MegaMan) game).cam.getInputInGameWorld().y < 30 + buttonHeight
-                && ((MegaMan) game).cam.getInputInGameWorld().y > 30) {
+        if (((MegaMan) game).cam.getInputInGameWorld().x > quitButton_X
+                && ((MegaMan) game).cam.getInputInGameWorld().x < quitButton_X + quitButtonWidth
+                && ((MegaMan) game).cam.getInputInGameWorld().y < quitButton_Y + buttonHeight
+                && ((MegaMan) game).cam.getInputInGameWorld().y > quitButton_Y) {
           gameOverScreen.dispose();
           Gdx.app.exit();
         }
@@ -89,20 +91,20 @@ public class GameOverScreen implements Screen {
     ((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
 
     //Play again button render
-    if (((MegaMan) game).cam.getInputInGameWorld().x > 120
-            && ((MegaMan) game).cam.getInputInGameWorld().x < 120 + playAgainButtonWidth
-            && ((MegaMan) game).cam.getInputInGameWorld().y < 70 + buttonHeight
-            && ((MegaMan) game).cam.getInputInGameWorld().y > 70) {
+    if (((MegaMan) game).cam.getInputInGameWorld().x > playAgainButton_X
+            && ((MegaMan) game).cam.getInputInGameWorld().x < playAgainButton_X + playAgainButtonWidth
+            && ((MegaMan) game).cam.getInputInGameWorld().y < playAgainButton_Y + buttonHeight
+            && ((MegaMan) game).cam.getInputInGameWorld().y > playAgainButton_Y) {
       ((MegaMan) game).batch.draw(playAgainBtnActive, 350, 200);
     } else {
       ((MegaMan) game).batch.draw(playAgainBtnInactive, 350, 200);
     }
 
     //Quit button render
-    if (((MegaMan) game).cam.getInputInGameWorld().x > 130
-            && ((MegaMan) game).cam.getInputInGameWorld().x < 130 + quitButtonWidth
-            && ((MegaMan) game).cam.getInputInGameWorld().y < 30 + buttonHeight
-            && ((MegaMan) game).cam.getInputInGameWorld().y > 30) {
+    if (((MegaMan) game).cam.getInputInGameWorld().x > quitButton_X
+            && ((MegaMan) game).cam.getInputInGameWorld().x < quitButton_X + quitButtonWidth
+            && ((MegaMan) game).cam.getInputInGameWorld().y < quitButton_Y + buttonHeight
+            && ((MegaMan) game).cam.getInputInGameWorld().y > quitButton_Y) {
       ((MegaMan) game).batch.draw(quitBtnActive, 400, 100);
     } else {
       ((MegaMan) game).batch.draw(quitBtnInactive, 400, 100);
@@ -132,6 +134,7 @@ public class GameOverScreen implements Screen {
 
   @Override
   public void dispose() {
+
     Gdx.input.setInputProcessor(null);
   }
 }
