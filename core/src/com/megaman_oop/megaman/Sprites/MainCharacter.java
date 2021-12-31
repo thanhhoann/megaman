@@ -113,7 +113,7 @@ public class MainCharacter extends Sprite {
     //        new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
     megamanStand =
         new TextureRegion(
-            screen.getAtlas().findRegion("megaman_shooting_running"), 153 * 1, 110, 90, 110);
+            screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
     // define Mega Man in Box2d
     defineMEGAMAN();
