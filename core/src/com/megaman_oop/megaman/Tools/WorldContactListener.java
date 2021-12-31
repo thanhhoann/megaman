@@ -37,16 +37,16 @@ public class WorldContactListener implements ContactListener {
           ((Enemy) fixA.getUserData()).reverseVelocity(true, false);
         else ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
         break;
-      case MegaMan.MEGAMAN_HEAD_BIT | MegaMan.BULLET_BIT:
-        if (fixA.getFilterData().categoryBits == MegaMan.MEGAMAN_HEAD_BIT)
-          ((MainCharacter) fixA.getUserData()).hit((Enemy) fixB.getUserData());
-        else ((MainCharacter) fixB.getUserData()).hit((Enemy) fixA.getUserData());
-        break;
       case MegaMan.MEGAMAN_BIT | MegaMan.ENEMY_BIT:
       case MegaMan.MEGAMAN_BIT | MegaMan.ENEMY_HEAD_BIT:
         if (fixA.getFilterData().categoryBits == MegaMan.MEGAMAN_BIT)
           ((MainCharacter) fixA.getUserData()).hit((Enemy) fixB.getUserData());
         else ((MainCharacter) fixB.getUserData()).hit((Enemy) fixA.getUserData());
+        break;
+      case MegaMan.MEGAMAN_BIT | MegaMan.BULLET_BIT:
+        if (fixA.getFilterData().categoryBits == MegaMan.MEGAMAN_BIT)
+          ((MainCharacter) fixA.getUserData()).shot((Bullet) fixB.getUserData());
+        else ((MainCharacter) fixB.getUserData()).shot((Bullet) fixA.getUserData());
         break;
     }
   }

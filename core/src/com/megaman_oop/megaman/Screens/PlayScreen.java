@@ -66,10 +66,14 @@ public class PlayScreen implements Screen {
 
   public PlayScreen(Game game) {
 //    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
-    atlas = new TextureAtlas("fuck_that_bitch.atlas");
+    atlas = new TextureAtlas("Megaman_and_Enemy.atlas");
     this.game = game;
+
     PlayScreen playScreen = this;
     atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
+
+    //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
+
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
 
@@ -98,7 +102,8 @@ public class PlayScreen implements Screen {
     // create our Box2D world, setting no gravity in X, -10 gravity in Y, and allow bodies to sleep
     world = new World(new Vector2(0, -10), true);
     // allows for debug lines of our box2d world.
-//    b2dr = new Box2DDebugRenderer();
+
+    b2dr = new Box2DDebugRenderer();
 
     creator = new B2WorldCreator(this);
 
@@ -208,7 +213,7 @@ public class PlayScreen implements Screen {
     renderer.render();
 
     // renderer our Box2DDebugLines
-//    b2dr.render(world, gamecam.combined);
+   b2dr.render(world, gamecam.combined);
 
     ((MegaMan) game).batch.setProjectionMatrix(gamecam.combined);
     ((MegaMan) game).batch.begin();
@@ -223,7 +228,7 @@ public class PlayScreen implements Screen {
     ((MegaMan) game).batch.setProjectionMatrix(hud.stage.getCamera().combined);
     hud.stage.draw();
 
-    if (gameOver() || player.getY() < 0) {
+    if (gameOver() || player.getY() < 0 || player.isDead() == true) {
       music.stop();
       dispose();
       game.setScreen(new GameOverScreen((MegaMan) game));
@@ -266,7 +271,7 @@ public class PlayScreen implements Screen {
     map.dispose();
     renderer.dispose();
     world.dispose();
-//    b2dr.dispose();
+    b2dr.dispose();
     hud.dispose();
 
   }
