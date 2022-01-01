@@ -71,9 +71,6 @@ public class GameOverScreen implements Screen {
       }
 
     });
-
-
-
   }
 
   @Override
@@ -88,7 +85,8 @@ public class GameOverScreen implements Screen {
     Gdx.gl.glClearColor(0, 1, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     ((MegaMan) game).batch.begin();
-    ((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
+    ((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+    //((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
 
     //Play again button render
     if (((MegaMan) game).cam.getInputInGameWorld().x > playAgainButton_X
