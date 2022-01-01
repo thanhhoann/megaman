@@ -85,8 +85,8 @@ public class FlyBot extends Enemy {
 
   @Override
   public void shootBullet() {
-    if(bullets.isEmpty())
-      bullets.add(new Bullet(screen, b2body.getPosition().x , b2body.getPosition().y ));
+    //if(bullets.isEmpty())
+      //bullets.add(new Bullet(screen, b2body.getPosition().x , b2body.getPosition().y ));
   }
   public void draw(Batch batch) {
     if (!destroyed) {

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Enemies.FinalBoss;
 import com.megaman_oop.megaman.Sprites.Enemies.FlyBot;
 import com.megaman_oop.megaman.Sprites.Enemies.SmallBot;
 import com.megaman_oop.megaman.Sprites.TileObjects.Brick;
@@ -17,6 +18,7 @@ import com.megaman_oop.megaman.Sprites.TileObjects.Coin;
 public class B2WorldCreator {
   private Array<SmallBot> smallBots;
   private Array<FlyBot> flyBots;
+  private Array<FinalBoss> finalBosses;
 
   public B2WorldCreator(PlayScreen screen) {
     World world = screen.getWorld();
@@ -89,6 +91,12 @@ public class B2WorldCreator {
       Rectangle rect = object.getRectangle();
             flyBots.add(new FlyBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
     }
+    finalBosses = new Array<FinalBoss>();
+    for (RectangleMapObject object :
+            map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+      Rectangle rect = object.getRectangle();
+      finalBosses.add(new FinalBoss(screen,rect.getX()/MegaMan.PPM,rect.getY()/MegaMan.PPM));
+    }
   }
 
   public Array<SmallBot> getSmallBots() {
@@ -99,10 +107,12 @@ public class B2WorldCreator {
     return flyBots;
   }
 
+
   public Array<Enemy> getEnemies() {
     Array<Enemy> enemies = new Array<Enemy>();
     enemies.addAll(smallBots);
     enemies.addAll(flyBots);
+    enemies.addAll(finalBosses);
     return enemies;
   }
 }
