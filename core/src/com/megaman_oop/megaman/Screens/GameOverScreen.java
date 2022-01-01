@@ -36,7 +36,7 @@ public class GameOverScreen implements Screen {
 
   public GameOverScreen(final Game game) {
     this.game = game;
-    viewport = new FitViewport(MegaMan.V_WIDTH/MegaMan.PPM, MegaMan.V_HEIGHT/MegaMan.PPM, new OrthographicCamera());
+    viewport = new FitViewport(MegaMan.V_WIDTH, MegaMan.V_HEIGHT, new OrthographicCamera());
     stage = new Stage(viewport, ((MegaMan) game).batch);
     final GameOverScreen gameOverScreen = this;
 
@@ -82,11 +82,10 @@ public class GameOverScreen implements Screen {
   public void render(float delta) {
 
     elapsed += Gdx.graphics.getDeltaTime();
-    Gdx.gl.glClearColor(0, 1, 0, 0);
+    Gdx.gl.glClearColor(0,0,0,0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     ((MegaMan) game).batch.begin();
-    ((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-    //((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
+    ((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
 
     //Play again button render
     if (((MegaMan) game).cam.getInputInGameWorld().x > playAgainButton_X
