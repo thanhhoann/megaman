@@ -31,7 +31,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayScreen implements Screen {
   // Reference to our Game, used to set Screens
-  private Game game;
+  private MegaMan game;
+  private PlayScreen playScreen;
   private TextureAtlas atlas;
   private TextureAtlas atlas_Extra;
   public static boolean alreadyDestroyed = false;
@@ -64,13 +65,13 @@ public class PlayScreen implements Screen {
   private Array<Item> items;
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
-  public PlayScreen(Game game) {
+  public PlayScreen(MegaMan game) {
 //    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
     atlas = new TextureAtlas("Megaman_and_Enemy.atlas");
     this.game = game;
 
-    PlayScreen playScreen = this;
-    atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
+    playScreen = this;
+    //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
 
     //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
 
@@ -198,6 +199,7 @@ public class PlayScreen implements Screen {
 
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
+
   }
 
   @Override
@@ -213,7 +215,7 @@ public class PlayScreen implements Screen {
     renderer.render();
 
     // renderer our Box2DDebugLines
-   b2dr.render(world, gamecam.combined);
+    b2dr.render(world, gamecam.combined);
 
     ((MegaMan) game).batch.setProjectionMatrix(gamecam.combined);
     ((MegaMan) game).batch.begin();
@@ -228,10 +230,10 @@ public class PlayScreen implements Screen {
     ((MegaMan) game).batch.setProjectionMatrix(hud.stage.getCamera().combined);
     hud.stage.draw();
 
+
     if (gameOver() || player.getY() < 0 || player.isDead() == true) {
-      music.stop();
       dispose();
-      game.setScreen(new GameOverScreen((MegaMan) game));
+      game.setScreen(new GameOverScreen(game));
     }
   }
 
@@ -239,7 +241,7 @@ public class PlayScreen implements Screen {
     if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
       return true;
     }
-    return false;
+      return false;
   }
 
   @Override

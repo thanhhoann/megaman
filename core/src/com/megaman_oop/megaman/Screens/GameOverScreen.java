@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -22,6 +23,7 @@ public class GameOverScreen implements Screen {
   Animation<TextureRegion> gameoverBackground = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("gameOverScreen_background.gif").read());
   Texture playAgainBtnActive, playAgainBtnInactive;
   Texture quitBtnActive, quitBtnInactive;
+  private SpriteBatch batch = new SpriteBatch();
   float elapsed;
 
   int buttonHeight = 30;
@@ -71,6 +73,8 @@ public class GameOverScreen implements Screen {
       }
 
     });
+
+
   }
 
   @Override
@@ -84,31 +88,31 @@ public class GameOverScreen implements Screen {
     elapsed += Gdx.graphics.getDeltaTime();
     Gdx.gl.glClearColor(0,0,0,0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    ((MegaMan) game).batch.begin();
-    ((MegaMan) game).batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
+    batch.begin();
+    batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
 
-    //Play again button render
+    //Render play again button
     if (((MegaMan) game).cam.getInputInGameWorld().x > playAgainButton_X
             && ((MegaMan) game).cam.getInputInGameWorld().x < playAgainButton_X + playAgainButtonWidth
             && ((MegaMan) game).cam.getInputInGameWorld().y < playAgainButton_Y + buttonHeight
             && ((MegaMan) game).cam.getInputInGameWorld().y > playAgainButton_Y) {
-      ((MegaMan) game).batch.draw(playAgainBtnActive, 350, 200);
+      batch.draw(playAgainBtnActive, 350, 200);
     } else {
-      ((MegaMan) game).batch.draw(playAgainBtnInactive, 350, 200);
+      batch.draw(playAgainBtnInactive, 350, 200);
     }
 
-    //Quit button render
+    //Render quit button
     if (((MegaMan) game).cam.getInputInGameWorld().x > quitButton_X
             && ((MegaMan) game).cam.getInputInGameWorld().x < quitButton_X + quitButtonWidth
             && ((MegaMan) game).cam.getInputInGameWorld().y < quitButton_Y + buttonHeight
             && ((MegaMan) game).cam.getInputInGameWorld().y > quitButton_Y) {
-      ((MegaMan) game).batch.draw(quitBtnActive, 400, 100);
+      batch.draw(quitBtnActive, 400, 100);
     } else {
-      ((MegaMan) game).batch.draw(quitBtnInactive, 400, 100);
+      batch.draw(quitBtnInactive, 400, 100);
     }
 
-    ((MegaMan) game).batch.end();
-
+    batch.end();
+    stage.draw();
   }
 
   @Override
@@ -132,6 +136,6 @@ public class GameOverScreen implements Screen {
   @Override
   public void dispose() {
 
-    Gdx.input.setInputProcessor(null);
+    stage.dispose();
   }
 }

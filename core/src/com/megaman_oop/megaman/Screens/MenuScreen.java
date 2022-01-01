@@ -76,8 +76,7 @@ public class MenuScreen implements Screen {
                         && ((MegaMan) game).cam.getInputInGameWorld().y < quitButtonY + buttonHeight
                         && ((MegaMan) game).cam.getInputInGameWorld().y > quitButtonY) {
                     menuScreen.dispose();
-                    game.setScreen(new GameOverScreen((MegaMan)game));
-                    //Gdx.app.exit();
+                    Gdx.app.exit();
                 }
 
                 return super.touchUp(screenX, screenY, pointer, button);
