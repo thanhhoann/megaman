@@ -93,7 +93,7 @@ public class B2WorldCreator {
     }
     finalBosses = new Array<FinalBoss>();
     for (RectangleMapObject object :
-            map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+            map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
       finalBosses.add(new FinalBoss(screen,rect.getX()/MegaMan.PPM,rect.getY()/MegaMan.PPM));
     }
