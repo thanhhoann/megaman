@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Scenes.Hud;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Enemies.FinalBoss;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.Items.ItemDef;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
@@ -70,7 +71,6 @@ public class PlayScreen implements Screen {
     atlas = new TextureAtlas("Megaman_and_Enemy.atlas");
     this.game = game;
 
-    playScreen = this;
     //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
 
     //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
@@ -215,7 +215,11 @@ public class PlayScreen implements Screen {
     renderer.render();
 
     // renderer our Box2DDebugLines
+
     b2dr.render(world, gamecam.combined);
+
+    //b2dr.render(world, gamecam.combined);
+
 
     ((MegaMan) game).batch.setProjectionMatrix(gamecam.combined);
     ((MegaMan) game).batch.begin();
@@ -232,6 +236,7 @@ public class PlayScreen implements Screen {
 
 
     if (gameOver() || player.getY() < 0 || player.isDead() == true) {
+      music.stop();
       dispose();
       game.setScreen(new GameOverScreen(game));
     }
