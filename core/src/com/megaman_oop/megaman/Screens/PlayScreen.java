@@ -185,7 +185,7 @@ public class PlayScreen implements Screen {
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
-
+    
     CameraStyles.lerpToCharacter(gamecam, player);
 
     float startX = gamecam.viewportWidth / 2;
@@ -196,6 +196,9 @@ public class PlayScreen implements Screen {
         startY,
         levelWidth * tileWidth - startX * 2,
         levelHeight * tileHeight - startY * 2);
+    Vector2 focalPoint = new Vector2();
+    focalPoint.x = (float)1873;
+    focalPoint.y = (float)432.5;
 
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);

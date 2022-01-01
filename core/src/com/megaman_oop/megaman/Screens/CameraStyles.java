@@ -1,8 +1,8 @@
 package com.megaman_oop.megaman.Screens;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 
@@ -40,7 +40,15 @@ public class CameraStyles {
         Vector3 position = camera.position;
         position.x = camera.position.x + (avgX- camera.position.x)*.1f;
         position.y = camera.position.y + (avgY - camera.position.y)*.1f;
-        camera.position.set(position);
+        camera.position.set(position); 
         camera.update();
+    }
+
+    public static boolean setFocalPoint(Camera camera, Vector2 point, MainCharacter mainCharacter){
+        if (mainCharacter.getX() < point.x) {
+            lerpToCharacter(camera, mainCharacter);
+            return false;
+        }
+        return true;
     }
 }
