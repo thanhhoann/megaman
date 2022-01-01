@@ -9,8 +9,8 @@ import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 public class CameraStyles {
     public static void lerpToCharacter(Camera camera, MainCharacter character){
         Vector3 position = camera.position;
-        position.x = camera.position.x + (character.getX()*MegaMan.PPM - camera.position.x)*.1f;
-        position.y = camera.position.y + (character.getY()*MegaMan.PPM - camera.position.y)*.05f;
+        position.x = camera.position.x + (character.getX()- camera.position.x)*.1f;
+        position.y = camera.position.y + (character.getY() - camera.position.y)*.05f;
         camera.position.set(position);
         camera.update();
     }
