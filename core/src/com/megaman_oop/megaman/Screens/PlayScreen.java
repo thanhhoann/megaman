@@ -35,7 +35,7 @@ public class PlayScreen implements Screen {
   private MegaMan game;
   private PlayScreen playScreen;
   private TextureAtlas atlas;
-  private TextureAtlas atlas_Extra;
+
   public static boolean alreadyDestroyed = false;
 
   // basic play-screen variables
@@ -67,13 +67,8 @@ public class PlayScreen implements Screen {
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
   public PlayScreen(MegaMan game) {
-//    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
-    atlas = new TextureAtlas("Megaman_and_Enemy.atlas");
+    atlas = new TextureAtlas("MEGAMAN_ENEMY.atlas");
     this.game = game;
-
-    //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
-
-    //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
 
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
@@ -139,9 +134,6 @@ public class PlayScreen implements Screen {
     return atlas;
   }
 
-  public TextureAtlas getAtlas_Extra() {
-    return atlas_Extra;
-  }
 
   @Override
   public void show() {}
