@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -60,6 +62,7 @@ public class PlayScreen implements Screen {
 
   // sprites
   private MainCharacter player;
+  private Texture health;
 
   // Music
   private Music music;
@@ -116,6 +119,8 @@ public class PlayScreen implements Screen {
 
     items = new Array<Item>();
     itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
+
+    health = new Texture("health.png");
 
   }
 
@@ -234,8 +239,20 @@ public class PlayScreen implements Screen {
     ((MegaMan) game).batch.setProjectionMatrix(hud.stage.getCamera().combined);
     hud.stage.draw();
 
+    //draw health bar
+    ((MegaMan) game).batch.begin();
+    if(player.getHealthBar()>6){
+      ((MegaMan)game).batch.setColor(Color.GREEN);
+    }
+    else if(player.getHealthBar()>3)
+      ((MegaMan)game).batch.setColor(Color.ORANGE);
+    else 
+      ((MegaMan)game).batch.setColor(Color.RED);
+    ((MegaMan)game).batch.draw(health, 0, 0, MegaMan.V_WIDTH*player.getHealthBar()/10, 10);
+    ((MegaMan)game).batch.setColor(Color.WHITE);
+    ((MegaMan) game).batch.end();
 
-    if (gameOver() || player.getY() < 0) {
+    if (gameOver()) {
       music.stop();
       dispose();
       game.setScreen(new GameOverScreen(game));
@@ -243,7 +260,7 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 2) {
+    if ((player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 2) || player.getY()<0) {
       return true;
     }
       return false;

@@ -260,7 +260,7 @@ public class MainCharacter extends Sprite {
   }
 
   public void hit(Enemy enemy) {
-    //healthBar -= 1;
+    healthBar -= 1;
     if(healthBar < 1){
     currentState = State.DEAD;
     die();
@@ -268,7 +268,7 @@ public class MainCharacter extends Sprite {
     currentState = State.HURT;
   }
   public void shot (Bullet bullet) {
-    //healthBar -= 1;
+    healthBar -= 1;
     bullet.setToDestroy();
     if(healthBar < 1){
       currentState = State.DEAD;
