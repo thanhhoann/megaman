@@ -19,7 +19,7 @@ import com.megaman_oop.megaman.MegaMan;
 public class MenuScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
-    Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menu_background.gif").read());
+    Animation<TextureRegion> animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("menu_bg.gif").read());
     Texture startBtnInactive, startBtnActive;
     Texture ruleBtnInactive, ruleBtnActive;
     Texture quitBtnInactive, quitBtnActive;

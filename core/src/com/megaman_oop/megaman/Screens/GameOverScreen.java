@@ -89,7 +89,7 @@ public class GameOverScreen implements Screen {
     Gdx.gl.glClearColor(0,0,0,0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     batch.begin();
-    batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0);
+    batch.draw(gameoverBackground.getKeyFrame(elapsed), 0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
 
     //Render play again button
     if (((MegaMan) game).cam.getInputInGameWorld().x > playAgainButton_X
