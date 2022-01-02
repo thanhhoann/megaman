@@ -154,6 +154,7 @@ public class PlayScreen implements Screen {
       if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) player.shoot();
       // SITTING
       if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) player.sit();
+      if (Gdx.input.isKeyJustPressed(Input.Keys.S))player.toggleHat();
     }
   }
 

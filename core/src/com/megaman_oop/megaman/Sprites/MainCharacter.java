@@ -17,7 +17,7 @@ import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
-public class MainCharacter extends Sprite implements Character{
+public class MainCharacter extends Sprite implements Character,Themeable{
   public enum State {
     FALLING,
     JUMPING,
@@ -26,7 +26,7 @@ public class MainCharacter extends Sprite implements Character{
     SHOOTING,
     SHOOTING_WHILE_RUNNING,
     SITTING,
-    DEAD;
+    DEAD,
   }
 
   public State currentState;
@@ -53,6 +53,9 @@ public class MainCharacter extends Sprite implements Character{
 
   private Array<FireBall> fireballs;
 
+  private Hat hat;
+  private boolean isWearingHat = false;
+
   public MainCharacter(PlayScreen screen) {
     // initialize default values
     this.screen = screen;
@@ -61,7 +64,7 @@ public class MainCharacter extends Sprite implements Character{
     previousState = State.STANDING;
     stateTimer = 0;
     runningRight = true;
-
+    
     Array<TextureRegion> frames = new Array<TextureRegion>();
     // RUN
     for (int i = 1; i < 4; i++) {
@@ -141,6 +144,8 @@ public class MainCharacter extends Sprite implements Character{
       ball.update(dt);
       if (ball.isDestroyed()) fireballs.removeValue(ball, true);
     }
+    if (hat != null && isWearingHat)
+      hat.update(dt);
   }
 
   public TextureRegion getFrame(float dt) {
@@ -300,5 +305,19 @@ public class MainCharacter extends Sprite implements Character{
   public void draw(Batch batch) {
     super.draw(batch);
     for (FireBall ball : fireballs) ball.draw(batch);
+    if (hat != null && isWearingHat){
+      hat.draw(batch);
+    }
+  }
+  public boolean toggleHat(){
+    if(hat == null){
+      this.wearHat(new Hat(this.screen, this.getX(), this.getY()));
+    }
+    return !isWearingHat;
+  }
+
+  @Override
+  public void wearHat(Hat hat) {
+    this.hat = hat;
   }
 }
