@@ -26,6 +26,7 @@ import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.Items.ItemDef;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Tools.B2WorldCreator;
+import com.megaman_oop.megaman.Tools.CameraStyles;
 import com.megaman_oop.megaman.Tools.WorldContactListener;
 
 import java.util.concurrent.LinkedBlockingQueue;

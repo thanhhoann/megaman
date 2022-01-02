@@ -1,5 +1,4 @@
-package com.megaman_oop.megaman.Screens;
-
+package com.megaman_oop.megaman.Tools;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -33,15 +32,15 @@ public class CameraStyles {
         camera.position.set(position);
         camera.update();
     }
-    
+
     public static void averageBetweenTarget(Camera camera, MainCharacter mainCharacter, FinalBoss boss){
         float avgX = (mainCharacter.getX() + boss.getX())/2;
         float avgY = (mainCharacter.getY() + boss.getY())/2;
-        
+
         Vector3 position = camera.position;
         position.x = camera.position.x + (avgX- camera.position.x)*.1f;
         position.y = camera.position.y + (avgY - camera.position.y)*.1f;
-        camera.position.set(position); 
+        camera.position.set(position);
         camera.update();
     }
 }
@@ -54,3 +53,4 @@ public class CameraStyles {
         return true;
     }
 }*/
+
