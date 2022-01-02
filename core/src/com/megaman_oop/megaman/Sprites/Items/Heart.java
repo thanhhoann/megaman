@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Interfaces.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 
-public class Heart extends Sprite {
+public class Heart extends Sprite implements ItemBehaviour {
     PlayScreen screen;
     World world;
     boolean destroyed;
@@ -17,7 +18,7 @@ public class Heart extends Sprite {
     public Heart(PlayScreen screen, float x, float y) {
         this.screen = screen;
         this.world = screen.getWorld();
-        setRegion(screen.getAtlas().findRegion("heart"),0,0,32,32);
+        //setRegion(screen.getAtlas().findRegion("heart"),0,0,32,32);
         setBounds(x, y, 10/ MegaMan.PPM, 10/ MegaMan.PPM);
         defineItem();
     }
@@ -48,9 +49,12 @@ public class Heart extends Sprite {
             destroyed = true;
         }
     }
-    public void useByMegaman(MainCharacter mainCharacter) {
+
+    @Override
+    public void setToDestroy() {
         setToDestroy = true;
     }
+
 
     public boolean isDestroyed() {
         return destroyed;

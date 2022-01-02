@@ -9,21 +9,20 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 
-public class Bullet extends Sprite {
+
+public class Bullet extends Sprite  {
 
     PlayScreen screen;
     World world;
     Array<TextureRegion> frames;
     Animation<TextureRegion> fireAnimation;
     float stateTime;
-    //boolean fireDown;
     boolean destroyed;
     boolean setToDestroy;
 
     Body b2body;
 
     public Bullet(PlayScreen screen, float x, float y) {
-        //this.fireDown = fireDown;
         this.screen = screen;
         this.world = screen.getWorld();
         frames = new Array<TextureRegion>();

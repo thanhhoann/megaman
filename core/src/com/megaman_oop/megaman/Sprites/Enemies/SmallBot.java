@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Interfaces.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.Items.Heart;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
@@ -31,8 +32,9 @@ public class SmallBot extends Enemy {
   private boolean destroyed;
   private Heart heart;
 
-  public SmallBot(PlayScreen screen, float x, float y) {
-    super(screen, x, y);
+  public SmallBot(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
+    super(screen, x, y,itemBehaviour);
+    this.heart = (Heart) itemBehaviour;
     frames = new Array<TextureRegion>();
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 510,110,120));
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  594, 510,110,120));

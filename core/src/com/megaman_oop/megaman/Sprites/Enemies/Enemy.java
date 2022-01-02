@@ -5,19 +5,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Interfaces.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 
-public abstract class Enemy extends Sprite {
+public abstract class Enemy extends Sprite  {
   protected World world;
   protected PlayScreen screen;
+  protected ItemBehaviour itemBehaviour;
   public Body b2body;
   public Vector2 velocity;
 
-  public Enemy(PlayScreen screen, float x, float y) {
+  public Enemy(PlayScreen screen, float x, float y,ItemBehaviour itemBehaviour) {
     this.world = screen.getWorld();
     this.screen = screen;
+    this.itemBehaviour = itemBehaviour; 
     setPosition(x, y);
     defineEnemy();
     velocity = new Vector2(-1, 0);
