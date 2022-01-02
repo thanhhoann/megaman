@@ -8,8 +8,11 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Items.Heart;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
+
+import javax.net.ssl.HandshakeCompletedEvent;
 
 public class SmallBot extends Enemy {
   public enum State {
@@ -26,8 +29,7 @@ public class SmallBot extends Enemy {
   private static int healthBar = 3;
   private boolean setToDestroy;
   private boolean destroyed;
-
-
+  private Heart heart;
 
   public SmallBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
@@ -123,6 +125,7 @@ public class SmallBot extends Enemy {
     if(setToDestroy && !destroyed) {
       world.destroyBody(b2body);
       destroyed = true;
+      heart = new Heart(screen,b2body.getPosition().x,b2body.getPosition().y);
       stateTime = 0;
     }
     else if(!destroyed) {
@@ -148,6 +151,8 @@ public class SmallBot extends Enemy {
   public void draw(Batch batch){
     if(!destroyed || stateTime < 0.5)
       super.draw(batch);
+    else if(destroyed)
+      heart.draw(batch);
   }
 
   @Override
