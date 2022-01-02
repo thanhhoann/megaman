@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Enemies.FinalBoss;
 
 public class CameraStyles {
     public static void lerpToCharacter(Camera camera, MainCharacter character){
@@ -33,9 +34,9 @@ public class CameraStyles {
         camera.update();
     }
     
-    public static void averageBetweenTarget(Camera camera, MainCharacter mainCharacter, Enemy enemy){
-        float avgX = (mainCharacter.getX() + enemy.getX())/2;
-        float avgY = (mainCharacter.getY() + enemy.getY())/2;
+    public static void averageBetweenTarget(Camera camera, MainCharacter mainCharacter, FinalBoss boss){
+        float avgX = (mainCharacter.getX() + boss.getX())/2;
+        float avgY = (mainCharacter.getY() + boss.getY())/2;
         
         Vector3 position = camera.position;
         position.x = camera.position.x + (avgX- camera.position.x)*.1f;
@@ -43,12 +44,13 @@ public class CameraStyles {
         camera.position.set(position); 
         camera.update();
     }
+}
 
-    public static boolean setFocalPoint(Camera camera, Vector2 point, MainCharacter mainCharacter){
-        if (mainCharacter.getX() < point.x) {
+    /*public static boolean focalPoint(Camera camera, FinalBoss boss, MainCharacter mainCharacter){
+        if (mainCharacter.getX() < boss) {
             lerpToCharacter(camera, mainCharacter);
             return false;
         }
         return true;
     }
-}
+}*/

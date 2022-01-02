@@ -182,8 +182,10 @@ public class PlayScreen implements Screen {
       }
     }
     for(FinalBoss finalBoss: creator.getFinalBosses())
-      if(finalBoss.getX() < player.getX() + 256/MegaMan.PPM)
+      if(finalBoss.getX() < player.getX() + 256/MegaMan.PPM){
         finalBoss.b2body.setActive(true);
+        CameraStyles.averageBetweenTarget(gamecam, player, finalBoss);
+      }
     for (Item item : items) item.update(dt);
 
     hud.update(dt);

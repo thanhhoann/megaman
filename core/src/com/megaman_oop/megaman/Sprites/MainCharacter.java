@@ -45,7 +45,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
-  private static int healthBar = 3;
+  private static int healthBar = 10;
   private boolean runningRight;
   private boolean megamanIsDead;
 
