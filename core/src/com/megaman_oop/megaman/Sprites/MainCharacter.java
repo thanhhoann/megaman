@@ -17,7 +17,7 @@ import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
-public class MainCharacter extends Sprite {
+public class MainCharacter extends Sprite implements Wearable{
   public enum State {
     FALLING,
     JUMPING,
@@ -54,6 +54,8 @@ public class MainCharacter extends Sprite {
   private PlayScreen screen;
 
   private Array<FireBall> fireballs;
+  private Hat hat;
+  private boolean isWearingHat = false;
 
   public MainCharacter(PlayScreen screen) {
     // initialize default values
@@ -147,6 +149,9 @@ public class MainCharacter extends Sprite {
       ball.update(dt);
       if (ball.isDestroyed()) fireballs.removeValue(ball, true);
     }
+
+    if (hat != null && !isWearingHat)
+      hat.update(dt);
   }
 
   public TextureRegion getFrame(float dt) {
@@ -311,5 +316,20 @@ public class MainCharacter extends Sprite {
   public void draw(Batch batch) {
     super.draw(batch);
     for (FireBall ball : fireballs) ball.draw(batch);
+    if (hat != null && !isWearingHat){
+      hat.draw(batch);
+    }
+  }
+
+  public boolean toggleHat(){
+    if(hat == null){
+      this.wearHat(new Hat(this.screen, this.getX(), this.getY()));
+    }
+    return !isWearingHat;
+  }
+
+  @Override
+  public void wearHat(Hat hat) {
+    this.hat = hat;
   }
 }
