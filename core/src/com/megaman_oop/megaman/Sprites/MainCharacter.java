@@ -108,13 +108,11 @@ public class MainCharacter extends Sprite {
     frames.clear();
     // DEAD
     megamanDead =
-        new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 959, 90, 110);
+        new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 276, 90, 110);
     //STAND
         megamanStand =
             new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
-    megamanStand =
-        new TextureRegion(
-            screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
+
 
     // define Mega Man in Box2d
     defineMEGAMAN();
@@ -212,8 +210,8 @@ public class MainCharacter extends Sprite {
   public void shoot() {
     if (b2body.getLinearVelocity().x != 0) currentState = State.SHOOTING_WHILE_RUNNING;
     else currentState = State.SHOOTING;
-    //    fireballs.add(
-    //        new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
+        fireballs.add(
+            new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
   }
 
   public void die() {

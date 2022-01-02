@@ -32,6 +32,7 @@ public class WorldContactListener implements ContactListener {
           ((Bullet) fixA.getUserData()).setToDestroy();
         else ((Bullet) fixB.getUserData()).setToDestroy();
         break;
+      case MegaMan.ENEMY_HEAD_BIT | MegaMan.OBJECT_BIT:
       case MegaMan.ENEMY_HEAD_BIT | MegaMan.GROUND_BIT:
         if (fixA.getFilterData().categoryBits == MegaMan.ENEMY_BIT)
           ((Enemy) fixA.getUserData()).reverseVelocity(true, false);
