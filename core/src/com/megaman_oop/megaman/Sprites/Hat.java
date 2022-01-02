@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 
-public class HatDecor extends Sprite{
+public class Hat extends Sprite{
     PlayScreen screen;
     World world;
     Array<TextureRegion> frames;
@@ -21,7 +21,7 @@ public class HatDecor extends Sprite{
     float stateTime;
     Body b2body;
 
-    public HatDecor(PlayScreen screen, float x, float y){
+    public Hat(PlayScreen screen, float x, float y){
         this.screen = screen;
         this.world = screen.getWorld();
         frames = new Array<TextureRegion>();
