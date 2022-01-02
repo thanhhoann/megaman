@@ -35,7 +35,7 @@ public class PlayScreen implements Screen {
   private MegaMan game;
   private PlayScreen playScreen;
   private TextureAtlas atlas;
-  private TextureAtlas atlas_Extra;
+
   public static boolean alreadyDestroyed = false;
 
   // basic play-screen variables
@@ -67,13 +67,8 @@ public class PlayScreen implements Screen {
   private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
   public PlayScreen(MegaMan game) {
-//    atlas = new TextureAtlas("MegaMan_and_Enemies_Sprites.atlas");
-    atlas = new TextureAtlas("Megaman_and_Enemy.atlas");
+    atlas = new TextureAtlas("MEGAMAN_ENEMY.atlas");
     this.game = game;
-
-    //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
-
-    //atlas_Extra = new TextureAtlas("MegaMan_and_Enemies_Sprites1.atlas");
 
     // create cam used to follow MEGAMAN through cam world
     gamecam = new OrthographicCamera();
@@ -139,9 +134,6 @@ public class PlayScreen implements Screen {
     return atlas;
   }
 
-  public TextureAtlas getAtlas_Extra() {
-    return atlas_Extra;
-  }
 
   @Override
   public void show() {}
@@ -181,11 +173,15 @@ public class PlayScreen implements Screen {
         enemy.b2body.setActive(true);
       }
     }
-
+    for(FinalBoss finalBoss: creator.getFinalBosses())
+      if(finalBoss.getX() < player.getX() + 256/MegaMan.PPM){
+        finalBoss.b2body.setActive(true);
+        CameraStyles.averageBetweenTarget(gamecam, player, finalBoss);
+      }
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
-
+    
     CameraStyles.lerpToCharacter(gamecam, player);
 
     float startX = gamecam.viewportWidth / 2;
@@ -196,6 +192,9 @@ public class PlayScreen implements Screen {
         startY,
         levelWidth * tileWidth - startX * 2,
         levelHeight * tileHeight - startY * 2);
+    Vector2 focalPoint = new Vector2();
+    focalPoint.x = (float)1873;
+    focalPoint.y = (float)432.5;
 
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
@@ -235,7 +234,7 @@ public class PlayScreen implements Screen {
     hud.stage.draw();
 
 
-    if (gameOver() || player.getY() < 0 || player.isDead() == true) {
+    if (gameOver() || player.getY() < 0) {
       music.stop();
       dispose();
       game.setScreen(new GameOverScreen(game));
@@ -243,7 +242,7 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
+    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 2) {
       return true;
     }
       return false;

@@ -90,6 +90,7 @@ public class SmallBot extends Enemy {
     fdef.restitution = 0.5f;
     fdef.filter.categoryBits = MegaMan.ENEMY_HEAD_BIT;
     b2body.createFixture(fdef).setUserData(this);
+    b2body.setGravityScale(0F);
   }
 
 
@@ -126,14 +127,17 @@ public class SmallBot extends Enemy {
       stateTime = 0;
     }
     else if(!destroyed) {
-      if (currentState == State.FORWARD && stateTime > 5 ) {
-        currentState = previousState = State.BACKWARD;
+      if (currentState == State.FORWARD && stateTime > 2 ) {
+        currentState =  State.BACKWARD;
+        reverseVelocity(true,false);
+      }
+      else if(currentState == State.BACKWARD && stateTime > 2) {
+        currentState = State.FORWARD;
         reverseVelocity(true,false);
       }
       setRegion(getFrame(dt));
       setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - 8 / MegaMan.PPM);
       b2body.setLinearVelocity(velocity);
-      b2body.setGravityScale(0F);
     }
   }
 

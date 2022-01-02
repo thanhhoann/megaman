@@ -5,16 +5,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class GameCamera {
 
     private OrthographicCamera cam;
-    private StretchViewport viewport;
+    private FitViewport viewport;
 
     public GameCamera (int width, int height) {
         cam = new OrthographicCamera();
-        viewport = new StretchViewport(width, height, cam);
+        viewport = new FitViewport(width, height, cam);
         viewport.apply();
         cam.position.set(width / 2, height / 2, 0);
         cam.update();

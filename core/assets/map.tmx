@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="173">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="135" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="181">
  <editorsettings>
   <export format="tmx"/>
  </editorsettings>
@@ -114,6 +114,7 @@
  </objectgroup>
  <objectgroup id="8" name="Object Layer 5">
   <object id="159" x="694" y="401.333"/>
+  <object id="180" x="936.333" y="397.667"/>
  </objectgroup>
  <objectgroup id="9" name="Object Layer 6">
   <object id="160" x="221.67" y="324.667"/>
@@ -122,7 +123,7 @@
   <object id="163" x="1689" y="301.333"/>
  </objectgroup>
  <objectgroup id="11" name="Object Layer 7">
-  <object id="172" x="2020" y="412"/>
+  <object id="173" x="2081.5" y="421.75"/>
  </objectgroup>
  <objectgroup id="13" name="Object Layer 8"/>
 </map>

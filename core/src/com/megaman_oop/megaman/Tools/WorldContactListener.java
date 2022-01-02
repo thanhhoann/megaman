@@ -3,6 +3,7 @@ package com.megaman_oop.megaman.Tools;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Enemies.FinalBoss;
 import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
@@ -31,11 +32,6 @@ public class WorldContactListener implements ContactListener {
         if (fixA.getFilterData().categoryBits == MegaMan.BULLET_BIT)
           ((Bullet) fixA.getUserData()).setToDestroy();
         else ((Bullet) fixB.getUserData()).setToDestroy();
-        break;
-      case MegaMan.ENEMY_HEAD_BIT | MegaMan.GROUND_BIT:
-        if (fixA.getFilterData().categoryBits == MegaMan.ENEMY_BIT)
-          ((Enemy) fixA.getUserData()).reverseVelocity(true, false);
-        else ((Enemy) fixB.getUserData()).reverseVelocity(true, false);
         break;
       case MegaMan.MEGAMAN_BIT | MegaMan.ENEMY_BIT:
       case MegaMan.MEGAMAN_BIT | MegaMan.ENEMY_HEAD_BIT:

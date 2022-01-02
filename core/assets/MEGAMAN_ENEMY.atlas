@@ -1,54 +1,61 @@
 
-Megaman_and_Enemy.png
+MEGAMAN_ENEMY.png
 size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+christmas-hat
+  rotate: false
+  xy: 2, 2
+  size: 272, 272
+  orig: 272, 272
+  offset: 0, 0
+  index: -1
 enemysprite1
   rotate: false
-  xy: 746, 1134
+  xy: 746, 1135
   size: 864, 864
   orig: 864, 864
   offset: 0, 0
   index: -1
-enemysprite3
-  rotate: false
-  xy: 2, 2
-  size: 281, 271
-  orig: 281, 271
-  offset: 0, 0
-  index: -1
 finalboss
   rotate: false
-  xy: 746, 619
+  xy: 746, 620
   size: 1067, 513
   orig: 1067, 513
   offset: 0, 0
   index: -1
+heart
+  rotate: false
+  xy: 517, 382
+  size: 33, 35
+  orig: 33, 35
+  offset: 0, 0
+  index: -1
 megaman_shooting_running
   rotate: false
-  xy: 1612, 1796
+  xy: 1612, 1797
   size: 398, 202
   orig: 398, 202
   offset: 0, 0
   index: -1
 megamanclimb
   rotate: false
-  xy: 2, 275
+  xy: 2, 276
   size: 513, 141
   orig: 513, 141
   offset: 0, 0
   index: -1
 megasprite_remake
   rotate: false
-  xy: 2, 418
+  xy: 2, 419
   size: 742, 1580
   orig: 742, 1580
   offset: 0, 0
   index: -1
 powerup
   rotate: false
-  xy: 746, 439
+  xy: 746, 440
   size: 424, 178
   orig: 424, 178
   offset: 0, 0

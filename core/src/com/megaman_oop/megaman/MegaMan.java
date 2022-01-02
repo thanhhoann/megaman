@@ -30,7 +30,7 @@ public class MegaMan extends Game {
   public static final short ENEMY_BIT = 64;
   public static final short ENEMY_HEAD_BIT = 128;
   public static final short BULLET_BIT = 256;
-  public static final short MEGAMAN_HEAD_BIT = 512;
+  public static final short FINAL_BOSS_BIT = 512;
   public static final short FIREBALL_BIT = 1024;
 
   public SpriteBatch batch;
