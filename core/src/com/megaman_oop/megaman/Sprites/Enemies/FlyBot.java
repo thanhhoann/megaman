@@ -101,4 +101,6 @@ public class FlyBot extends Enemy {
       for (Bullet bullet : bullets) bullet.draw(batch);
     }
   }
+
+
 }

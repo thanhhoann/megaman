@@ -1,8 +1,10 @@
 package com.megaman_oop.megaman.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
@@ -81,9 +83,7 @@ public class FinalBoss extends Enemy {
         frames.clear();
         //STAND
         standing = new TextureRegion(screen.getAtlas().findRegion("finalboss"),0,160,112,82);
-
         setBounds(getX(), getY() , 50 / MegaMan.PPM, 50 / MegaMan.PPM);
-
         setToDestroy = false;
         destroyed= false;
     }
@@ -183,13 +183,19 @@ public class FinalBoss extends Enemy {
             if(currentState == State.ATTACKING && stateTimer > 3) {
                 currentState = State.STANDING;
                 velocity.x = 0;
+                velocity.y = 0;
             }
-            else if(currentState == State.STANDING && stateTimer > 10 && mainCharacter.b2body.getPosition().y == b2body.getPosition().y) {
+            else if(currentState == State.STANDING && stateTimer > 5) {
                 currentState = State.MOVING;
-                followMegaman(mainCharacter);
+            }
+            else if(currentState == State.MOVING)
+                velocity = followMegaman(mainCharacter);
+            else if( currentState == State.MOVING && stateTimer < 20 ) {
+                        currentState = State.ROLL;
+                        velocity = followMegaman(mainCharacter);
             }
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/3 + 6/MegaMan.PPM);
-            b2body.setLinearVelocity(0,0);
+            b2body.setLinearVelocity(velocity);
         }
     }
 
@@ -203,11 +209,18 @@ public class FinalBoss extends Enemy {
         }
     }
 
-    public void followMegaman(MainCharacter mainCharacter){
-        if(currentState == State.MOVING && mainCharacter.b2body.getPosition().x < b2body.getPosition().x )
-            velocity.x = -1;
-        else if(currentState == State.MOVING && mainCharacter.b2body.getPosition().x > b2body.getPosition().x)
-            velocity.x =1;
+    public Vector2 followMegaman(MainCharacter mainCharacter){
+        if(mainCharacter.b2body.getPosition().x < b2body.getPosition().x )
+            return new Vector2(-1,0);
+        else
+            return new Vector2(1,0);
+    }
+
+
+
+    public void draw(Batch batch){
+        if(!destroyed || stateTimer < 0.5)
+            super.draw(batch);
     }
     @Override
     public void shootBullet() {

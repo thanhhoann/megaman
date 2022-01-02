@@ -22,6 +22,7 @@ public class MainCharacter extends Sprite {
     FALLING,
     JUMPING,
     STANDING,
+    HURT,
     RUNNING,
     SHOOTING,
     SHOOTING_WHILE_RUNNING,
@@ -42,6 +43,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanJump;
   private Animation<TextureRegion> megamanSit;
   private Animation<TextureRegion> megamanShoot;
+  private Animation<TextureRegion> megamanHurt;
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
@@ -89,6 +91,12 @@ public class MainCharacter extends Sprite {
       frames.add(
           new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 580, 90, 110));
     megamanSit = new Animation<TextureRegion>(0.2f, frames);
+    frames.clear();
+    //HURT
+    for (int i = 1; i < 4; i++)
+      frames.add(
+              new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 276, 90, 110));
+    megamanHurt = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
     // SHOOT WHILE RUNNING
     for (int i = 0; i < 5; i++)
@@ -164,6 +172,8 @@ public class MainCharacter extends Sprite {
       case SITTING:
         region = megamanSit.getKeyFrame(stateTimer, true);
         break;
+      case HURT:
+        region = megamanHurt.getKeyFrame(stateTimer,true);
       case SHOOTING_WHILE_RUNNING:
         region = megamanShootWhileRunning.getKeyFrame(stateTimer, true);
         break;
@@ -204,6 +214,7 @@ public class MainCharacter extends Sprite {
     else if (currentState == State.SHOOTING) return State.SHOOTING;
     else if (currentState == State.SITTING) return State.SITTING;
     else if (currentState == State.SHOOTING_WHILE_RUNNING) return State.SHOOTING_WHILE_RUNNING;
+    else if(currentState == State.HURT) return State.HURT;
     else return State.STANDING;
   }
 
@@ -249,14 +260,15 @@ public class MainCharacter extends Sprite {
   }
 
   public void hit(Enemy enemy) {
-    healthBar -= 1;
+    //healthBar -= 1;
     if(healthBar < 1){
     currentState = State.DEAD;
     die();
     }
+    currentState = State.HURT;
   }
   public void shot (Bullet bullet) {
-    healthBar -= 1;
+    //healthBar -= 1;
     bullet.setToDestroy();
     if(healthBar < 1){
       currentState = State.DEAD;
