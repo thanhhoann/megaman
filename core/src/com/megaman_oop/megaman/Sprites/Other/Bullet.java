@@ -68,7 +68,6 @@ public class Bullet extends Sprite {
                         | MegaMan.COIN_BIT
                         | MegaMan.BRICK_BIT
                         | MegaMan.MEGAMAN_BIT
-                        | MegaMan.MEGAMAN_HEAD_BIT
                         | MegaMan.OBJECT_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);

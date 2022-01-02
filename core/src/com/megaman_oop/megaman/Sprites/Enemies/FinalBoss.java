@@ -1,19 +1,13 @@
 package com.megaman_oop.megaman.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
-import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
 public class FinalBoss extends Enemy {
@@ -23,8 +17,7 @@ public class FinalBoss extends Enemy {
         MOVING,
         ATTACKING,
         JUMPING,
-        ROLL,
-        CLIMBING;
+        ROLL;
     }
     public State currentState;
     public State previousState;
@@ -33,15 +26,17 @@ public class FinalBoss extends Enemy {
     private Animation<TextureRegion> moving;
     private Animation<TextureRegion> attacking;
     private Animation<TextureRegion> jumping;
-    private Animation<TextureRegion> climbing;
-    private static int healthBar;
+    private Animation<TextureRegion> rolling;
+
+    private static int healthBar = 10;
     private float stateTimer;
     private boolean setToDestroy;
     private boolean destroyed;
 
     public FinalBoss(PlayScreen screen, float x, float y) {
         super(screen, x, y);
-        previousState = currentState = State.STANDING;
+        previousState =  State.STANDING;
+        currentState = State.STANDING;
         stateTimer = 0;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         //MOVING
@@ -69,10 +64,26 @@ public class FinalBoss extends Enemy {
         }
         jumping = new Animation<TextureRegion>(0.2f,frames);
         frames.clear();
+        //ROLL
+        for(int i= 1; i <= 7 ; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("finalboss"), 0, 392, 96, 121));
+            if (i == 2)
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("finalboss"),120,392,184,121));
+            if(i <= 4)
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("finalboss"),(i-3)*171 + 310,392,171,121));
+            if(i <= 5)
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("finalboss"),(i-4)*128 + 664,392,128,121));
+            if(i == 7)
+                frames.add(new TextureRegion(screen.getAtlas().findRegion("finalboss"),945,392,120,121));
+        }
+        rolling = new Animation<TextureRegion>(0.3f, frames);
+        frames.clear();
         //STAND
         standing = new TextureRegion(screen.getAtlas().findRegion("finalboss"),0,160,112,82);
 
-        setBounds(getX(), getY() , 40 / MegaMan.PPM, 40 / MegaMan.PPM);
+        setBounds(getX(), getY() , 50 / MegaMan.PPM, 50 / MegaMan.PPM);
+
         setToDestroy = false;
         destroyed= false;
     }
@@ -102,10 +113,10 @@ public class FinalBoss extends Enemy {
         // Create the hand here:
         PolygonShape leftHand = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(10, -12).scl(1 / MegaMan.PPM);
-        vertice[1] = new Vector2(10, 12).scl(1 / MegaMan.PPM);
-        vertice[2] = new Vector2(8, -10).scl(1 / MegaMan.PPM);
-        vertice[3] = new Vector2(8, 10).scl(1 / MegaMan.PPM);
+        vertice[0] = new Vector2(10, 12).scl(1 / MegaMan.PPM);
+        vertice[1] = new Vector2(10, -6).scl(1 / MegaMan.PPM);
+        vertice[2] = new Vector2(8, -6).scl(1 / MegaMan.PPM);
+        vertice[3] = new Vector2(8, 6).scl(1 / MegaMan.PPM);
         leftHand.set(vertice);
 
         fdef.shape = leftHand;
@@ -115,10 +126,10 @@ public class FinalBoss extends Enemy {
 
         PolygonShape rightHand = new PolygonShape();
         Vector2[] vertice1 = new Vector2[4];
-        vertice1[0] = new Vector2(-10, -12).scl(1 / MegaMan.PPM);
-        vertice1[1] = new Vector2(-10, 12).scl(1 / MegaMan.PPM);
-        vertice1[2] = new Vector2(-8, -10).scl(1 / MegaMan.PPM);
-        vertice1[3] = new Vector2(-8, 10).scl(1 / MegaMan.PPM);
+        vertice1[0] = new Vector2(-10, 12).scl(1 / MegaMan.PPM);
+        vertice1[1] = new Vector2(-10, -6).scl(1 / MegaMan.PPM);
+        vertice1[2] = new Vector2(-8, -6).scl(1 / MegaMan.PPM);
+        vertice1[3] = new Vector2(-8, 6).scl(1 / MegaMan.PPM);
         rightHand.set(vertice1);
 
         fdef.shape = rightHand;
@@ -138,15 +149,18 @@ public class FinalBoss extends Enemy {
             case JUMPING:
                 region = jumping.getKeyFrame(stateTimer,true);
                 break;
+            case ROLL:
+                region = rolling.getKeyFrame(stateTimer,true);
+                break;
             case STANDING:
             default:
                 region = standing;
                 break;
         }
-        if (velocity.x < 0 && !region.isFlipX()) {
+        if (velocity.x > 0 && !region.isFlipX()) {
             region.flip(true, false);
         }
-        if (velocity.x > 0 && region.isFlipX()) {
+        if (velocity.x < 0 && region.isFlipX()) {
             region.flip(true, false);
         }
         // if the current state is the same as the previous state increase the state timer.
@@ -166,21 +180,38 @@ public class FinalBoss extends Enemy {
             stateTimer = 0;
         } else if (!destroyed) {
             setRegion(getFrame(dt));
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - 8 / MegaMan.PPM);
-            b2body.setLinearVelocity(velocity);
+            if(currentState == State.ATTACKING && stateTimer > 3) {
+                currentState = State.STANDING;
+                velocity.x = 0;
+            }
+            else if(currentState == State.STANDING && stateTimer > 10 && mainCharacter.b2body.getPosition().y == b2body.getPosition().y) {
+                currentState = State.MOVING;
+                followMegaman(mainCharacter);
+            }
+            setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/3 + 6/MegaMan.PPM);
+            b2body.setLinearVelocity(0,0);
         }
     }
 
     @Override
     public void hitByMegaman(FireBall fireBall) {
         healthBar -= 1;
+        if(healthBar > 5)
+            currentState = State.ATTACKING;
         if(healthBar < 1){
             setToDestroy= true;
         }
     }
 
+    public void followMegaman(MainCharacter mainCharacter){
+        if(currentState == State.MOVING && mainCharacter.b2body.getPosition().x < b2body.getPosition().x )
+            velocity.x = -1;
+        else if(currentState == State.MOVING && mainCharacter.b2body.getPosition().x > b2body.getPosition().x)
+            velocity.x =1;
+    }
     @Override
     public void shootBullet() {
 
     }
+
 }

@@ -181,7 +181,9 @@ public class PlayScreen implements Screen {
         enemy.b2body.setActive(true);
       }
     }
-
+    for(FinalBoss finalBoss: creator.getFinalBosses())
+      if(finalBoss.getX() < player.getX() + 256/MegaMan.PPM)
+        finalBoss.b2body.setActive(true);
     for (Item item : items) item.update(dt);
 
     hud.update(dt);
@@ -238,7 +240,7 @@ public class PlayScreen implements Screen {
     hud.stage.draw();
 
 
-    if (gameOver() || player.getY() < 0 || player.isDead() == true) {
+    if (gameOver() || player.getY() < 0) {
       music.stop();
       dispose();
       game.setScreen(new GameOverScreen(game));
@@ -246,7 +248,7 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 3) {
+    if (player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 2) {
       return true;
     }
       return false;

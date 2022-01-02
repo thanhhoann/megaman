@@ -21,6 +21,9 @@ public class FlyBot extends Enemy {
   private boolean destroyed;
   private Array<Bullet> bullets;
 
+  private static int healthBar = 3;
+
+
 
   public FlyBot(PlayScreen screen, float x, float y) {
     super(screen, x, y);
@@ -81,6 +84,10 @@ public class FlyBot extends Enemy {
 
   @Override
   public void hitByMegaman(FireBall fireBall) {
+    healthBar -= 1;
+    if(healthBar < 1){
+      setToDestroy= true;
+    }
   }
 
   @Override

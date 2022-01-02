@@ -107,6 +107,9 @@ public class B2WorldCreator {
     return flyBots;
   }
 
+  public Array<FinalBoss> getFinalBosses() {
+    return finalBosses;
+  }
 
   public Array<Enemy> getEnemies() {
     Array<Enemy> enemies = new Array<Enemy>();

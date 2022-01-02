@@ -67,6 +67,7 @@ public class FireBall extends Sprite {
             | MegaMan.BRICK_BIT
             | MegaMan.ENEMY_HEAD_BIT
             | MegaMan.MEGAMAN_BIT
+            | MegaMan.FINAL_BOSS_BIT
             | MegaMan.OBJECT_BIT;
 
     fixtureDef.shape = shape;
