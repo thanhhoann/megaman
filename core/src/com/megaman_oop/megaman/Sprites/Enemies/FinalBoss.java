@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
@@ -35,8 +36,8 @@ public class FinalBoss extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
 
-    public FinalBoss(PlayScreen screen, float x, float y) {
-        super(screen, x, y);
+    public FinalBoss(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
+        super(screen, x, y, itemBehaviour);
         previousState =  State.STANDING;
         currentState = State.STANDING;
         stateTimer = 0;

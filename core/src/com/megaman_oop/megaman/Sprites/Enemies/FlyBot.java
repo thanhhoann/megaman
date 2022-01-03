@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
@@ -25,8 +26,8 @@ public class FlyBot extends Enemy {
 
 
 
-  public FlyBot(PlayScreen screen, float x, float y) {
-    super(screen, x, y);
+  public FlyBot(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
+    super(screen, x, y, itemBehaviour);
     frames = new Array<TextureRegion>();
     for(int i =0; i <3; i++){
       frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  i * 130,680 ,130,75));}

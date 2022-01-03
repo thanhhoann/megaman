@@ -1,6 +1,6 @@
 package com.megaman_oop.megaman.Sprites.Interface;
 
-public interface ItemBehaivour {
+public interface ItemBehaviour {
     void defineItem();
     void update(float dt);
     void setToDestroy();

@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
-import com.megaman_oop.megaman.Sprites.Interface.ItemBehaivour;
+import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
 
 
-public class Heart extends Sprite implements ItemBehaivour {
+public class Heart extends Sprite implements ItemBehaviour {
     PlayScreen screen;
     World world;
     boolean destroyed;
@@ -65,7 +65,6 @@ public class Heart extends Sprite implements ItemBehaivour {
     public boolean isDestroyed() {
         return destroyed;
     }
-
 
 
 }
