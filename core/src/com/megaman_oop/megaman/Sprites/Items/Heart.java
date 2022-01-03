@@ -27,7 +27,7 @@ public class Heart extends Sprite implements ItemBehaviour {
     public void defineItem() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(),getY());
-        bdef.type= BodyDef.BodyType.DynamicBody;
+        bdef.type= BodyDef.BodyType.StaticBody;
         body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
@@ -44,7 +44,7 @@ public class Heart extends Sprite implements ItemBehaviour {
     }
     public void update(float dt){
         stateTime += dt;
-        setPosition(body.getPosition().x , body.getPosition().y );
+        setPosition(getX() ,getY() );
         if((stateTime > 2 || setToDestroy) && !destroyed) {
             world.destroyBody(body);
             destroyed = true;

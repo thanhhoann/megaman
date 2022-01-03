@@ -84,7 +84,7 @@ public class B2WorldCreator {
         map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
             smallBots.add(new SmallBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM,
-                    new Heart(screen, rect.getX() / MegaMan.PPM , rect.getY()  / MegaMan.PPM)));
+                    new Heart(screen, rect.getX() / MegaMan.PPM , rect.getY()  / MegaMan.PPM - rect.getHeight())));
     }
     //create FlyBot
     flyBots = new Array<FlyBot>();

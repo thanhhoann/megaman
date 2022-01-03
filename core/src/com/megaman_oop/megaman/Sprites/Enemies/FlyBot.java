@@ -29,7 +29,6 @@ public class FlyBot extends Enemy {
 
   public FlyBot(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
     super(screen, x, y,itemBehaviour);
-    this.heart = (Heart) itemBehaviour;
     frames = new Array<TextureRegion>();
     for(int i =0; i <3; i++){
       frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  i * 130,680 ,130,75));}
