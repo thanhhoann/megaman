@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Items.Heart;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
@@ -47,7 +48,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
-  private static int healthBar = 10;
+  private  int healthBar = 10;
   private boolean runningRight;
   private boolean megamanIsDead;
 
@@ -142,7 +143,6 @@ public class MainCharacter extends Sprite {
     setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
     // update sprite with the correct frame depending on current action
     setRegion(getFrame(dt));
-
     for (FireBall ball : fireballs) {
       ball.update(dt);
       if (ball.isDestroyed()) fireballs.removeValue(ball, true);
@@ -276,6 +276,10 @@ public class MainCharacter extends Sprite {
     }
   }
 
+  public void gainHealth(){
+    healthBar += 1;
+  }
+
   public void defineMEGAMAN() {
     BodyDef bodyDef = new BodyDef();
     bodyDef.position.set(32 / MegaMan.PPM, 32 / MegaMan.PPM);
@@ -304,7 +308,7 @@ public class MainCharacter extends Sprite {
     this.currentState = currentState;
   }
 
-  public static int getHealthBar() {
+  public  int getHealthBar() {
     return healthBar;
   }
 

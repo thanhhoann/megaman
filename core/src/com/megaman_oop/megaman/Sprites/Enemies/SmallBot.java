@@ -30,7 +30,6 @@ public class SmallBot extends Enemy {
   private boolean destroyed;
 
 
-
   public SmallBot(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
     super(screen, x, y, itemBehaviour);
     frames = new Array<TextureRegion>();
@@ -128,7 +127,6 @@ public class SmallBot extends Enemy {
       destroyed = true;
       stateTime = 0;
       itemBehaviour.setActive();
-      itemBehaviour.update(dt);
     }
     else if(!destroyed) {
       if (currentState == State.FORWARD && stateTime > 2 ) {
@@ -143,6 +141,7 @@ public class SmallBot extends Enemy {
       setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - 8 / MegaMan.PPM);
       b2body.setLinearVelocity(velocity);
     }
+    itemBehaviour.update(dt);
   }
 
   @Override
@@ -156,7 +155,7 @@ public class SmallBot extends Enemy {
   public void draw(Batch batch){
     if(!destroyed || stateTime < 0.5)
       super.draw(batch);
-    if(destroyed && itemBehaviour instanceof Heart)
+    if(destroyed && itemBehaviour instanceof Heart && stateTime < 2)
       ((Heart) itemBehaviour).draw(batch);
   }
 

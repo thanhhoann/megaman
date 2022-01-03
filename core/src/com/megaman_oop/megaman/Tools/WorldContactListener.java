@@ -3,6 +3,8 @@ package com.megaman_oop.megaman.Tools;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
+import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
+import com.megaman_oop.megaman.Sprites.Items.Heart;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
@@ -42,6 +44,12 @@ public class WorldContactListener implements ContactListener {
           ((MainCharacter) fixA.getUserData()).shot((Bullet) fixB.getUserData());
         else ((MainCharacter) fixB.getUserData()).shot((Bullet) fixA.getUserData());
         break;
+      case MegaMan.ITEM_BIT | MegaMan.MEGAMAN_BIT:
+        if (fixA.getFilterData().categoryBits == MegaMan.ITEM_BIT)
+          ((ItemBehaviour) fixA.getUserData()).useByMegaman((MainCharacter)fixB.getUserData());
+        else ((ItemBehaviour) fixB.getUserData()).useByMegaman((MainCharacter) fixA.getUserData());
+        break;
+
     }
   }
 
