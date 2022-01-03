@@ -239,11 +239,6 @@ public class PlayScreen implements Screen {
       dispose();
       game.setScreen(new GameOverScreen(game));
     }
-    if(hud.isTimeUp()){
-      music.stop();
-      dispose();
-      game.setScreen(new GameOverScreen(game));
-    }
   }
 
   public boolean gameOver() {
