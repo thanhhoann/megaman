@@ -1,9 +1,16 @@
 
-Megaman_and_Enemy.png
+Megaman_And_Enemy.png
 size: 2048, 2048
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+christmas-hat
+  rotate: false
+  xy: 1612, 1522
+  size: 272, 272
+  orig: 272, 272
+  offset: 0, 0
+  index: -1
 enemysprite1
   rotate: false
   xy: 746, 1134
@@ -23,6 +30,13 @@ finalboss
   xy: 746, 619
   size: 1067, 513
   orig: 1067, 513
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 517, 381
+  size: 33, 35
+  orig: 33, 35
   offset: 0, 0
   index: -1
 megaman_shooting_running
