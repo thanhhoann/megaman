@@ -18,9 +18,10 @@ public class Heart extends Sprite implements ItemBehaviour {
     public Heart(PlayScreen screen, float x, float y) {
         this.screen = screen;
         this.world = screen.getWorld();
-        //setRegion(screen.getAtlas().findRegion("heart"),0,0,32,32);
+        setRegion(screen.getAtlas().findRegion("heart"),0,0,32,32);
         setBounds(x, y, 10/ MegaMan.PPM, 10/ MegaMan.PPM);
         defineItem();
+        body.setActive(false);
     }
 
     public void defineItem() {
@@ -55,6 +56,10 @@ public class Heart extends Sprite implements ItemBehaviour {
         setToDestroy = true;
     }
 
+    @Override
+    public void setActive() {
+        body.setActive(true);
+    }
 
     public boolean isDestroyed() {
         return destroyed;

@@ -5,4 +5,5 @@ public interface ItemBehaviour {
     void update(float dt);
     void setToDestroy();
     boolean isDestroyed();
+    public void setActive();
 }

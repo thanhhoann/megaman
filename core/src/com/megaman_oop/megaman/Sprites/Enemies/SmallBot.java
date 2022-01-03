@@ -30,11 +30,11 @@ public class SmallBot extends Enemy {
   private static int healthBar = 3;
   private boolean setToDestroy;
   private boolean destroyed;
-  private Heart heart;
+  private ItemBehaviour itemBehaviour;
 
   public SmallBot(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
     super(screen, x, y,itemBehaviour);
-    this.heart = (Heart) itemBehaviour;
+    this.itemBehaviour = itemBehaviour;
     frames = new Array<TextureRegion>();
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 510,110,120));
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  594, 510,110,120));
@@ -127,8 +127,9 @@ public class SmallBot extends Enemy {
     if(setToDestroy && !destroyed) {
       world.destroyBody(b2body);
       destroyed = true;
-      heart = new Heart(screen,b2body.getPosition().x,b2body.getPosition().y);
       stateTime = 0;
+      itemBehaviour.setActive();
+      itemBehaviour.update(dt);
     }
     else if(!destroyed) {
       if (currentState == State.FORWARD && stateTime > 5 ) {
@@ -153,8 +154,8 @@ public class SmallBot extends Enemy {
   public void draw(Batch batch){
     if(!destroyed || stateTime < 0.5)
       super.draw(batch);
-    else if(destroyed)
-      heart.draw(batch);
+    if(destroyed && itemBehaviour instanceof Heart)
+      ((Heart) itemBehaviour).draw(batch);
   }
 
   @Override
