@@ -14,8 +14,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 
-// import java.util.ArrayList;
-// import java.util.Collections;
 
 public class Hud implements Disposable {
 
