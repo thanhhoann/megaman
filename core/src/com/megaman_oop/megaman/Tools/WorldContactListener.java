@@ -3,8 +3,6 @@ package com.megaman_oop.megaman.Tools;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
-import com.megaman_oop.megaman.Sprites.Enemies.FinalBoss;
-import com.megaman_oop.megaman.Sprites.Items.Item;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;

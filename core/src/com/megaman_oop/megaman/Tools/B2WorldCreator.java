@@ -1,6 +1,6 @@
 package com.megaman_oop.megaman.Tools;
 
-import com.badlogic.gdx.maps.MapObject;
+
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
@@ -12,8 +12,7 @@ import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
 import com.megaman_oop.megaman.Sprites.Enemies.FinalBoss;
 import com.megaman_oop.megaman.Sprites.Enemies.FlyBot;
 import com.megaman_oop.megaman.Sprites.Enemies.SmallBot;
-import com.megaman_oop.megaman.Sprites.TileObjects.Brick;
-import com.megaman_oop.megaman.Sprites.TileObjects.Coin;
+import com.megaman_oop.megaman.Sprites.Items.Heart;
 
 public class B2WorldCreator {
   private Array<SmallBot> smallBots;
@@ -63,39 +62,26 @@ public class B2WorldCreator {
       fixtureDef.filter.categoryBits = MegaMan.OBJECT_BIT;
       body.createFixture(fixtureDef);
     }
-
-    //create brick bodies/fixtures
-    for (MapObject object :
-       map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
-      new Brick(screen, object);
-    }
-
-    // create coin bodies/fixtures
-    //for (MapObject object :
-        //.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-
-      //new Coin(screen, object);
-    //}
-
     // create all smallBots
     smallBots = new Array<SmallBot>();
     for (RectangleMapObject object :
-        map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
+            map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
-            smallBots.add(new SmallBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
+      smallBots.add(new SmallBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM,
+              new Heart(screen, rect.getX() / MegaMan.PPM , rect.getY()  / MegaMan.PPM)));
     }
     //create FlyBot
     flyBots = new Array<FlyBot>();
     for (RectangleMapObject object :
             map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
-            flyBots.add(new FlyBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM));
+            flyBots.add(new FlyBot(screen, rect.getX() / MegaMan.PPM, rect.getY() / MegaMan.PPM,null));
     }
     finalBosses = new Array<FinalBoss>();
     for (RectangleMapObject object :
             map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)) {
       Rectangle rect = object.getRectangle();
-      finalBosses.add(new FinalBoss(screen,rect.getX()/MegaMan.PPM,rect.getY()/MegaMan.PPM));
+      finalBosses.add(new FinalBoss(screen,rect.getX()/MegaMan.PPM,rect.getY()/MegaMan.PPM, null));
     }
   }
 

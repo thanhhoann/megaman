@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
+import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
+import com.megaman_oop.megaman.Sprites.Items.Heart;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
@@ -29,8 +31,8 @@ public class SmallBot extends Enemy {
 
 
 
-  public SmallBot(PlayScreen screen, float x, float y) {
-    super(screen, x, y);
+  public SmallBot(PlayScreen screen, float x, float y, ItemBehaviour itemBehaviour) {
+    super(screen, x, y, itemBehaviour);
     frames = new Array<TextureRegion>();
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  484, 510,110,120));
     frames.add(new TextureRegion(screen.getAtlas().findRegion("enemysprite1"),  594, 510,110,120));
@@ -125,6 +127,8 @@ public class SmallBot extends Enemy {
       world.destroyBody(b2body);
       destroyed = true;
       stateTime = 0;
+      itemBehaviour.setActive();
+      itemBehaviour.update(dt);
     }
     else if(!destroyed) {
       if (currentState == State.FORWARD && stateTime > 2 ) {
@@ -152,6 +156,8 @@ public class SmallBot extends Enemy {
   public void draw(Batch batch){
     if(!destroyed || stateTime < 0.5)
       super.draw(batch);
+    if(destroyed && itemBehaviour instanceof Heart)
+      ((Heart) itemBehaviour).draw(batch);
   }
 
   @Override
