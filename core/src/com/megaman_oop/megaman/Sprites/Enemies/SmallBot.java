@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
+import com.megaman_oop.megaman.Scenes.Hud;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.Items.Heart;
@@ -149,6 +150,7 @@ public class SmallBot extends Enemy {
     healthBar -= 1;
     if(healthBar < 1){
       setToDestroy= true;
+      Hud.addScore(20);
     }
   }
 

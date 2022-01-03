@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
+import com.megaman_oop.megaman.Scenes.Hud;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Interface.ItemBehaviour;
 import com.megaman_oop.megaman.Sprites.MainCharacter;
@@ -191,10 +192,6 @@ public class FinalBoss extends Enemy {
             }
             else if(currentState == State.MOVING)
                 velocity = followMegaman(mainCharacter);
-            else if( currentState == State.MOVING && stateTimer < 20 ) {
-                        currentState = State.ROLL;
-                        velocity = followMegaman(mainCharacter);
-            }
             setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/3 + 6/MegaMan.PPM);
             b2body.setLinearVelocity(velocity);
         }
@@ -207,6 +204,7 @@ public class FinalBoss extends Enemy {
             currentState = State.ATTACKING;
         if(healthBar < 1){
             setToDestroy= true;
+            Hud.addScore(50);
         }
     }
 
