@@ -36,7 +36,7 @@ public class PlayScreen implements Screen {
   private PlayScreen playScreen;
   private TextureAtlas atlas;
 
-  public static boolean alreadyDestroyed = false;
+  //public static boolean alreadyDestroyed = false;
 
   // basic play-screen variables
   private OrthographicCamera gamecam;
@@ -112,8 +112,6 @@ public class PlayScreen implements Screen {
     music.setLooping(true);
     music.setVolume(0.3f);
     music.play();
-
-
 
     health = new Texture("health.png");
 
@@ -203,9 +201,8 @@ public class PlayScreen implements Screen {
 
     // renderer our Box2DDebugLines
 
-    b2dr.render(world, gamecam.combined);
+   // b2dr.render(world, gamecam.combined);
 
-    //b2dr.render(world, gamecam.combined);
 
 
     ((MegaMan) game).batch.setProjectionMatrix(gamecam.combined);
