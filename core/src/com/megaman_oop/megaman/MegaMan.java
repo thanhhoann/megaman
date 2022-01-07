@@ -20,23 +20,17 @@ public class MegaMan extends Game {
   public static final short NOTHING_BIT = 0;
   public static final short GROUND_BIT = 1;
   public static final short MEGAMAN_BIT = 2;
-  //Can be modified
-  public static final short BRICK_BIT = 4;
-  public static final short COIN_BIT = 8;
-  //Cannot be modified
-  public static final short ITEM_BIT = 16;
-  public static final short OBJECT_BIT = 32;
-  public static final short ENEMY_BIT = 64;
-  public static final short ENEMY_HEAD_BIT = 128;
-  public static final short BULLET_BIT = 256;
-  public static final short FINAL_BOSS_BIT = 512;
-  public static final short FIREBALL_BIT = 1024;
+  public static final short ITEM_BIT = 4;
+  public static final short OBJECT_BIT = 8;
+  public static final short ENEMY_BIT = 16;
+  public static final short ENEMY_HEAD_BIT = 32;
+  public static final short BULLET_BIT = 64;
+  public static final short FINAL_BOSS_BIT = 128;
+  public static final short FIREBALL_BIT = 256;
 
   public SpriteBatch batch;
 
   public static AssetManager manager;
-  public Body b2body;
-  public boolean currentState;
   public GameCamera cam;
 
 
@@ -51,15 +45,8 @@ public class MegaMan extends Game {
     cam = new GameCamera(V_WIDTH, V_HEIGHT);
 
     manager.load("audio/music/bgmusic.ogg",Music.class);
-    //manager.load("audio/sounds/coin.wav", Sound.class);
-    //manager.load("audio/sounds/bump.wav", Sound.class);
-    //manager.load("audio/sounds/breakblock.wav", Sound.class);
-    //manager.load("audio/sounds/powerup_spawn.wav", Sound.class);
-    //manager.load("audio/sounds/powerup.wav", Sound.class);
-    //manager.load("audio/sounds/powerdown.wav", Sound.class);
     manager.load("audio/sounds/stomp.wav", Sound.class);
     manager.load("audio/sounds/megamanhurt.wav", Sound.class);
-    // manager.load("audio/sounds/mariodie.wav", Sound.class);
     manager.finishLoading();
 
     setScreen(new MenuScreen(this));

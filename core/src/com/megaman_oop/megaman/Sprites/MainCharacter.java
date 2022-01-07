@@ -292,8 +292,6 @@ public class MainCharacter extends Sprite {
     fixtureDef.filter.categoryBits = MegaMan.MEGAMAN_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT
-            | MegaMan.COIN_BIT
-            | MegaMan.BRICK_BIT
             | MegaMan.ENEMY_BIT
             | MegaMan.OBJECT_BIT
             | MegaMan.ENEMY_HEAD_BIT
