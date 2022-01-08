@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.Array;
 import com.megaman_oop.megaman.MegaMan;
 import com.megaman_oop.megaman.Screens.PlayScreen;
 import com.megaman_oop.megaman.Sprites.Enemies.Enemy;
-import com.megaman_oop.megaman.Sprites.Items.Heart;
 import com.megaman_oop.megaman.Sprites.Other.Bullet;
 import com.megaman_oop.megaman.Sprites.Other.FireBall;
 
@@ -48,7 +47,7 @@ public class MainCharacter extends Sprite {
   private Animation<TextureRegion> megamanShootWhileRunning;
 
   private float stateTimer;
-  private  int healthBar = 10;
+  private int healthBar = 10;
   private boolean runningRight;
   private boolean megamanIsDead;
 
@@ -93,10 +92,10 @@ public class MainCharacter extends Sprite {
           new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 580, 90, 110));
     megamanSit = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
-    //HURT
+    // HURT
     for (int i = 1; i < 4; i++)
       frames.add(
-              new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 276, 90, 110));
+          new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 276, 90, 110));
     megamanHurt = new Animation<TextureRegion>(0.2f, frames);
     frames.clear();
     // SHOOT WHILE RUNNING
@@ -118,10 +117,9 @@ public class MainCharacter extends Sprite {
     // DEAD
     megamanDead =
         new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 276, 90, 110);
-    //STAND
-        megamanStand =
-            new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
-
+    // STAND
+    megamanStand =
+        new TextureRegion(screen.getAtlas().findRegion("megasprite_remake"), 0, 0, 90, 110);
 
     // define Mega Man in Box2d
     defineMEGAMAN();
@@ -173,7 +171,7 @@ public class MainCharacter extends Sprite {
         region = megamanSit.getKeyFrame(stateTimer, true);
         break;
       case HURT:
-        region = megamanHurt.getKeyFrame(stateTimer,true);
+        region = megamanHurt.getKeyFrame(stateTimer, true);
       case SHOOTING_WHILE_RUNNING:
         region = megamanShootWhileRunning.getKeyFrame(stateTimer, true);
         break;
@@ -214,15 +212,15 @@ public class MainCharacter extends Sprite {
     else if (currentState == State.SHOOTING) return State.SHOOTING;
     else if (currentState == State.SITTING) return State.SITTING;
     else if (currentState == State.SHOOTING_WHILE_RUNNING) return State.SHOOTING_WHILE_RUNNING;
-    else if(currentState == State.HURT) return State.HURT;
+    else if (currentState == State.HURT) return State.HURT;
     else return State.STANDING;
   }
 
   public void shoot() {
     if (b2body.getLinearVelocity().x != 0) currentState = State.SHOOTING_WHILE_RUNNING;
     else currentState = State.SHOOTING;
-        fireballs.add(
-            new FireBall(screen, b2body.getPosition().x , b2body.getPosition().y, runningRight));
+    fireballs.add(
+        new FireBall(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight));
   }
 
   public void die() {
@@ -261,22 +259,23 @@ public class MainCharacter extends Sprite {
 
   public void hit(Enemy enemy) {
     healthBar -= 1;
-    if(healthBar < 1){
-    currentState = State.DEAD;
-    die();
+    if (healthBar < 1) {
+      currentState = State.DEAD;
+      die();
     }
     currentState = State.HURT;
   }
-  public void shot (Bullet bullet) {
+
+  public void shot(Bullet bullet) {
     healthBar -= 1;
     bullet.setToDestroy();
-    if(healthBar < 1){
+    if (healthBar < 1) {
       currentState = State.DEAD;
       die();
     }
   }
 
-  public void gainHealth(){
+  public void gainHealth() {
     healthBar += 1;
   }
 
@@ -306,8 +305,16 @@ public class MainCharacter extends Sprite {
     this.currentState = currentState;
   }
 
-  public  int getHealthBar() {
+  public int getHealthBar() {
     return healthBar;
+  }
+
+  public void run_right() {
+    b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);
+  }
+
+  public void run_left() {
+    b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
   }
 
   public void draw(Batch batch) {

@@ -1,6 +1,5 @@
 package com.megaman_oop.megaman.Screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -28,15 +27,13 @@ import com.megaman_oop.megaman.Tools.B2WorldCreator;
 import com.megaman_oop.megaman.Tools.CameraStyles;
 import com.megaman_oop.megaman.Tools.WorldContactListener;
 
-import java.util.concurrent.LinkedBlockingQueue;
-
 public class PlayScreen implements Screen {
   // Reference to our Game, used to set Screens
   private MegaMan game;
   private PlayScreen playScreen;
   private TextureAtlas atlas;
 
-  //public static boolean alreadyDestroyed = false;
+  // public static boolean alreadyDestroyed = false;
 
   // basic play-screen variables
   private OrthographicCamera gamecam;
@@ -64,8 +61,6 @@ public class PlayScreen implements Screen {
   // Music
   private Music music;
 
-
-
   public PlayScreen(MegaMan game) {
     atlas = new TextureAtlas("MEGAMAN_ENEMY.atlas");
     this.game = game;
@@ -79,7 +74,7 @@ public class PlayScreen implements Screen {
         new FitViewport(MegaMan.V_WIDTH / MegaMan.PPM, MegaMan.V_HEIGHT / MegaMan.PPM, gamecam);
 
     // create our game HUD for scores/timers/level info
-    hud = new Hud( ((MegaMan) game).batch);
+    hud = new Hud(((MegaMan) game).batch);
 
     // Load our map and setup our map renderer
     maploader = new TmxMapLoader();
@@ -114,14 +109,11 @@ public class PlayScreen implements Screen {
     music.play();
 
     health = new Texture("health.png");
-
   }
-
 
   public TextureAtlas getAtlas() {
     return atlas;
   }
-
 
   @Override
   public void show() {}
@@ -132,12 +124,10 @@ public class PlayScreen implements Screen {
       if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) player.jump();
       // RUNNING RIGHT
       if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
-        player.b2body.applyLinearImpulse(
-            new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+        player.run_right();
       // RUNNING LEFT
       if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
-        player.b2body.applyLinearImpulse(
-            new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+        player.run_left();
       // SHOOTING
       if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) player.shoot();
       // SITTING
@@ -160,14 +150,14 @@ public class PlayScreen implements Screen {
         enemy.b2body.setActive(true);
       }
     }
-    for(FinalBoss finalBoss: creator.getFinalBosses())
-      if(finalBoss.getX() < player.getX() + 256/MegaMan.PPM){
+    for (FinalBoss finalBoss : creator.getFinalBosses())
+      if (finalBoss.getX() < player.getX() + 256 / MegaMan.PPM) {
         finalBoss.b2body.setActive(true);
         CameraStyles.averageBetweenTarget(gamecam, player, finalBoss);
       }
 
     hud.update(dt);
-    
+
     CameraStyles.lerpToCharacter(gamecam, player);
 
     float startX = gamecam.viewportWidth / 2;
@@ -179,12 +169,11 @@ public class PlayScreen implements Screen {
         levelWidth * tileWidth - startX * 2,
         levelHeight * tileHeight - startY * 2);
     Vector2 focalPoint = new Vector2();
-    focalPoint.x = (float)1873;
-    focalPoint.y = (float)432.5;
+    focalPoint.x = (float) 1873;
+    focalPoint.y = (float) 432.5;
 
     // tell our renderer to draw only what our camera can see in our game world.
     renderer.setView(gamecam);
-
   }
 
   @Override
@@ -201,15 +190,13 @@ public class PlayScreen implements Screen {
 
     // renderer our Box2DDebugLines
 
-   // b2dr.render(world, gamecam.combined);
-
-
+    // b2dr.render(world, gamecam.combined);
 
     ((MegaMan) game).batch.setProjectionMatrix(gamecam.combined);
     ((MegaMan) game).batch.begin();
-    player.draw( ((MegaMan) game).batch);
+    player.draw(((MegaMan) game).batch);
     for (Enemy enemy : creator.getEnemies()) {
-      enemy.draw( ((MegaMan) game).batch);
+      enemy.draw(((MegaMan) game).batch);
     }
 
     ((MegaMan) game).batch.end();
@@ -218,17 +205,14 @@ public class PlayScreen implements Screen {
     ((MegaMan) game).batch.setProjectionMatrix(hud.stage.getCamera().combined);
     hud.stage.draw();
 
-    //draw health bar
+    // draw health bar
     ((MegaMan) game).batch.begin();
-    if(player.getHealthBar()>6){
-      ((MegaMan)game).batch.setColor(Color.GREEN);
-    }
-    else if(player.getHealthBar()>3)
-      ((MegaMan)game).batch.setColor(Color.ORANGE);
-    else 
-      ((MegaMan)game).batch.setColor(Color.RED);
-    ((MegaMan)game).batch.draw(health, 0, 0, MegaMan.V_WIDTH*player.getHealthBar()/10, 10);
-    ((MegaMan)game).batch.setColor(Color.WHITE);
+    if (player.getHealthBar() > 6) {
+      ((MegaMan) game).batch.setColor(Color.GREEN);
+    } else if (player.getHealthBar() > 3) ((MegaMan) game).batch.setColor(Color.ORANGE);
+    else ((MegaMan) game).batch.setColor(Color.RED);
+    ((MegaMan) game).batch.draw(health, 0, 0, MegaMan.V_WIDTH * player.getHealthBar() / 10, 10);
+    ((MegaMan) game).batch.setColor(Color.WHITE);
     ((MegaMan) game).batch.end();
 
     if (gameOver()) {
@@ -244,10 +228,11 @@ public class PlayScreen implements Screen {
   }
 
   public boolean gameOver() {
-    if ((player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 2) || player.getY()<0) {
+    if ((player.currentState == MainCharacter.State.DEAD && player.getStateTimer() > 2)
+        || player.getY() < 0) {
       return true;
     }
-      return false;
+    return false;
   }
 
   @Override
