@@ -1,4 +1,5 @@
-package com.megaman_oop.megaman;
+package com.megaman_oop.megaman.Tools;
+
 /* Copyright by Johannes Borchardt */
 /* LibGdx conversion 2014 by Anton Persson */
 /* Released under Apache 2.0 */
@@ -48,8 +49,8 @@ public class GifDecoder {
     protected int lctSize; // local color table size
     protected int ix, iy, iw, ih; // current image rectangle
     protected int lrx, lry, lrw, lrh;
-    protected DixieMap image; // current frame
-    protected DixieMap lastPixmap; // previous frame
+    protected com.megaman_oop.megaman.Tools.GifDecoder.DixieMap image; // current frame
+    protected com.megaman_oop.megaman.Tools.GifDecoder.DixieMap lastPixmap; // previous frame
     protected byte[] block = new byte[256]; // current data block
     protected int blockSize = 0; // block size last graphic control extension info
     protected int dispose = 0; // 0=no action; 1=leave in place; 2=restore to bg; 3=restore to prev
@@ -62,7 +63,7 @@ public class GifDecoder {
     protected byte[] suffix;
     protected byte[] pixelStack;
     protected byte[] pixels;
-    protected Vector<GifFrame> frames; // frames read from current file
+    protected Vector<com.megaman_oop.megaman.Tools.GifDecoder.GifFrame> frames; // frames read from current file
     protected int frameCount;
 
     private static class DixieMap extends Pixmap {
@@ -105,12 +106,12 @@ public class GifDecoder {
     }
 
     private static class GifFrame {
-        public GifFrame(DixieMap im, int del) {
+        public GifFrame(com.megaman_oop.megaman.Tools.GifDecoder.DixieMap im, int del) {
             image = im;
             delay = del;
         }
 
-        public DixieMap image;
+        public com.megaman_oop.megaman.Tools.GifDecoder.DixieMap image;
         public int delay;
     }
 
@@ -240,7 +241,7 @@ public class GifDecoder {
                 }
             }
         }
-        image = new DixieMap(dest, width, height, Pixmap.Format.RGBA8888);
+        image = new com.megaman_oop.megaman.Tools.GifDecoder.DixieMap(dest, width, height, Pixmap.Format.RGBA8888);
         //Pixmap.createPixmap(dest, width, height, Config.ARGB_4444);
     }
 
@@ -249,11 +250,11 @@ public class GifDecoder {
      *
      * @return BufferedPixmap representation of frame, or null if n is invalid.
      */
-    public DixieMap getFrame(int n) {
+    public com.megaman_oop.megaman.Tools.GifDecoder.DixieMap getFrame(int n) {
         if (frameCount <= 0)
             return null;
         n = n % frameCount;
-        return ((GifFrame) frames.elementAt(n)).image;
+        return ((com.megaman_oop.megaman.Tools.GifDecoder.GifFrame) frames.elementAt(n)).image;
     }
 
     /**
@@ -404,7 +405,7 @@ public class GifDecoder {
     protected void init() {
         status = STATUS_OK;
         frameCount = 0;
-        frames = new Vector<GifFrame>();
+        frames = new Vector<com.megaman_oop.megaman.Tools.GifDecoder.GifFrame>();
         gct = null;
         lct = null;
     }
@@ -610,9 +611,9 @@ public class GifDecoder {
         }
         frameCount++;
         // create new image to receive frame data
-        image = new DixieMap(width, height, Pixmap.Format.RGBA8888);
+        image = new com.megaman_oop.megaman.Tools.GifDecoder.DixieMap(width, height, Pixmap.Format.RGBA8888);
         setPixels(); // transfer pixel data to image
-        frames.addElement(new GifFrame(image, delay)); // add image to frame
+        frames.addElement(new com.megaman_oop.megaman.Tools.GifDecoder.GifFrame(image, delay)); // add image to frame
         // list
         if (transparency) {
             act[transIndex] = save;
@@ -730,7 +731,7 @@ public class GifDecoder {
     }
 
     public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode, InputStream is) {
-        GifDecoder gdec = new GifDecoder();
+        com.megaman_oop.megaman.Tools.GifDecoder gdec = new com.megaman_oop.megaman.Tools.GifDecoder();
         gdec.read(is);
         return gdec.getAnimation(playMode);
     }
