@@ -63,8 +63,6 @@ public class FireBall extends Sprite {
     fixtureDef.filter.categoryBits = MegaMan.FIREBALL_BIT;
     fixtureDef.filter.maskBits =
         MegaMan.GROUND_BIT
-            | MegaMan.COIN_BIT
-            | MegaMan.BRICK_BIT
             | MegaMan.ENEMY_HEAD_BIT
             | MegaMan.MEGAMAN_BIT
             | MegaMan.FINAL_BOSS_BIT

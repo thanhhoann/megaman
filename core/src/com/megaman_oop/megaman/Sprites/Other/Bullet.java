@@ -65,8 +65,6 @@ public class Bullet extends Sprite {
         fdef.filter.categoryBits = MegaMan.BULLET_BIT;
         fdef.filter.maskBits =
                 MegaMan.GROUND_BIT
-                        | MegaMan.COIN_BIT
-                        | MegaMan.BRICK_BIT
                         | MegaMan.MEGAMAN_BIT
                         | MegaMan.OBJECT_BIT;
         fdef.shape = shape;

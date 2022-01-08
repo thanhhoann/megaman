@@ -57,8 +57,6 @@ public class SmallBot extends Enemy {
     fdef.filter.categoryBits = MegaMan.ENEMY_BIT;
     fdef.filter.maskBits =
             MegaMan.GROUND_BIT
-                    | MegaMan.COIN_BIT
-                    | MegaMan.BRICK_BIT
                     | MegaMan.OBJECT_BIT
                     | MegaMan.FIREBALL_BIT
                     | MegaMan.MEGAMAN_BIT;
