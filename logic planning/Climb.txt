@@ -1,0 +1,13 @@
+- Character State: 
+if (OnLadder: false) {
+	//key press normally -> Jump, run, sit....
+}
+if (OnLadder: true) {
+	Gravity = 0 (suggest: enable isKinematics while onLadder, enable Physics when not on ladder);
+	up key: if OnLadder is true -> climb up, else (ladder end) -> set onLadder: false, stand;
+	down key: if OnLadder is true -> climb down, else (ladder end) -> set onLadder: false, stand;
+	side key: null;
+}
+- Character can walk over ladder (OnLadder: False)
+- Character can stand on ladder (OnLadder: false), down key -> OnLadder: True -> climb();
+ 

@@ -1,0 +1,57 @@
+//The commands
+public interface Command {
+	void execute();
+}
+public StartCommand {
+	Game game;
+	public StartCommand(Game game){
+		this.game = game;
+	}
+	void execute(){
+		game.start();
+	}
+}
+public RuleCommand{
+	Game game;
+	public StartCommand(Game game){
+		this.game = game;
+	}
+	void execute(){
+		game.rule();
+	}
+}
+public QuitCommand{
+	Game game;
+	public QuitCommand(Game game){
+		this.game = game;
+	}
+	void execute(){
+		game.quit();
+	}
+}
+//the Invoker aka button
+public class MenuButton{
+	Command command;
+	public MenuButton(Command command){	
+		this.command = command;
+	}
+	public void press(){
+		this.command.execute();
+	}
+}
+
+//the actual code
+public class Game /*Receiver but don't know what to name it*/ {
+	public void start(){
+		menuScreen.dispose();
+        game.setScreen(new PlayScreen((MegaMan) game));
+	}
+	public void rule(){
+		menuScreen.dispose();
+		game.setScreen(new RuleScreen((MegaMan) game));
+	}
+	public void quit(){
+		menuScreen.dispose();
+		Gdx.app.exit();
+	}
+}
